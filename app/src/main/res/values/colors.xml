@@ -8,4 +8,11 @@
     <color name="orange">#FE9F69</color>
     <color name="green">#25B14C</color>
     <color name="gray">#DDDDDD</color>
+
+
+    //instructor
+    <color name="grey_instructor">#C4C4C4</color>
+    <color name="primary_instructor">#7161CB</color>
+    <color name="red">#F40400</color>
+
 </resources>
