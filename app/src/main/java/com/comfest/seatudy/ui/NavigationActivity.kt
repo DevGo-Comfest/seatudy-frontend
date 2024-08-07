@@ -22,7 +22,6 @@ class NavigationActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_activity_navigation)
-        setupActionBarWithNavController(navController)
         navView.setupWithNavController(navController)
     }
 }

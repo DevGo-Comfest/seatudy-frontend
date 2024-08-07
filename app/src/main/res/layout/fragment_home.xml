@@ -28,16 +28,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_bold"
+                android:text="Hi, Dewa!"
                 android:textColor="@color/white"
-                android:textSize="24sp"
-                tools:text="Hi, Dewa!" />
+                android:textSize="24sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
                 android:textColor="@color/white"
-                tools:text="Let’s Start Learning Today" />
+                android:text="Let’s Start Learning Today" />
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchCourse"
@@ -46,9 +46,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:layout_gravity="bottom"
                 android:background="@drawable/card_search"
-                android:hint="Search For Course"
-                android:searchIcon="@drawable/icon_search" />
+                app:searchIcon="@drawable/icon_search"
+                app:queryHint="Search For Course" />
 
         </LinearLayout>
 
