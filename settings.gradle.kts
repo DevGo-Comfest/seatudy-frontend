@@ -15,4 +15,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "Seatudy"
 include(":app")
-include(":instructor")

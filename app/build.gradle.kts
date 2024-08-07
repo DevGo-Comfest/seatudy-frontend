@@ -33,7 +33,6 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    dynamicFeatures += setOf(":instructor")
     buildFeatures {
         viewBinding = true
     }
