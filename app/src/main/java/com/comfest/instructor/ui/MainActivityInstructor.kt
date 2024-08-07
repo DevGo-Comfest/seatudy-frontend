@@ -1,11 +1,13 @@
 package com.comfest.instructor.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.comfest.instructor.ui.create_course.CreateCourseActivity
 import com.comfest.instructor.ui.home.HomeInstructorFragment
 import com.comfest.instructor.ui.profile.ProfileInstructorFragment
 import com.comfest.seatudy.R
@@ -37,6 +39,12 @@ class MainActivityInstructor : AppCompatActivity() {
 
             true
         }
+
+        binding.btnCreateCourse.setOnClickListener {
+            val intent = Intent(this, CreateCourseActivity::class.java)
+            startActivity(intent)
+        }
+
 
     }
 
