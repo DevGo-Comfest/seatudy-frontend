@@ -84,18 +84,17 @@
                 android:textSize="20sp"/>
 
 
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/rv_list"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/mycourse"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                tools:listitem="@layout/item_mycourse"-->
-<!--                android:layout_marginTop="15dp"/>-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/mycourse"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:listitem="@layout/item_mycourse_instructor"
+                android:layout_marginTop="15dp"/>
 
-            <!-- Tambahkan konten lainnya di sini -->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

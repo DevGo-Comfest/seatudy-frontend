@@ -6,4 +6,12 @@
     </style>
 
     <style name="Theme.Seatudy" parent="Base.Theme.Seatudy" />
+
+
+    // color rating bar
+    <style name="RatingBar">
+        <item name="colorControlNormal">#C4C4C4</item>
+        <item name="colorControlActivated">#FFC700</item>
+    </style>
+
 </resources>
