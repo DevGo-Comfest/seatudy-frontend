@@ -52,7 +52,7 @@
             app:layout_constraintStart_toStartOf="@id/iv_back"/>
 
 
-        //btn camera
+<!--        btn camera -->
         <ImageView
             android:id="@+id/btn_camera"
             android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
 
 
 
-        //btn gallery
+        <!-- btn gallery -->
         <ImageView
             android:id="@+id/btn_gallery"
             android:layout_width="wrap_content"

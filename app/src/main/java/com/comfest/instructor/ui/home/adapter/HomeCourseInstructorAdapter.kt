@@ -7,7 +7,9 @@ import com.bumptech.glide.Glide
 import com.comfest.instructor.data.dummy.CourseInstructor
 import com.comfest.seatudy.databinding.ItemMycourseInstructorBinding
 
-class HomeCourseInstructorAdapter: RecyclerView.Adapter<HomeCourseInstructorAdapter.HomeCourseInstructorViewHolder>() {
+class HomeCourseInstructorAdapter(
+    private val listener: OnItemClickListener
+): RecyclerView.Adapter<HomeCourseInstructorAdapter.HomeCourseInstructorViewHolder>() {
 
 
     private var courses: List<CourseInstructor> = listOf()
@@ -33,6 +35,16 @@ class HomeCourseInstructorAdapter: RecyclerView.Adapter<HomeCourseInstructorAdap
     }
 
     inner class HomeCourseInstructorViewHolder(private val binding: ItemMycourseInstructorBinding): RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(courses[position])
+                }
+            }
+        }
+
         fun bind(course: CourseInstructor) {
             binding.tvNameCourse.text = course.name
             binding.ratingBar.rating = course.rating.toFloat()
@@ -40,5 +52,9 @@ class HomeCourseInstructorAdapter: RecyclerView.Adapter<HomeCourseInstructorAdap
 
             binding.ivCourse.setImageResource(course.image)
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(course: CourseInstructor)
     }
 }
