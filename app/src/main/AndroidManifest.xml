@@ -24,11 +24,20 @@
             android:name=".ui.course.detail.CourseDetailActivity"
             android:exported="false" />
         <activity
+            android:name="com.comfest.instructor.ui.assignment.AssignmentInstructorActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.comfest.instructor.ui.sylabus.SyllabusInstructorActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.comfest.instructor.ui.home.DetailCourseActivity"
+            android:exported="false" />
+        <activity
             android:name="com.comfest.instructor.ui.create_course.CreateCourseActivity"
             android:exported="false" />
         <activity
             android:name="com.comfest.instructor.ui.MainActivityInstructor"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".ui.NavigationActivity"
             android:exported="false"

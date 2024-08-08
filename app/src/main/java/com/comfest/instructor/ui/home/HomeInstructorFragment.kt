@@ -1,5 +1,6 @@
 package com.comfest.instructor.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,7 +13,7 @@ import com.comfest.seatudy.R
 import com.comfest.seatudy.databinding.FragmentHomeInstructorBinding
 
 
-class HomeInstructorFragment : Fragment() {
+class HomeInstructorFragment : Fragment(), HomeCourseInstructorAdapter.OnItemClickListener {
 
     private var _binding: FragmentHomeInstructorBinding? = null
     private val binding get() = _binding!!
@@ -36,7 +37,7 @@ class HomeInstructorFragment : Fragment() {
 
 
     private fun setUpRecyclerView() {
-        courseAdapter = HomeCourseInstructorAdapter()
+        courseAdapter = HomeCourseInstructorAdapter(this)
         binding.rvList.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = courseAdapter
@@ -57,6 +58,17 @@ class HomeInstructorFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onItemClick(course: CourseInstructor) {
+        val intent = Intent(context, DetailCourseActivity::class.java).apply {
+            putExtra("EXTRA_COURSE_ID", course.id)
+            putExtra("EXTRA_COURSE_NAME", course.name)
+            putExtra("EXTRA_COURSE_RATING", course.rating)
+            putExtra("EXTRA_COURSE_DURATION", course.duration)
+            putExtra("EXTRA_COURSE_IMAGE", course.image)
+        }
+        startActivity(intent)
     }
 
 }

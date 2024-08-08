@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.comfest.instructor.ui.home.DetailCourseActivity">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/tv_detail_course"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="@color/black"
+            android:text="Detail Course"
+            android:layout_marginTop="67dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/vector_back"
+            android:layout_marginTop="72dp"
+            android:layout_marginStart="25dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+        
+        
+        <ImageView
+            android:id="@+id/iv_detail_course"
+            android:layout_width="344dp"
+            android:layout_height="165dp"
+            tools:src="@tools:sample/backgrounds/scenic"
+            android:scaleType="centerCrop"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="41dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_detail_course"/>
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="Software Engineer Mobile Development Android Engineer"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/iv_detail_course"
+            app:layout_constraintStart_toStartOf="@id/iv_detail_course"/>
+
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="344dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="11sp"
+            android:textColor="@color/black"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+            android:layout_marginTop="11dp"
+            android:gravity="center_vertical"
+            android:lineSpacingExtra="2sp"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintStart_toStartOf="@id/tv_title"/>
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:numStars="5"
+            android:rating="3"
+            android:stepSize="0.1"
+            app:layout_goneMarginTop="9dp"
+            android:theme="@style/RatingBar"
+            style="?android:attr/ratingBarStyleSmall"
+            app:layout_constraintTop_toBottomOf="@id/tv_desc"
+            app:layout_constraintStart_toStartOf="@id/tv_desc"/>
+
+        <ImageView
+            android:id="@+id/iv_time"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/baseline_access_time_24_grey"
+            app:layout_constraintStart_toEndOf="@id/ratingBar"
+            app:layout_constraintTop_toTopOf="@id/ratingBar"
+            app:layout_constraintBottom_toBottomOf="@id/ratingBar"
+            android:layout_marginStart="20dp"/>
+
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:textSize="12sp"
+            android:text="12H"
+            android:layout_marginTop="1dp"
+            android:layout_marginStart="1dp"
+            android:textColor="@color/grey_instructor"
+            app:layout_constraintStart_toEndOf="@id/iv_time"
+            app:layout_constraintTop_toTopOf="@id/iv_time"
+            app:layout_constraintBottom_toBottomOf="@id/iv_time"/>
+
+        <View
+            android:id="@+id/rectangle_1"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ratingBar"
+            android:background="#F0F0F0"
+            />
+
+
+        <TextView
+            android:id="@+id/tv_material"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:text="Material"
+            android:layout_marginTop="34dp"
+            android:layout_marginStart="37dp"
+            app:layout_constraintTop_toBottomOf="@id/rectangle_1"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+
+        <ImageButton
+            android:id="@+id/btn_syllabus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/button_image_syllabus"
+            android:background="@android:color/transparent"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_material"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+
+        <ImageButton
+            android:id="@+id/btn_discussion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/button_image_discussion"
+            android:background="@android:color/transparent"
+            android:layout_marginStart="49dp"
+            app:layout_constraintStart_toEndOf="@id/btn_syllabus"
+            app:layout_constraintTop_toTopOf="@id/btn_syllabus"/>
+
+
+        <ImageButton
+            android:id="@+id/btn_assignment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/button_image_assignment"
+            android:background="@android:color/transparent"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/btn_syllabus"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+
+        <ImageButton
+            android:id="@+id/btn_students"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/button_image_students"
+            android:background="@android:color/transparent"
+            android:layout_marginStart="49dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintStart_toEndOf="@id/btn_assignment"
+            app:layout_constraintTop_toTopOf="@id/btn_assignment"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
