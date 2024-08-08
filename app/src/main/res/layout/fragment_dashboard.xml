@@ -13,28 +13,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_bold"
+        android:text="My Courses"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="My Courses" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_regular"
+        android:text="Let’s Start Learning Today"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/myCourse"
-        app:layout_constraintTop_toBottomOf="@+id/myCourse"
-        tools:text="Let’s Start Learning Today" />
+        app:layout_constraintTop_toBottomOf="@+id/myCourse" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMyCourse"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/myCourse"
         app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:listitem="@layout/item_card_course_program" />
 </androidx.constraintlayout.widget.ConstraintLayout>

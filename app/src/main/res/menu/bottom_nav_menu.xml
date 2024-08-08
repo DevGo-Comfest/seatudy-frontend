@@ -12,11 +12,6 @@
         android:title="@string/title_dashboard" />
 
     <item
-        android:id="@+id/navigation_course"
-        android:icon="@drawable/icon_course"
-        android:title="@string/title_course" />
-
-    <item
         android:id="@+id/navigation_cart"
         android:icon="@drawable/icon_cart"
         android:title="@string/title_cart" />
