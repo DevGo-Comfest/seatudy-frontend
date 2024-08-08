@@ -9,21 +9,24 @@ object DataDummy {
             "5",
             "12",
             "Intermediate",
-            "Android"
+            "Android",
+            "25"
         ),
         DataCourseList(
             "Software Engineer Web Development",
             "3",
             "15",
             "Expert",
-            "Web"
+            "Web",
+            "50"
         ),
         DataCourseList(
             "Software Engineer React Native",
             "2",
             "19",
             "Beginner",
-            "Coding"
+            "Coding",
+            "60"
         )
 
     )

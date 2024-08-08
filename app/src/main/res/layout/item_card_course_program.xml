@@ -9,10 +9,12 @@
     app:cardElevation="5dp">
 
     <FrameLayout
+        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/imgCourse"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="@color/purple" />
@@ -29,7 +31,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
+                    android:id="@+id/tvNameCourse"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -42,12 +46,16 @@
                     android:layout_height="match_parent"
                     android:gravity="bottom"
                     android:orientation="vertical">
+
                     <TextView
+                        android:id="@+id/tvProgress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
                         tools:text="Progress" />
+
                     <TextView
+                        android:id="@+id/tvProgressSyllabus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
@@ -56,10 +64,11 @@
             </LinearLayout>
 
             <ProgressBar
+                android:id="@+id/tvSumProgress"
                 style="@android:style/Widget.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:progress="55"/>
+                android:progress="55" />
         </LinearLayout>
     </FrameLayout>
 

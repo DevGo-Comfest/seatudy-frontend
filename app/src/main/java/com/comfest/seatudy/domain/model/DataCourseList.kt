@@ -5,5 +5,6 @@ data class DataCourseList(
     val rating: String,
     val hour: String,
     val levelCourse: String,
-    val category: String
+    val category: String,
+    val progress: String
 )
