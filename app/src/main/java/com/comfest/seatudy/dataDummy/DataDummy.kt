@@ -28,6 +28,9 @@ object DataDummy {
             "Coding",
             "60"
         )
-
     )
+//
+//    val listDataSyllabus = listOf(
+//        DataCourseList()
+//    )
 }

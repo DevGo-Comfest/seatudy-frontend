@@ -21,21 +21,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Seatudy"
         tools:targetApi="31">
-
         <activity
-            android:name="com.comfest.seatudy.ui.auth.register.RegisterActivity"
+            android:name=".ui.dashboard.detailsyllabus.CourseDetailPerSyllabusActivity"
             android:exported="false" />
         <activity
-            android:name="com.comfest.seatudy.ui.auth.login.LoginActivity"
+            android:name=".ui.dashboard.detailcourse.CourseDetailSyllabusActivity"
             android:exported="false" />
         <activity
-            android:name="com.comfest.seatudy.ui.NavigationActivity"
+            android:name=".ui.auth.register.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.NavigationActivity"
             android:exported="false"
             android:label="@string/title_activity_navigation" />
         <activity
-            android:name="com.comfest.seatudy.ui.dashboard.detail.CourseDetailActivity"
+            android:name=".ui.dashboard.detail.CourseDetailActivity"
             android:exported="false" />
-
         <activity
             android:name="com.comfest.instructor.ui.assignment.AssignmentInstructorActivity"
             android:exported="false" />
@@ -51,8 +55,6 @@
         <activity
             android:name="com.comfest.instructor.ui.MainActivityInstructor"
             android:exported="false" />
-
-
         <activity
             android:name=".MainActivity"
             android:exported="true">
