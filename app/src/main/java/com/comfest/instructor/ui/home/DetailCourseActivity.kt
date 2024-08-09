@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.comfest.instructor.ui.assignment.AddInstructorActivity
 import com.comfest.instructor.ui.assignment.AssignmentInstructorActivity
 import com.comfest.instructor.ui.sylabus.SyllabusInstructorActivity
 import com.comfest.seatudy.databinding.ActivityDetailCourseBinding
@@ -24,6 +25,11 @@ class DetailCourseActivity : AppCompatActivity() {
 
         binding.btnAssignment.setOnClickListener {
             val intent = Intent(this, AssignmentInstructorActivity::class.java)
+            startActivity(intent)
+        }
+        
+        binding.btnAssignInstructor.setOnClickListener { 
+            val intent = Intent(this, AddInstructorActivity::class.java)
             startActivity(intent)
         }
 
