@@ -1,10 +1,12 @@
 package com.comfest.seatudy.ui.dashboard.detail
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
 import com.comfest.seatudy.R
 import com.comfest.seatudy.databinding.ActivityCourseDetailBinding
+import com.comfest.seatudy.ui.dashboard.detailcourse.CourseDetailSyllabusActivity
 import com.google.android.material.tabs.TabLayout
 
 class CourseDetailActivity : AppCompatActivity() {
@@ -15,6 +17,10 @@ class CourseDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCourseDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.btnStartCourse.setOnClickListener {
+            startActivity(Intent(this@CourseDetailActivity, CourseDetailSyllabusActivity::class.java))
+        }
 
         tabLayout()
     }
