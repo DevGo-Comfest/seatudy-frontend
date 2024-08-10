@@ -25,23 +25,23 @@
             android:name=".utils.ErrorActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.dashboard.detailsyllabus.CourseDetailPerSyllabusActivity"
+            android:name="com.comfest.seatudy.ui.dashboard.detailsyllabus.CourseDetailPerSyllabusActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.dashboard.detailcourse.CourseDetailSyllabusActivity"
+            android:name="com.comfest.seatudy.ui.dashboard.detailcourse.CourseDetailSyllabusActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.auth.register.RegisterActivity"
+            android:name="com.comfest.seatudy.ui.auth.register.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.auth.login.LoginActivity"
+            android:name="com.comfest.seatudy.ui.auth.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.NavigationActivity"
+            android:name="com.comfest.seatudy.ui.NavigationActivity"
             android:exported="false"
             android:label="@string/title_activity_navigation" />
         <activity
-            android:name=".ui.dashboard.detail.CourseDetailActivity"
+            android:name="com.comfest.seatudy.ui.dashboard.detail.CourseDetailActivity"
             android:exported="false" />
         <activity
             android:name="com.comfest.instructor.ui.assignment.AssignmentInstructorActivity"
@@ -52,16 +52,11 @@
         <activity
             android:name="com.comfest.instructor.ui.home.DetailCourseActivity"
             android:exported="false" />
-        <activity
-            android:name="com.comfest.instructor.ui.create_course.CreateCourseActivity"
-            android:exported="false" />
+
         <activity
             android:name="com.comfest.instructor.ui.MainActivityInstructor"
             android:exported="false"/>
-        <activity
-            android:name=".ui.NavigationActivity"
-            android:exported="false"
-            android:label="@string/title_activity_navigation" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
