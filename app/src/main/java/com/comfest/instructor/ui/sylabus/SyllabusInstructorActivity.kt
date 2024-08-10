@@ -1,5 +1,6 @@
 package com.comfest.instructor.ui.sylabus
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +9,7 @@ import com.comfest.instructor.data.dummy.SyllabusDataInstructor
 import com.comfest.instructor.ui.sylabus.adapter.SyllabusInstructorAdapter
 import com.comfest.seatudy.databinding.ActivitySyllabusInstructorBinding
 
-class SyllabusInstructorActivity : AppCompatActivity() {
+class SyllabusInstructorActivity : AppCompatActivity(), SyllabusInstructorAdapter.OnItemClickListener {
 
     private lateinit var binding: ActivitySyllabusInstructorBinding
     private lateinit var syllabusAdapter: SyllabusInstructorAdapter
@@ -28,7 +29,7 @@ class SyllabusInstructorActivity : AppCompatActivity() {
 
 
     private fun setupRecyclerView() {
-        syllabusAdapter = SyllabusInstructorAdapter()
+        syllabusAdapter = SyllabusInstructorAdapter(this)
         binding.rvList.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = syllabusAdapter
@@ -45,5 +46,15 @@ class SyllabusInstructorActivity : AppCompatActivity() {
             SyllabusDataInstructor(titleDummy, descDummy, titleDummy, 5),
         )
         syllabusAdapter.setSyllabus(sampleSyllabus)
+    }
+
+    override fun onItemClick(syllabus: SyllabusDataInstructor) {
+        val intent = Intent(this, SyllabusMaterialInstructorActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun onUpdateClick(syllabus: SyllabusDataInstructor) {
+        val intent = Intent(this, UpdateSyllabusActivity::class.java)
+        startActivity(intent)
     }
 }

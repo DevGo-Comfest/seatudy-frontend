@@ -57,7 +57,11 @@
             android:exported="false" />
         <activity
             android:name="com.comfest.instructor.ui.MainActivityInstructor"
-            android:exported="false" />
+            android:exported="false"/>
+        <activity
+            android:name=".ui.NavigationActivity"
+            android:exported="false"
+            android:label="@string/title_activity_navigation" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

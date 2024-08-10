@@ -8,7 +8,7 @@ import com.comfest.seatudy.databinding.ItemAssignmentInstructorBinding
 
 class AssignmentInstructorAdapter: RecyclerView.Adapter<AssignmentInstructorAdapter.AssignmentInstructorViewHolder>() {
 
-    private var assignment: List<AssignmentInstructor> = listOf()
+    private var assignment: List<AssignmentInstructor> = emptyList()
 
     fun setAssignment(newAssignment: List<AssignmentInstructor>) {
         assignment = newAssignment

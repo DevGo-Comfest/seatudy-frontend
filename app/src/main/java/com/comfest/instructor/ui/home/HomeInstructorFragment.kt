@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.comfest.instructor.data.dummy.CourseInstructor
+import com.comfest.instructor.ui.course.UpdateCourseActivity
 import com.comfest.instructor.ui.home.adapter.HomeCourseInstructorAdapter
 import com.comfest.seatudy.R
 import com.comfest.seatudy.databinding.FragmentHomeInstructorBinding
@@ -68,6 +69,11 @@ class HomeInstructorFragment : Fragment(), HomeCourseInstructorAdapter.OnItemCli
             putExtra("EXTRA_COURSE_DURATION", course.duration)
             putExtra("EXTRA_COURSE_IMAGE", course.image)
         }
+        startActivity(intent)
+    }
+
+    override fun onUpdateClick(course: CourseInstructor) {
+        val intent = Intent(context, UpdateCourseActivity::class.java)
         startActivity(intent)
     }
 

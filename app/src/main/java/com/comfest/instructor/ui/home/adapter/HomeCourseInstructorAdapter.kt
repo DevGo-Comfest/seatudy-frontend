@@ -12,7 +12,7 @@ class HomeCourseInstructorAdapter(
 ): RecyclerView.Adapter<HomeCourseInstructorAdapter.HomeCourseInstructorViewHolder>() {
 
 
-    private var courses: List<CourseInstructor> = listOf()
+    private var courses: List<CourseInstructor> = emptyList()
 
     fun setCourses(newCourses: List<CourseInstructor>) {
         courses = newCourses
@@ -43,6 +43,13 @@ class HomeCourseInstructorAdapter(
                     listener.onItemClick(courses[position])
                 }
             }
+
+            binding.btnUpdate.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onUpdateClick(courses[position])
+                }
+            }
         }
 
         fun bind(course: CourseInstructor) {
@@ -56,5 +63,6 @@ class HomeCourseInstructorAdapter(
 
     interface OnItemClickListener {
         fun onItemClick(course: CourseInstructor)
+        fun onUpdateClick(course: CourseInstructor)
     }
 }

@@ -6,9 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.comfest.instructor.data.dummy.SyllabusDataInstructor
 import com.comfest.seatudy.databinding.ItemSyllabusInstructorBinding
 
-class SyllabusInstructorAdapter: RecyclerView.Adapter<SyllabusInstructorAdapter.SyllabusInstructorViewHolder>() {
+class SyllabusInstructorAdapter(
+    private val listener: OnItemClickListener
+): RecyclerView.Adapter<SyllabusInstructorAdapter.SyllabusInstructorViewHolder>() {
 
-    private var syllabus: List<SyllabusDataInstructor> = listOf()
+    private var syllabus: List<SyllabusDataInstructor> = emptyList()
 
     fun setSyllabus(newSyllabus: List<SyllabusDataInstructor>) {
         syllabus = newSyllabus
@@ -23,6 +25,23 @@ class SyllabusInstructorAdapter: RecyclerView.Adapter<SyllabusInstructorAdapter.
                 tvDescSyllabus.text = syllabusData.description
                 tvAssignment.text = syllabusData.titleAssignment
                 tvDueDate.text = syllabusData.dueDateAssignment.toString()
+            }
+        }
+
+        init {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(syllabus[position])
+                }
+            }
+
+
+            binding.btnUpdateSyllabus.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onUpdateClick(syllabus[position])
+                }
             }
         }
 
@@ -44,4 +63,9 @@ class SyllabusInstructorAdapter: RecyclerView.Adapter<SyllabusInstructorAdapter.
     }
 
     override fun getItemCount(): Int = syllabus.size
+
+    interface OnItemClickListener {
+        fun onItemClick(syllabus: SyllabusDataInstructor)
+        fun onUpdateClick(syllabus: SyllabusDataInstructor)
+    }
 }
