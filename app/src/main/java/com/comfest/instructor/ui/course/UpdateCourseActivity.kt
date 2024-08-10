@@ -1,4 +1,4 @@
-package com.comfest.instructor.ui.create_course
+package com.comfest.instructor.ui.course
 
 import android.Manifest
 import android.app.Activity
@@ -14,25 +14,21 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.comfest.instructor.data.dummy.CategoryCourse
 import com.comfest.instructor.data.dummy.LevelCourse
-import com.comfest.seatudy.R
-import com.comfest.seatudy.databinding.ActivityCreateCourseBinding
+import com.comfest.seatudy.databinding.ActivityUpdateCourseBinding
 
-class CreateCourseActivity : AppCompatActivity() {
+class UpdateCourseActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityCreateCourseBinding
+    private lateinit var binding: ActivityUpdateCourseBinding
     private var selectedImageBitmap: Bitmap? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityCreateCourseBinding.inflate(layoutInflater)
+        binding = ActivityUpdateCourseBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setupAdapterSpinner()
-
 
         binding.btnCamera.setOnClickListener {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -50,7 +46,6 @@ class CreateCourseActivity : AppCompatActivity() {
             onBackPressed()
         }
     }
-
 
     //permision camera
     private val requestCameraPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
