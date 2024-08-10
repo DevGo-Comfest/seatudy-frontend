@@ -21,6 +21,9 @@
         android:theme="@style/Theme.Seatudy"
         tools:targetApi="31">
         <activity
+            android:name="com.comfest.instructor.ui.discussion.DiscussionInstructorActivity"
+            android:exported="false" />
+        <activity
             android:name="com.comfest.instructor.ui.sylabus.SyllabusMaterialInstructorActivity"
             android:exported="false" />
         <activity
