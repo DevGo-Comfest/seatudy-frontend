@@ -4,23 +4,51 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class SettingsPreferences @Inject constructor(private val dataStore: DataStore<Preferences>) {
 
-    private val LOGIN_USER = booleanPreferencesKey("login_user")
+    private val loginUser = booleanPreferencesKey("login_user")
+    private val nameUser = stringPreferencesKey("name_user")
+    private val imageUser = stringPreferencesKey("image_user")
 
     fun getLoginUser(): Flow<Boolean> {
         return dataStore.data.map { preferences ->
-            preferences[LOGIN_USER] ?: false
+            preferences[loginUser] ?: false
+        }
+    }
+
+    fun getName(): Flow<String> {
+        return dataStore.data.map { preferences ->
+            preferences[nameUser] ?: ""
+        }
+    }
+
+    fun getImageProfile(): Flow<String> {
+        return dataStore.data.map { preferences ->
+            preferences[imageUser] ?: ""
         }
     }
 
     suspend fun saveLoginUser(isDarkModeActive: Boolean) {
         dataStore.edit { preferences ->
-            preferences[LOGIN_USER] = isDarkModeActive
+            preferences[loginUser] = isDarkModeActive
         }
     }
+
+    suspend fun saveNameUser(name: String) {
+        dataStore.edit { preferences ->
+            preferences[nameUser] = name
+        }
+    }
+
+    suspend fun saveImageProfile(imageProfile: String) {
+        dataStore.edit { preferences ->
+            preferences[imageUser] = imageProfile
+        }
+    }
+
 }
