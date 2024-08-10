@@ -8,7 +8,7 @@ import com.comfest.seatudy.databinding.ItemSyllabusInstructorBinding
 
 class SyllabusInstructorAdapter: RecyclerView.Adapter<SyllabusInstructorAdapter.SyllabusInstructorViewHolder>() {
 
-    private var syllabus: List<SyllabusDataInstructor> = listOf()
+    private var syllabus: List<SyllabusDataInstructor> = emptyList()
 
     fun setSyllabus(newSyllabus: List<SyllabusDataInstructor>) {
         syllabus = newSyllabus

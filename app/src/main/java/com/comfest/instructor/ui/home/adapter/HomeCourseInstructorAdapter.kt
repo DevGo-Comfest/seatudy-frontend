@@ -12,7 +12,7 @@ class HomeCourseInstructorAdapter(
 ): RecyclerView.Adapter<HomeCourseInstructorAdapter.HomeCourseInstructorViewHolder>() {
 
 
-    private var courses: List<CourseInstructor> = listOf()
+    private var courses: List<CourseInstructor> = emptyList()
 
     fun setCourses(newCourses: List<CourseInstructor>) {
         courses = newCourses
