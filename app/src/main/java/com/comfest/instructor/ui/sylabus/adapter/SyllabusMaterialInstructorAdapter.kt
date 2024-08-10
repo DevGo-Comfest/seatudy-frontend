@@ -10,7 +10,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 
 class SyllabusMaterialInstructorAdapter: RecyclerView.Adapter<SyllabusMaterialInstructorAdapter.SyllabusMaterialInstructorViewHolder>() {
 
-    private var syllabusMaterial: List<SyllabusMaterialInstructor> = listOf()
+    private var syllabusMaterial: List<SyllabusMaterialInstructor> = emptyList()
 
     fun setSyllabusMaterial(newSyllabusMaterial: List<SyllabusMaterialInstructor>) {
         syllabusMaterial = newSyllabusMaterial

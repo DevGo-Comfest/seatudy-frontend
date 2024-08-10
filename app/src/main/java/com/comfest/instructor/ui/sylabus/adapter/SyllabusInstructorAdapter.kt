@@ -10,7 +10,7 @@ class SyllabusInstructorAdapter(
     private val listener: OnItemClickListener
 ): RecyclerView.Adapter<SyllabusInstructorAdapter.SyllabusInstructorViewHolder>() {
 
-    private var syllabus: List<SyllabusDataInstructor> = listOf()
+    private var syllabus: List<SyllabusDataInstructor> = emptyList()
 
     fun setSyllabus(newSyllabus: List<SyllabusDataInstructor>) {
         syllabus = newSyllabus

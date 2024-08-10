@@ -9,7 +9,7 @@ import com.comfest.seatudy.databinding.ItemAssignInstructorBinding
 class AddInstructorAdapter: RecyclerView.Adapter<AddInstructorAdapter.AddInstructorViewHolder>() {
 
 
-    private var instructorData: List<InstructorData> = listOf()
+    private var instructorData: List<InstructorData> = emptyList()
     private val selectedItems = mutableSetOf<Int>()
 
     fun setInstructor(newInstructor: List<InstructorData>) {
