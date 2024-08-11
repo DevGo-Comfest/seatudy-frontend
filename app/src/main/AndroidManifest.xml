@@ -22,7 +22,13 @@
         android:theme="@style/Theme.Seatudy"
         tools:targetApi="31">
         <activity
-            android:name=".utils.ErrorActivity"
+            android:name="com.comfest.seatudy.ui.cart.payment.PaymentPayActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.comfest.seatudy.ui.cart.payment.PaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.comfest.seatudy.utils.ErrorActivity"
             android:exported="false" />
         <activity
             android:name="com.comfest.seatudy.ui.dashboard.detailsyllabus.CourseDetailPerSyllabusActivity"
@@ -43,6 +49,8 @@
         <activity
             android:name="com.comfest.seatudy.ui.dashboard.detail.CourseDetailActivity"
             android:exported="false" />
+
+
         <activity
             android:name="com.comfest.instructor.ui.assignment.AssignmentInstructorActivity"
             android:exported="false" />
@@ -52,10 +60,9 @@
         <activity
             android:name="com.comfest.instructor.ui.home.DetailCourseActivity"
             android:exported="false" />
-
         <activity
             android:name="com.comfest.instructor.ui.MainActivityInstructor"
-            android:exported="false"/>
+            android:exported="false" />
 
         <activity
             android:name=".MainActivity"
