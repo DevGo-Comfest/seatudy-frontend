@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
@@ -63,6 +64,8 @@ class LoginActivity : AppCompatActivity() {
                         is Resource.Success -> {
                             binding.loading.visibility = View.GONE
                             loginViewModel.saveThemeSetting(true)
+                            val token = it.data?.token ?: ""
+                            loginViewModel.saveTokenUser(token)
                             if (it.data?.user?.role == "user") {
                                 startActivity(
                                     Intent(
