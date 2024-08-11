@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Seatudy" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.Seatudy" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
@@ -20,10 +20,14 @@
     </style>
 
 
-    // color rating bar
     <style name="RatingBar">
         <item name="colorControlNormal">#C4C4C4</item>
         <item name="colorControlActivated">#FFC700</item>
     </style>
 
+    <style name="fab_3_rounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+
+    </style>
 </resources>

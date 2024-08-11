@@ -5,13 +5,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.comfest.seatudy.databinding.ActivityMainBinding
 import com.comfest.seatudy.ui.NavigationActivity
+import com.comfest.seatudy.ui.auth.login.LoginActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var mainViewModel: MainViewModel
     private val time: Long = 2000
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,13 +25,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+
         Glide.with(this)
             .load(R.drawable.logo)
             .into(binding.imgLogo)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, NavigationActivity::class.java))
-            finish()
+            mainViewModel.getLoginUser().observe(this) { login: Boolean ->
+                if (login) {
+                    startActivity(Intent(this, NavigationActivity::class.java))
+                    finish()
+                } else {
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
+                }
+            }
         }, time)
     }
 }
