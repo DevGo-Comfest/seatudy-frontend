@@ -1,12 +1,16 @@
 package com.comfest.seatudy.ui.profile
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.comfest.seatudy.data.Resource
 import com.comfest.seatudy.databinding.FragmentProfileBinding
 import com.comfest.seatudy.ui.auth.login.LoginActivity
 import com.comfest.seatudy.ui.cart.topup.TopUpActivity
@@ -40,6 +44,32 @@ class ProfileFragment : Fragment() {
             profileViewModel.saveThemeSetting(false)
             startActivity(Intent(requireContext(), LoginActivity::class.java))
             requireActivity().supportFragmentManager.popBackStack()
+        }
+
+        getProfile()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun getProfile(){
+        profileViewModel.getToken().observe(viewLifecycleOwner) { token ->
+            profileViewModel.getProfile("Bearer $token").observe(viewLifecycleOwner){
+                when(it){
+                    is Resource.Loading -> {
+
+                    }
+                    is Resource.Success -> {
+                        val profile = it.data?.body()
+                        binding.apply {
+                            tvNameUser.text = profile?.name
+                            tvBalance.text = "Rp. ${profile?.balance.toString()}"
+                        }
+                    }
+                    is Resource.Error -> {
+                        Toast.makeText(requireContext(), "Error Occurred", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.comfest.seatudy.domain.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.comfest.seatudy.data.Resource

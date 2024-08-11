@@ -32,8 +32,8 @@ interface ApiService {
     ): Response<ResponseCoursesList>
 
     @GET("api/profile")
-    suspend fun getProfile(@Header("Bearer") authToken: String): Response<ResponseProfile>
+    suspend fun getProfile(@Header("Authorization") authToken: String): Response<ResponseProfile>
 
     @POST("api/profile")
-    suspend fun topUp(@Body dataTopUp: DataTopUp, @Header("Bearer") authToken: String): ResponseTopUp
+    suspend fun topUp(@Body dataTopUp: DataTopUp, @Header("Authorization") authToken: String): ResponseTopUp
 }

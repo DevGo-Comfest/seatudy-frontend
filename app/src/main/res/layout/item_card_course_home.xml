@@ -47,23 +47,6 @@
                 android:progressTint="@color/orange"
                 android:numStars="5" />
 
-            <ImageView
-                android:id="@+id/imgClock"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/icon_clock" />
-
-            <TextView
-                android:id="@+id/tvHour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-
-                android:fontFamily="@font/poppins_semi_bold"
-                android:textColor="@color/gray"
-                tools:text="12H" />
-
             <TextView
                 android:id="@+id/tvLevel"
                 android:layout_width="wrap_content"

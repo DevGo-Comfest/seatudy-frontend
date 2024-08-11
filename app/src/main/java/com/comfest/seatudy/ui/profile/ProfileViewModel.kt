@@ -1,6 +1,8 @@
 package com.comfest.seatudy.ui.profile
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.comfest.seatudy.domain.repository.SeatudyRepository
 import com.comfest.seatudy.utils.SettingsPreferences
@@ -20,6 +22,10 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             pref.saveLoginUser(state)
         }
+    }
+
+    fun getToken(): LiveData<String> {
+        return pref.getTokenUser().asLiveData()
     }
 }
 
