@@ -15,11 +15,6 @@ class AdapterListCategories(private val items: List<DataCourseList>) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: DataCourseList) {
             binding.nameCategories.text = item.category
-//            Glide.with(itemView)
-//                .load(item.)
-//                .transition(DrawableTransitionOptions.withCrossFade())
-//                .centerCrop()
-//                .into(binding.imgCourse)
 
             binding.card.setOnClickListener {
                 val intent =

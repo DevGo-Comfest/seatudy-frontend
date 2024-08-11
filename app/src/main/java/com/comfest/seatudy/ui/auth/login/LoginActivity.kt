@@ -9,6 +9,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.comfest.instructor.ui.MainActivityInstructor
 import com.comfest.seatudy.R
 import com.comfest.seatudy.data.Resource
 import com.comfest.seatudy.databinding.ActivityLoginBinding
@@ -62,13 +63,23 @@ class LoginActivity : AppCompatActivity() {
                         is Resource.Success -> {
                             binding.loading.visibility = View.GONE
                             loginViewModel.saveThemeSetting(true)
-                            startActivity(
-                                Intent(
-                                    this@LoginActivity,
-                                    NavigationActivity::class.java
+                            if (it.data?.user?.role == "user") {
+                                startActivity(
+                                    Intent(
+                                        this@LoginActivity,
+                                        NavigationActivity::class.java
+                                    )
                                 )
-                            )
-                            finish()
+                                finish()
+                            } else {
+                                startActivity(
+                                    Intent(
+                                        this@LoginActivity,
+                                        MainActivityInstructor::class.java
+                                    )
+                                )
+                                finish()
+                            }
                         }
 
                         is Resource.Error -> {
@@ -78,14 +89,18 @@ class LoginActivity : AppCompatActivity() {
                         }
                     }
                 }
-            }else{
-                Toast.makeText(this@LoginActivity, "Recheck your email and password", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(
+                    this@LoginActivity,
+                    "Recheck your email and password",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private fun showPassword(){
+    private fun showPassword() {
         binding.apply {
             tvPassword.setOnTouchListener { _, event ->
                 if (event.action == MotionEvent.ACTION_UP) {

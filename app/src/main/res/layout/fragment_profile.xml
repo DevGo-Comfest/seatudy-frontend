@@ -79,7 +79,7 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_semi_bold"
-                    tools:text="Rp. 70.000.000" />
+                    android:text="Rp. 70.000.000" />
 
                 <TextView
                     android:id="@+id/myBalance"
@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
                     android:textColor="@color/gray"
-                    tools:text="My Balance" />
+                    android:text="My Balance" />
             </LinearLayout>
 
             <Button

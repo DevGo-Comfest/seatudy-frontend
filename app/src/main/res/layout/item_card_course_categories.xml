@@ -22,7 +22,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/poppins_semi_bold"
             tools:text="Software Engineer Mobile Development Android Engineer" />
-
+        
         <ImageView
             android:id="@+id/imgCourse"
             android:layout_width="200dp"

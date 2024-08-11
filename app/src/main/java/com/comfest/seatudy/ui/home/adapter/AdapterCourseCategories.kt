@@ -4,6 +4,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.comfest.seatudy.databinding.ItemCardCourseCategoriesBinding
 import com.comfest.seatudy.domain.model.DataCourseList
 import com.comfest.seatudy.ui.dashboard.detail.CourseDetailActivity
@@ -15,12 +17,11 @@ class AdapterCourseCategories(private val items: List<DataCourseList>) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: DataCourseList) {
             binding.tvNameCourse.text = item.nameCourse
-//            Glide.with(itemView)
-//                .load(item.)
-//                .transition(DrawableTransitionOptions.withCrossFade())
-//                .centerCrop()
-//                .into(binding.imgCourse)
-
+            Glide.with(itemView)
+                .load(item.imageURL)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .centerCrop()
+                .into(binding.imgCourse)
             binding.cardCourse.setOnClickListener {
                 val intent =
                     Intent(itemView.context, CourseDetailActivity::class.java).apply {
