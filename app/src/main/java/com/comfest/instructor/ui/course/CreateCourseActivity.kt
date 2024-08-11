@@ -8,27 +8,50 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.comfest.instructor.data.dummy.CategoryCourse
 import com.comfest.instructor.data.dummy.LevelCourse
+import com.comfest.seatudy.data.Resource
 import com.comfest.seatudy.databinding.ActivityCreateCourseBinding
+import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.util.UUID
 
+@AndroidEntryPoint
 class CreateCourseActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCreateCourseBinding
     private var selectedImageBitmap: Bitmap? = null
+    private lateinit var createCourseViewModel: CourseViewModel
+
+
+    private var tokenUser: String? = null
+    private var imageUrl: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityCreateCourseBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        createCourseViewModel = ViewModelProvider(this)[CourseViewModel::class.java]
+
         setupAdapterSpinner()
+
+        createCourseViewModel.getToken().observe(this) {token ->
+            tokenUser = token
+        }
 
 
         binding.btnCamera.setOnClickListener {
@@ -45,6 +68,29 @@ class CreateCourseActivity : AppCompatActivity() {
 
         binding.ivBack.setOnClickListener {
             onBackPressed()
+        }
+
+        binding.btnUploadImg.setOnClickListener {
+            val imageFile = bitmapToFile(selectedImageBitmap!!)
+            val requestFile = imageFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
+            val body = MultipartBody.Part.createFormData("image", imageFile.name, requestFile)
+            createCourseViewModel.uploadImage(tokenUser!!, body).observe(this@CreateCourseActivity) {
+                when(it) {
+                    is Resource.Loading -> {
+                        Toast.makeText(this@CreateCourseActivity, "Loading Image Upload", Toast.LENGTH_SHORT).show()
+                    }
+
+                    is Resource.Success -> {
+                        Toast.makeText(this@CreateCourseActivity, "Image uploaded successfully", Toast.LENGTH_SHORT).show()
+                        imageUrl = it.data?.imageUrl
+                        binding.imgPreview.visibility = View.GONE
+                    }
+
+                    is Resource.Error -> {
+                        Toast.makeText(this@CreateCourseActivity, "Upload failed", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
     }
 
@@ -123,5 +169,17 @@ class CreateCourseActivity : AppCompatActivity() {
         val adapterLevel = ArrayAdapter(this, android.R.layout.simple_spinner_item, levelNames)
         adapterLevel.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerLevel.adapter = adapterLevel
+    }
+    private fun bitmapToFile(bitmap: Bitmap): File {
+        val file = File(cacheDir, "temp_image_${UUID.randomUUID()}.jpg")
+        file.createNewFile()
+
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+        val byteArray = byteArrayOutputStream.toByteArray()
+
+        file.writeBytes(byteArray)
+
+        return file
     }
 }

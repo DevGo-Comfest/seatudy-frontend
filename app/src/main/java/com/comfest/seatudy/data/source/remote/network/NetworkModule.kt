@@ -1,5 +1,6 @@
 package com.comfest.seatudy.data.source.remote.network
 
+import com.comfest.instructor.data.source.remote.network.ApiServiceInstructor
 import com.comfest.seatudy.BuildConfig
 import dagger.Module
 import dagger.Provides
@@ -67,6 +68,12 @@ object NetworkModule {
     @Provides
     fun provideRestApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideRestApiServiceInstructor(retrofit: Retrofit): ApiServiceInstructor {
+        return retrofit.create(ApiServiceInstructor::class.java)
     }
 
 }

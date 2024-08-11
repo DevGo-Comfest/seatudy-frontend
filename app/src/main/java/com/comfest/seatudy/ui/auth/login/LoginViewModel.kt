@@ -28,4 +28,11 @@ class LoginViewModel @Inject constructor(
             pref.saveTokenUser(token)
         }
     }
+
+
+    fun saveRoleUser(role: String) {
+        viewModelScope.launch {
+            pref.saveRoleUser(role)
+        }
+    }
 }

@@ -15,4 +15,8 @@ class MainViewModel @Inject constructor(
         return pref.getLoginUser().asLiveData()
     }
 
+    fun getRoleUser(): LiveData<String> {
+        return pref.getRoleUser().asLiveData()
+    }
+
 }

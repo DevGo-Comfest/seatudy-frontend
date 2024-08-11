@@ -65,7 +65,9 @@ class LoginActivity : AppCompatActivity() {
                             binding.loading.visibility = View.GONE
                             loginViewModel.saveThemeSetting(true)
                             val token = it.data?.token ?: ""
+                            val role = it.data?.user?.role ?: ""
                             loginViewModel.saveTokenUser(token)
+                            loginViewModel.saveRoleUser(role)
                             if (it.data?.user?.role == "user") {
                                 startActivity(
                                     Intent(
