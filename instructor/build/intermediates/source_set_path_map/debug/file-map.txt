@@ -1,0 +1,7 @@
+com.comfest.instructor-pngs-0 D:\SEA_COMPFEST\FINAL PROJECT\seastudy\seatudy-frontend\instructor\build\generated\res\pngs\debug
+com.comfest.instructor-resValues-1 D:\SEA_COMPFEST\FINAL PROJECT\seastudy\seatudy-frontend\instructor\build\generated\res\resValues\debug
+com.comfest.instructor-packageDebugResources-2 D:\SEA_COMPFEST\FINAL PROJECT\seastudy\seatudy-frontend\instructor\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.comfest.instructor-packageDebugResources-3 D:\SEA_COMPFEST\FINAL PROJECT\seastudy\seatudy-frontend\instructor\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.comfest.instructor-merged_res-4 D:\SEA_COMPFEST\FINAL PROJECT\seastudy\seatudy-frontend\instructor\build\intermediates\merged_res\debug
+com.comfest.instructor-debug-5 D:\SEA_COMPFEST\FINAL PROJECT\seastudy\seatudy-frontend\instructor\src\debug\res
+com.comfest.instructor-main-6 D:\SEA_COMPFEST\FINAL PROJECT\seastudy\seatudy-frontend\instructor\src\main\res

@@ -14,6 +14,7 @@ class SettingsPreferences @Inject constructor(private val dataStore: DataStore<P
     private val loginUser = booleanPreferencesKey("login_user")
     private val nameUser = stringPreferencesKey("name_user")
     private val imageUser = stringPreferencesKey("image_user")
+    private val tokenUser = stringPreferencesKey("token_user")
 
     fun getLoginUser(): Flow<Boolean> {
         return dataStore.data.map { preferences ->
@@ -30,6 +31,19 @@ class SettingsPreferences @Inject constructor(private val dataStore: DataStore<P
     fun getImageProfile(): Flow<String> {
         return dataStore.data.map { preferences ->
             preferences[imageUser] ?: ""
+        }
+    }
+
+    fun getTokenUser(): Flow<String> {
+        return dataStore.data.map { preferences->
+            preferences[tokenUser] ?: ""
+        }
+    }
+
+
+    suspend fun saveTokenUser(token: String){
+        dataStore.edit { preferences->
+            preferences[tokenUser] = token
         }
     }
 
