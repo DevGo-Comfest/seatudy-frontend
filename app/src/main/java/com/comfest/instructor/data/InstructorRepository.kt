@@ -3,7 +3,9 @@ package com.comfest.instructor.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.comfest.instructor.data.source.remote.network.ApiServiceInstructor
+import com.comfest.instructor.data.source.remote.response.CreateCourseResponse
 import com.comfest.instructor.data.source.remote.response.UploadImageResponse
+import com.comfest.instructor.domain.model.RequestCreateCourse
 import com.comfest.seatudy.data.Resource
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
@@ -17,6 +19,21 @@ class InstructorRepository @Inject constructor(private val apiServiceInstructor:
         try {
             val response = apiServiceInstructor.uploadImageCourse(token, image)
             if (response.message == "Image uploaded successfully") {
+                emit(Resource.Success(response))
+            } else {
+                emit(Resource.Error(response.message))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
+
+
+    fun createCourse(token: String, requestCreateCourse: RequestCreateCourse): LiveData<Resource<CreateCourseResponse>> = liveData {
+        emit(Resource.Loading())
+        try {
+            val response = apiServiceInstructor.createCourse(token, requestCreateCourse)
+            if (response.message == "Course created successfully") {
                 emit(Resource.Success(response))
             } else {
                 emit(Resource.Error(response.message))
