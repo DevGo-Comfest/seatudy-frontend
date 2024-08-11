@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.comfest.instructor.data.dummy.CategoryCourse
 import com.comfest.instructor.data.dummy.LevelCourse
+import com.comfest.instructor.domain.model.RequestCreateCourse
 import com.comfest.seatudy.data.Resource
 import com.comfest.seatudy.databinding.ActivityCreateCourseBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -92,6 +93,11 @@ class CreateCourseActivity : AppCompatActivity() {
                 }
             }
         }
+
+
+        binding.btnCreate.setOnClickListener {
+            createCourse()
+        }
     }
 
 
@@ -149,9 +155,9 @@ class CreateCourseActivity : AppCompatActivity() {
         )
 
         val levelCourses = listOf(
-            LevelCourse("Advanced"),
-            LevelCourse("Intermediate"),
-            LevelCourse("Beginner")
+            LevelCourse("advanced"),
+            LevelCourse("intermediate"),
+            LevelCourse("beginner")
         )
 
         val categoryNames = categories.map { it.name }
@@ -181,5 +187,47 @@ class CreateCourseActivity : AppCompatActivity() {
         file.writeBytes(byteArray)
 
         return file
+    }
+
+
+    private fun createCourse() {
+        binding.apply {
+            val title = edTitleCourse.text.toString()
+            val description = edDescCourse.text.toString()
+            val price = edPriceCourse.text.toString()
+            val category = spinnerCategory.selectedItem.toString()
+            val difficultyLevel = spinnerLevel.selectedItem.toString()
+
+            if (title.isEmpty() || description.isEmpty() || price.toInt() <= 0 || imageUrl.isNullOrEmpty()) {
+                Toast.makeText(this@CreateCourseActivity, "Please fill in all the fields and upload an image", Toast.LENGTH_SHORT).show()
+            }
+
+            val requestCreateCourse = RequestCreateCourse(
+                title = title,
+                description = description,
+                price = price.toInt(),
+                category = category,
+                difficultyLevel = difficultyLevel,
+                image_url = imageUrl ?: ""
+            )
+
+            createCourseViewModel.crateCourse(tokenUser!!, requestCreateCourse).observe(this@CreateCourseActivity) {
+                when(it) {
+                    is Resource.Loading -> {
+                        Toast.makeText(this@CreateCourseActivity, "Creating course...", Toast.LENGTH_SHORT).show()
+                    }
+
+                    is Resource.Success -> {
+                        Toast.makeText(this@CreateCourseActivity, "Course created successfully", Toast.LENGTH_SHORT).show()
+                        // Optionally, you can navigate back or clear the form
+                        finish() // Or any other action like navigating to another activity
+                    }
+
+                    is Resource.Error -> {
+                        Toast.makeText(this@CreateCourseActivity, "Failed to create course: ${it.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
     }
 }

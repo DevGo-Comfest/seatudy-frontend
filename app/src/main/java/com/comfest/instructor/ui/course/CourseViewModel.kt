@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.comfest.instructor.data.InstructorRepository
+import com.comfest.instructor.domain.model.RequestCreateCourse
 import com.comfest.seatudy.utils.SettingsPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import okhttp3.MultipartBody
@@ -17,6 +18,7 @@ class CourseViewModel @Inject constructor(
 ): ViewModel() {
 
     fun uploadImage(token: String, image: MultipartBody.Part) = instructorRepository.uploadImage("Bearer $token", image)
+    fun crateCourse(token: String, requestCreateCourse: RequestCreateCourse) = instructorRepository.createCourse("Bearer $token", requestCreateCourse)
 
     fun getToken(): LiveData<String> {
         return pref.getTokenUser().asLiveData()
