@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.comfest.instructor.ui.MainActivityInstructor
 import com.comfest.seatudy.databinding.ActivityMainBinding
 import com.comfest.seatudy.ui.NavigationActivity
 import com.comfest.seatudy.ui.auth.login.LoginActivity
@@ -33,13 +34,19 @@ class MainActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             mainViewModel.getLoginUser().observe(this) { login: Boolean ->
-                if (login) {
-                    startActivity(Intent(this, NavigationActivity::class.java))
-                    finish()
-                } else {
-                    startActivity(Intent(this, LoginActivity::class.java))
-                    finish()
+                mainViewModel.getRoleUser().observe(this) { role ->
+                    if (login && role == "user") {
+                        startActivity(Intent(this, NavigationActivity::class.java))
+                        finish()
+                    } else if (login && role == "author") {
+                        startActivity(Intent(this, MainActivityInstructor::class.java))
+                        finish()
+                    } else {
+                        startActivity(Intent(this, LoginActivity::class.java))
+                        finish()
+                    }
                 }
+
             }
         }, time)
     }
