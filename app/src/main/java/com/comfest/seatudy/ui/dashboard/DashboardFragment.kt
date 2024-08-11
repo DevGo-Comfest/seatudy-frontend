@@ -7,9 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.comfest.seatudy.dataDummy.DataDummy
+import com.comfest.seatudy.dummy.DataDummy
 import com.comfest.seatudy.databinding.FragmentDashboardBinding
-import com.comfest.seatudy.ui.home.adapter.AdapterCourseList
 
 class DashboardFragment : Fragment() {
 

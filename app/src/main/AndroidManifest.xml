@@ -22,35 +22,45 @@
         android:theme="@style/Theme.Seatudy"
         tools:targetApi="31">
         <activity
-            android:name="com.comfest.seatudy.ui.cart.payment.PaymentPayActivity"
+            android:name=".ui.cart.topup.VerifyAmountActivity"
             android:exported="false" />
         <activity
-            android:name="com.comfest.seatudy.ui.cart.payment.PaymentActivity"
+            android:name=".ui.cart.topup.TopUpActivity"
             android:exported="false" />
         <activity
-            android:name="com.comfest.seatudy.utils.ErrorActivity"
+            android:name=".ui.dashboard.detailsubmission.review.ReviewActivity"
             android:exported="false" />
         <activity
-            android:name="com.comfest.seatudy.ui.dashboard.detailsyllabus.CourseDetailPerSyllabusActivity"
+            android:name=".ui.dashboard.detailsubmission.DetailSubmissionActivity"
             android:exported="false" />
         <activity
-            android:name="com.comfest.seatudy.ui.dashboard.detailcourse.CourseDetailSyllabusActivity"
+            android:name=".ui.cart.payment.PaymentPayActivity"
             android:exported="false" />
         <activity
-            android:name="com.comfest.seatudy.ui.auth.register.RegisterActivity"
+            android:name=".ui.cart.payment.PaymentActivity"
             android:exported="false" />
         <activity
-            android:name="com.comfest.seatudy.ui.auth.login.LoginActivity"
+            android:name=".utils.ErrorActivity"
             android:exported="false" />
         <activity
-            android:name="com.comfest.seatudy.ui.NavigationActivity"
+            android:name=".ui.dashboard.detailsyllabus.CourseDetailPerSyllabusActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.dashboard.detailcourse.CourseDetailSyllabusActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.register.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.NavigationActivity"
             android:exported="false"
             android:label="@string/title_activity_navigation" />
         <activity
-            android:name="com.comfest.seatudy.ui.dashboard.detail.CourseDetailActivity"
+            android:name=".ui.dashboard.detail.CourseDetailActivity"
             android:exported="false" />
-
-
         <activity
             android:name="com.comfest.instructor.ui.assignment.AssignmentInstructorActivity"
             android:exported="false" />
@@ -63,7 +73,6 @@
         <activity
             android:name="com.comfest.instructor.ui.MainActivityInstructor"
             android:exported="false" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true">

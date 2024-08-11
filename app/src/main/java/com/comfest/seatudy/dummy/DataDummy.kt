@@ -1,6 +1,8 @@
-package com.comfest.seatudy.dataDummy
+package com.comfest.seatudy.dummy
 
 import com.comfest.seatudy.domain.model.DataCourseList
+import com.comfest.seatudy.domain.model.DataForum
+import com.comfest.seatudy.domain.model.DataReview
 import com.comfest.seatudy.domain.model.DataSyllabus
 
 object DataDummy {
@@ -22,10 +24,39 @@ object DataDummy {
                 DataSyllabus(
                     "Whats in Android",
                     "Lorem",
-                    "https:youtube.com"
+                    ""
+                ),
+                DataSyllabus(
+                    "Whats in Android",
+                    "Lorem",
+                    ""
+                ),
+                DataSyllabus(
+                    "Whats in Android",
+                    "Lorem",
+                    "https://discord.com/channels/1254425469499998238/1269559910493065308/1272017821684990066"
                 )
             ),
-            "Activate"
+            "Activate",
+            listOf(
+                DataForum(
+                    "Dewa",
+                    "Lorem Ipsum Dallar Sit Amet"
+                ),
+                DataForum(
+                    "Ibra",
+                    "Lorem Ipsum Dallar Sit Amet"
+                ),
+                DataForum(
+                    "Dimas",
+                    "Lorem Ipsum Dallar Sit Amet"
+                )
+            ),
+            DataReview(
+                "Dewa Tri Wijaya",
+                "Lorem Ipsum Dallar Sit Amet",
+                "4"
+            )
         ),
         DataCourseList(
             "Software Engineer Web Development",
@@ -47,7 +78,26 @@ object DataDummy {
                     "https:youtube.com"
                 )
             ),
-            "Activate"
+            "InActivate",
+            listOf(
+                DataForum(
+                    "Dewa",
+                    "Lorem Ipsum Dallar Sit Amet"
+                ),
+                DataForum(
+                    "Ibra",
+                    "Lorem Ipsum Dallar Sit Amet"
+                ),
+                DataForum(
+                    "Dimas",
+                    "Lorem Ipsum Dallar Sit Amet"
+                )
+            ),
+            DataReview(
+                "Dewa Tri Wijaya",
+                "Lorem Ipsum Dallar Sit Amet",
+                "4"
+            )
         ),
         DataCourseList(
             "Software Engineer React Native",
@@ -79,7 +129,26 @@ object DataDummy {
                     "https:youtube.com"
                 )
             ),
-            "Activate"
+            "Activate",
+            listOf(
+                DataForum(
+                    "Dewa",
+                    "Lorem Ipsum Dallar Sit Amet"
+                ),
+                DataForum(
+                    "Ibra",
+                    "Lorem Ipsum Dallar Sit Amet"
+                ),
+                DataForum(
+                    "Dimas",
+                    "Lorem Ipsum Dallar Sit Amet"
+                )
+            ),
+            DataReview(
+                "Dewa Tri Wijaya",
+                "Lorem Ipsum Dallar Sit Amet",
+                "4"
+            )
         )
     )
 }

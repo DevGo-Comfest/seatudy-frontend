@@ -17,8 +17,8 @@ data class DataCourseList(
     val status: String,
     val syllabuses: List<DataSyllabus>,
     val enrollments: String,
-    //val forumPosts:,
-    //val reviews:
+    val forumPosts: List<DataForum>,
+    val reviews: DataReview,
 )
 
 data class DataSyllabus(
@@ -28,6 +28,12 @@ data class DataSyllabus(
 )
 
 data class DataForum(
-    val name: String,
+    val nameUser: String,
+    val description: String
+)
+
+data class DataReview(
+    val nameInstructor: String,
+    val description: String,
     val rating: String
 )

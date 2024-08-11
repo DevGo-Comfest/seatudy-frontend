@@ -100,8 +100,12 @@ dependencies {
     // Image Circle
     implementation("de.hdodenhof:circleimageview:3.1.0")
 
-    //youtube player
+    // youtube player
     implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
+
+    // Testing
+    testImplementation("org.mockito:mockito-core:4.4.0")
+    testImplementation("org.mockito:mockito-inline:4.4.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")

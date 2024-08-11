@@ -1,4 +1,4 @@
-package com.comfest.seatudy.data.source.remote.network
+package com.comfest.seatudy.data.source.network
 
 import com.comfest.seatudy.BuildConfig
 import dagger.Module

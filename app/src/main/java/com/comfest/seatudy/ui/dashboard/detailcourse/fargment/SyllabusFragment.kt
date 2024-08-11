@@ -1,4 +1,4 @@
-package com.comfest.seatudy.ui.dashboard.detail
+package com.comfest.seatudy.ui.dashboard.detailcourse.fargment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.comfest.seatudy.R
 
+class SyllabusFragment : Fragment() {
 
-class TabFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_tab, container, false)
-    }
 
+        return inflater.inflate(R.layout.fragment_syllabus, container, false)
+    }
 }

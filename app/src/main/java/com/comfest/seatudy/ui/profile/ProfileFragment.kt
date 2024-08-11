@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.comfest.seatudy.databinding.FragmentProfileBinding
 import com.comfest.seatudy.ui.auth.login.LoginActivity
+import com.comfest.seatudy.ui.cart.topup.TopUpActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,6 +31,10 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
+
+        binding.btnTopUp.setOnClickListener {
+           startActivity(Intent(requireContext(), TopUpActivity::class.java))
+        }
 
         binding.btnSignOut.setOnClickListener {
             profileViewModel.saveThemeSetting(false)

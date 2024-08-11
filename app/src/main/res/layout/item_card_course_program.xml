@@ -70,6 +70,14 @@
                 android:layout_height="wrap_content"
                 android:progressTint="@color/green"
                 android:progress="55" />
+
+            <Button
+                android:id="@+id/btnReview"
+                android:text="Reviews"
+                android:visibility="gone"
+                android:backgroundTint="@color/green"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </FrameLayout>
 

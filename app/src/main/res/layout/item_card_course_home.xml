@@ -16,7 +16,7 @@
 
         <ImageView
             android:id="@+id/imgCourse"
-            android:layout_width="250dp"
+            android:layout_width="260dp"
             android:layout_height="150dp"
             android:background="@color/purple" />
 
@@ -44,6 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:isIndicator="false"
+                android:progressTint="@color/orange"
                 android:numStars="5" />
 
             <ImageView
