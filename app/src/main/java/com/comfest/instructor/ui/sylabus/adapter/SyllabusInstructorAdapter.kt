@@ -35,6 +35,14 @@ class SyllabusInstructorAdapter(
                     listener.onItemClick(syllabus[position])
                 }
             }
+
+
+            binding.btnUpdateSyllabus.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onUpdateClick(syllabus[position])
+                }
+            }
         }
 
     }
@@ -58,5 +66,6 @@ class SyllabusInstructorAdapter(
 
     interface OnItemClickListener {
         fun onItemClick(syllabus: SyllabusDataInstructor)
+        fun onUpdateClick(syllabus: SyllabusDataInstructor)
     }
 }

@@ -52,4 +52,9 @@ class SyllabusInstructorActivity : AppCompatActivity(), SyllabusInstructorAdapte
         val intent = Intent(this, SyllabusMaterialInstructorActivity::class.java)
         startActivity(intent)
     }
+
+    override fun onUpdateClick(syllabus: SyllabusDataInstructor) {
+        val intent = Intent(this, UpdateSyllabusActivity::class.java)
+        startActivity(intent)
+    }
 }

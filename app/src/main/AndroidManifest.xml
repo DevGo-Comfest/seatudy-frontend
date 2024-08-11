@@ -21,6 +21,15 @@
         android:theme="@style/Theme.Seatudy"
         tools:targetApi="31">
         <activity
+            android:name="com.comfest.instructor.ui.sylabus.UpdateSyllabusMaterialActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.comfest.instructor.ui.sylabus.UpdateSyllabusActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.comfest.instructor.ui.course.UpdateCourseActivity"
+            android:exported="false" />
+        <activity
             android:name="com.comfest.instructor.ui.discussion.DiscussionInstructorActivity"
             android:exported="false" />
         <activity
@@ -39,7 +48,7 @@
             android:name="com.comfest.instructor.ui.home.DetailCourseActivity"
             android:exported="false" />
         <activity
-            android:name="com.comfest.instructor.ui.create_course.CreateCourseActivity"
+            android:name="com.comfest.instructor.ui.course.CreateCourseActivity"
             android:exported="false" />
         <activity
             android:name="com.comfest.instructor.ui.MainActivityInstructor"

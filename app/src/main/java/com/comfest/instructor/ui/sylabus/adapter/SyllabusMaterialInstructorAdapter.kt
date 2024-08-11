@@ -3,12 +3,15 @@ package com.comfest.instructor.ui.sylabus.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.comfest.instructor.data.dummy.SyllabusDataInstructor
 import com.comfest.instructor.data.dummy.SyllabusMaterialInstructor
 import com.comfest.seatudy.databinding.ItemSyllabusMaterialInstructorBinding
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 
-class SyllabusMaterialInstructorAdapter: RecyclerView.Adapter<SyllabusMaterialInstructorAdapter.SyllabusMaterialInstructorViewHolder>() {
+class SyllabusMaterialInstructorAdapter(
+    private val listener: OnItemClickListener
+): RecyclerView.Adapter<SyllabusMaterialInstructorAdapter.SyllabusMaterialInstructorViewHolder>() {
 
     private var syllabusMaterial: List<SyllabusMaterialInstructor> = emptyList()
 
@@ -34,9 +37,15 @@ class SyllabusMaterialInstructorAdapter: RecyclerView.Adapter<SyllabusMaterialIn
 
                 (binding.root.context as? androidx.lifecycle.LifecycleOwner)?.lifecycle?.addObserver(youtubePlayerView)
             }
+        }
 
-
-
+        init {
+            binding.btnUpdateSyllabusMaterial.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onUpdateClick(syllabusMaterial[position])
+                }
+            }
         }
 
         fun releaseYoutubePlayer() {
@@ -72,5 +81,10 @@ class SyllabusMaterialInstructorAdapter: RecyclerView.Adapter<SyllabusMaterialIn
     override fun onViewRecycled(holder: SyllabusMaterialInstructorViewHolder) {
         super.onViewRecycled(holder)
         holder.releaseYoutubePlayer()
+    }
+
+
+    interface OnItemClickListener {
+        fun onUpdateClick(syllabusMaterial: SyllabusMaterialInstructor)
     }
 }
