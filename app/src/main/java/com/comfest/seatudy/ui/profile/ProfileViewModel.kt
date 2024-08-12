@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.comfest.seatudy.domain.model.DataTopUp
 import com.comfest.seatudy.domain.repository.SeatudyRepository
 import com.comfest.seatudy.utils.SettingsPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,6 +18,8 @@ class ProfileViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun getProfile(token: String) = repo.getProfile(token)
+
+    fun topUp(balance: DataTopUp, token: String) = repo.topUp(balance, token)
 
     fun saveThemeSetting(state: Boolean) {
         viewModelScope.launch {

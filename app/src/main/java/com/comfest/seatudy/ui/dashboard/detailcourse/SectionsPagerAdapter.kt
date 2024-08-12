@@ -5,21 +5,30 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.comfest.seatudy.R
-import com.comfest.seatudy.ui.dashboard.detailcourse.fargment.SubmissionFragment
-import com.comfest.seatudy.ui.dashboard.detailcourse.fargment.SyllabusFragment
+import com.comfest.seatudy.ui.dashboard.detailcourse.fragment.CourseProgramFragment
+import com.comfest.seatudy.ui.dashboard.detailcourse.fragment.ForumsFragment
+import com.comfest.seatudy.ui.dashboard.detailcourse.fragment.InstructorsFragment
+import com.comfest.seatudy.ui.dashboard.detailcourse.fragment.ReviewsFragment
 
 private val TAB_TITLES = arrayOf(
-    R.string.tab_syllabus,
-    R.string.tab_submission
+    R.string.tab_course,
+    R.string.tab_instructor,
+    R.string.tab_reviews,
+    R.string.tab_forum
 )
 
-class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
+class SectionsPagerAdapter(
+    private val context: Context,
+    fm: FragmentManager
+) :
     FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         return when (position) {
-            0 -> SyllabusFragment()
-            1 -> SubmissionFragment()
+            0 -> CourseProgramFragment()
+            1 -> InstructorsFragment()
+            2 -> ReviewsFragment()
+            3 -> ForumsFragment()
             else -> throw IllegalStateException("Unexpected position $position")
         }
     }
@@ -29,6 +38,6 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
     }
 
     override fun getCount(): Int {
-        return 2
+        return 4
     }
 }

@@ -1,27 +1,22 @@
 package com.comfest.seatudy.ui.home.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.comfest.seatudy.databinding.ItemCardCategoriesBinding
-import com.comfest.seatudy.domain.model.DataCourseList
-import com.comfest.seatudy.ui.dashboard.detail.CourseDetailActivity
 
-class AdapterListCategories(private val items: List<DataCourseList>) :
+class AdapterListCategories(
+    private val items: List<String>,
+    private val onCategoryClick: (name: String) -> Unit
+) :
     RecyclerView.Adapter<AdapterListCategories.AdapterServiceViewHolder>() {
 
     inner class AdapterServiceViewHolder(private val binding: ItemCardCategoriesBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: DataCourseList) {
-            binding.nameCategories.text = item.category
-
-            binding.card.setOnClickListener {
-                val intent =
-                    Intent(itemView.context, CourseDetailActivity::class.java).apply {
-                        putExtra("TITLE", item.nameCourse)
-                    }
-                itemView.context.startActivity(intent)
+        fun bind(item: String) {
+            binding.nameCategories.text = item
+            itemView.setOnClickListener {
+                onCategoryClick(item)
             }
         }
     }

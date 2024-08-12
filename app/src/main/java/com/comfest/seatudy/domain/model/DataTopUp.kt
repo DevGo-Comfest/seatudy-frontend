@@ -1,6 +1,6 @@
 package com.comfest.seatudy.domain.model
 
 data class DataTopUp(
-    val amount: String,
-    val paymentMethod: String
+    val amount: Int,
+    val payment_method: String
 )

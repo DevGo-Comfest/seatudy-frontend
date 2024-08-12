@@ -8,6 +8,7 @@
     <string name="title_course">Course</string>
     <string name="title_cart">Cart</string>
     <string name="title_profile">Profile</string>
+    <string name="title_search">Search</string>
 
     <string name="tab_course">Course Programs</string>
     <string name="tab_instructor">Instructor</string>
@@ -19,5 +20,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="my_balance">My Balance</string>
+    <string name="sign_out_of_my_account">Sign out of my account</string>
+    <string name="top_up">Top Up</string>
 
 </resources>

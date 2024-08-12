@@ -16,7 +16,13 @@ class HomeViewModel @Inject constructor(
 
     fun getCourse() = repo.getCourses()
 
+    fun getCourseCategory(category: String) = repo.getCourseCategory(category)
 
+    fun getSearchCourseName(courseName: String) = repo.getSearchCourseName(courseName)
+
+    fun getName(): LiveData<String> {
+        return pref.getName().asLiveData()
+    }
 
     fun getToken(): LiveData<String> {
         return pref.getTokenUser().asLiveData()

@@ -2,20 +2,20 @@ package com.comfest.seatudy.ui.home.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
-import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.comfest.seatudy.data.source.respon.ResponseCourses
+import com.comfest.seatudy.data.source.respon.ResponseCoursesDetail
 import com.comfest.seatudy.databinding.ItemCardCourseHomeBinding
 import com.comfest.seatudy.ui.dashboard.detailcourse.CourseDetailActivity
 
-class AdapterCourseList(private val items: List<ResponseCourses>) :
-    RecyclerView.Adapter<AdapterCourseList.AdapterServiceViewHolder>() {
+class AdapterCourseSearch(private val items: List<ResponseCoursesDetail>) :
+    RecyclerView.Adapter<AdapterCourseSearch.AdapterServiceViewHolder>() {
 
     inner class AdapterServiceViewHolder(private val binding: ItemCardCourseHomeBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ResponseCourses) {
+        fun bind(item: ResponseCoursesDetail) {
             binding.tvNameCourse.text = item.title
             binding.tvRating.rating = item.rating.toFloat()
             binding.tvLevel.text = item.difficultyLevel

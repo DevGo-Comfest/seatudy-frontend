@@ -1,4 +1,4 @@
-package com.comfest.seatudy.ui.dashboard.detailsyllabus
+package com.comfest.seatudy.ui.dashboard.detailpersyllabus
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

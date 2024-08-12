@@ -66,8 +66,10 @@ class LoginActivity : AppCompatActivity() {
                             loginViewModel.saveThemeSetting(true)
                             val token = it.data?.token ?: ""
                             val role = it.data?.user?.role ?: ""
+                            val name = it.data?.user?.name ?: ""
                             loginViewModel.saveTokenUser(token)
                             loginViewModel.saveRoleUser(role)
+                            loginViewModel.saveNameUser(name)
                             if (it.data?.user?.role == "user") {
                                 startActivity(
                                     Intent(

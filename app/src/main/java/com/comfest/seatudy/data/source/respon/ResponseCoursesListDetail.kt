@@ -2,14 +2,23 @@ package com.comfest.seatudy.data.source.respon
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseCoursesList(
-    @field:SerializedName("courses")
-    val courses: List<ResponseCourses>
+data class ResponseCoursesListDetail(
+    @field:SerializedName("course")
+    val courses: ResponseCoursesDetail
 )
 
-data class ResponseCourses(
+data class ResponseCoursesListDetailCategory(
+    @field:SerializedName("courses")
+    val courses: List<ResponseCoursesDetail>
+)
+
+
+data class ResponseCoursesDetail(
     @field:SerializedName("CourseID")
     val courseID: Int,
+
+    @field:SerializedName("PrimaryAuthor")
+    val instructorID: String,
 
     @field:SerializedName("Title")
     val title: String,
@@ -41,8 +50,11 @@ data class ResponseCourses(
     @field:SerializedName("Status")
     val status: String,
 
+    @field:SerializedName("IsDeleted")
+    val isDeleted: Boolean,
+
     @field:SerializedName("Syllabuses")
-    val syllabuses: String,
+    val syllabuses: List<ResponseSyllabuses>,
 
     @field:SerializedName("Enrollments")
     val enrollments: String,

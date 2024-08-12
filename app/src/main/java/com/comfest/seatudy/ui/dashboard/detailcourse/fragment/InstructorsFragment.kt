@@ -1,4 +1,4 @@
-package com.comfest.seatudy.ui.dashboard.detail.fragment
+package com.comfest.seatudy.ui.dashboard.detailcourse.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -26,7 +26,7 @@ class AdapterTopUp(private val items: List<DataPayment>) :
             binding.cardCourse.setOnClickListener {
                 val intent =
                     Intent(itemView.context, VerifyAmountActivity::class.java).apply {
-                        putExtra("TITLE", item.payment)
+                        putExtra("PAYMENT", item.payment)
                     }
                 itemView.context.startActivity(intent)
             }
