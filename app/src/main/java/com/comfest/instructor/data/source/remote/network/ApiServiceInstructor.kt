@@ -1,9 +1,13 @@
 package com.comfest.instructor.data.source.remote.network
 
 import com.comfest.instructor.data.source.remote.response.CourseResponse
+import com.comfest.instructor.data.source.remote.response.CreateAssignmentResponse
 import com.comfest.instructor.data.source.remote.response.CreateCourseResponse
+import com.comfest.instructor.data.source.remote.response.CreateSyllabusResponse
 import com.comfest.instructor.data.source.remote.response.UploadImageResponse
+import com.comfest.instructor.domain.model.RequestCreateAssignment
 import com.comfest.instructor.domain.model.RequestCreateCourse
+import com.comfest.instructor.domain.model.RequestCreateSyllabus
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -51,4 +55,19 @@ interface ApiServiceInstructor {
         @Path("id") courseId: Int,
         @Header("Authorization") token: String,
     ): Response<CreateCourseResponse>
+
+    @POST("api/syllabus")
+    suspend fun createSyllabus(
+        @Header("Authorization") token: String,
+        @Body requestCreateSyllabus: RequestCreateSyllabus
+    ): Response<CreateSyllabusResponse>
+
+
+
+    @POST("api/syllabus/{id}/assignments")
+    suspend fun createAssignment (
+        @Path("id") courseId: Int,
+        @Header("Authorization") token: String,
+        @Body requestCreateAssignment: RequestCreateAssignment
+    ): Response<CreateAssignmentResponse>
 }

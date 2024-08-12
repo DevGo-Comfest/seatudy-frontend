@@ -1,0 +1,26 @@
+package com.comfest.instructor.ui.sylabus
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import com.comfest.instructor.data.InstructorRepository
+import com.comfest.instructor.domain.model.RequestCreateAssignment
+import com.comfest.instructor.domain.model.RequestCreateCourse
+import com.comfest.instructor.domain.model.RequestCreateSyllabus
+import com.comfest.seatudy.utils.SettingsPreferences
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+
+@HiltViewModel
+class SyllabusViewModel @Inject constructor(
+    private val instructorRepository: InstructorRepository,
+    private val pref: SettingsPreferences
+): ViewModel() {
+
+
+    fun createSyllabus(token: String, requestCreateSyllabus: RequestCreateSyllabus) = instructorRepository.createSyllabus("Bearer $token", requestCreateSyllabus)
+    fun createAssignment(id: Int, token: String, requestCreateAssignment: RequestCreateAssignment) = instructorRepository.createAssignment(id, "Bearer $token", requestCreateAssignment)
+    fun getToken(): LiveData<String> {
+        return pref.getTokenUser().asLiveData()
+    }
+}

@@ -5,9 +5,13 @@ import androidx.lifecycle.liveData
 import com.comfest.instructor.data.source.remote.network.ApiServiceInstructor
 import com.comfest.instructor.data.source.remote.response.Course
 import com.comfest.instructor.data.source.remote.response.CourseResponse
+import com.comfest.instructor.data.source.remote.response.CreateAssignmentResponse
 import com.comfest.instructor.data.source.remote.response.CreateCourseResponse
+import com.comfest.instructor.data.source.remote.response.CreateSyllabusResponse
 import com.comfest.instructor.data.source.remote.response.UploadImageResponse
+import com.comfest.instructor.domain.model.RequestCreateAssignment
 import com.comfest.instructor.domain.model.RequestCreateCourse
+import com.comfest.instructor.domain.model.RequestCreateSyllabus
 import com.comfest.seatudy.data.Resource
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
@@ -87,4 +91,35 @@ class InstructorRepository @Inject constructor(private val apiServiceInstructor:
             emit(Resource.Error(e.toString()))
             }
         }
+
+
+    fun createSyllabus(token: String, requestCreateSyllabus: RequestCreateSyllabus): LiveData<Resource<Response<CreateSyllabusResponse>>> = liveData {
+        emit(Resource.Loading())
+        try {
+            val response = apiServiceInstructor.createSyllabus(token, requestCreateSyllabus)
+            if (response.isSuccessful) {
+                emit(Resource.Success(response))
+            } else {
+                emit(Resource.Error(response.message()))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
+
+    fun createAssignment(id: Int, token: String, requestCreateAssignment: RequestCreateAssignment): LiveData<Resource<Response<CreateAssignmentResponse>>> = liveData {
+        emit(Resource.Loading())
+        try {
+            val response = apiServiceInstructor.createAssignment(id, token, requestCreateAssignment)
+            if (response.isSuccessful) {
+                emit(Resource.Success(response))
+            } else {
+                emit(Resource.Error(response.message()))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
+
+
 }
