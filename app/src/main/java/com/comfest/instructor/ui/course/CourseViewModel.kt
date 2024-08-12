@@ -19,6 +19,7 @@ class CourseViewModel @Inject constructor(
 
     fun uploadImage(token: String, image: MultipartBody.Part) = instructorRepository.uploadImage("Bearer $token", image)
     fun crateCourse(token: String, requestCreateCourse: RequestCreateCourse) = instructorRepository.createCourse("Bearer $token", requestCreateCourse)
+    fun updateCourse(id: Int, token: String, requestCreateCourse: RequestCreateCourse) = instructorRepository.updateCourse(id, "Bearer $token", requestCreateCourse)
 
     fun getToken(): LiveData<String> {
         return pref.getTokenUser().asLiveData()

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.comfest.instructor.data.source.remote.response.Course
 import com.comfest.instructor.ui.assignment.AddInstructorActivity
 import com.comfest.instructor.ui.assignment.AssignmentInstructorActivity
 import com.comfest.instructor.ui.discussion.DiscussionInstructorActivity
@@ -18,6 +20,21 @@ class DetailCourseActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityDetailCourseBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+
+
+        val course = intent.getParcelableExtra<Course>("course")
+
+        course.let {
+            Glide.with(this)
+                .load(it?.ImageURL)
+                .into(binding.ivDetailCourse)
+
+            binding.tvTitle.text = it?.Title
+            binding.tvDesc.text = it?.Description
+            binding.ratingBar.rating = it?.Rating!!.toFloat()
+        }
 
         binding.btnSyllabus.setOnClickListener {
             val intent = Intent(this, SyllabusInstructorActivity::class.java)

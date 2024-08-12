@@ -58,4 +58,19 @@ class InstructorRepository @Inject constructor(private val apiServiceInstructor:
             emit(Resource.Error(e.toString()))
         }
     }
+
+
+    fun updateCourse(id: Int, token: String, requestCreateCourse: RequestCreateCourse): LiveData<Resource<Response<CreateCourseResponse>>> = liveData {
+        emit(Resource.Loading())
+        try {
+            val response = apiServiceInstructor.updateCourse(id, token, requestCreateCourse)
+            if (response.isSuccessful) {
+                emit(Resource.Success(response))
+            } else {
+                emit(Resource.Error(response.message()))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
 }

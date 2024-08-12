@@ -101,10 +101,14 @@ class HomeInstructorFragment : Fragment(), HomeCourseInstructorAdapter.OnItemCli
     }
 
     override fun onItemClick(course: Course) {
-        Toast.makeText(requireContext(), "Click  course", Toast.LENGTH_SHORT).show()
+        val intent  = Intent(context, DetailCourseActivity::class.java)
+        intent.putExtra("course", course)
+        context?.startActivity(intent)
     }
 
     override fun onUpdateClick(course: Course) {
-        Toast.makeText(requireContext(), "Click  course", Toast.LENGTH_SHORT).show()
+        val intent  = Intent(context, UpdateCourseActivity::class.java)
+        intent.putExtra("course", course)
+        context?.startActivity(intent)
     }
 }

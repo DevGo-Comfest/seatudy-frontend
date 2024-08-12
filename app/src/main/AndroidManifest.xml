@@ -59,7 +59,8 @@
 
         <activity android:name="com.comfest.instructor.ui.course.CreateCourseActivity"
             android:exported="false"/>
-
+        <activity android:name="com.comfest.instructor.ui.course.UpdateCourseActivity"
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
