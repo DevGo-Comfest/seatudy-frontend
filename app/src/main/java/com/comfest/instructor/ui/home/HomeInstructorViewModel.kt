@@ -17,6 +17,8 @@ class HomeInstructorViewModel @Inject constructor(
 
     fun getCourse(token: String) = instructorRepository.getCourse("Bearer $token")
 
+    fun activatedCourse(id: Int, token: String) = instructorRepository.activatedCourse(id, "Bearer $token")
+
     fun getToken(): LiveData<String> {
         return pref.getTokenUser().asLiveData()
     }

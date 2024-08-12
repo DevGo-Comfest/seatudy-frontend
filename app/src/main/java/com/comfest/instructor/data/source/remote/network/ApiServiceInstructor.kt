@@ -44,4 +44,11 @@ interface ApiServiceInstructor {
         @Header("Authorization") token: String,
         @Body requestCreateCourse: RequestCreateCourse
     ): Response<CreateCourseResponse>
+
+
+    @PUT("api/courses/{id}/activate")
+    suspend fun activatedCourse(
+        @Path("id") courseId: Int,
+        @Header("Authorization") token: String,
+    ): Response<CreateCourseResponse>
 }
