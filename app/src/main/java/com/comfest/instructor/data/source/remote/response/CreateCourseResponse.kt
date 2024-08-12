@@ -14,8 +14,8 @@ data class Course(
     @field:SerializedName("CourseID")
     val CourseID: Int,
 
-    @field:SerializedName("UserID")
-    val UserID: String,
+    @field:SerializedName("PrimaryAuthor")
+    val PrimaryAuthor: String,
 
     @field:SerializedName("Title")
     val Title: String,
