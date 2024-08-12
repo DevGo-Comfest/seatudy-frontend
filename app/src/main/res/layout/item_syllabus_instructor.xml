@@ -43,69 +43,6 @@
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
 
 
-        <TextView
-            android:id="@+id/assignment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:textSize="12sp"
-            android:layout_marginTop="13dp"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/tv_desc_syllabus"
-            app:layout_constraintStart_toStartOf="@id/tv_desc_syllabus"
-            android:text="Assignments"/>
-
-
-        <TextView
-            android:id="@+id/tv_assignment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:textSize="12sp"
-            android:layout_marginTop="8dp"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/assignment"
-            app:layout_constraintStart_toStartOf="@id/assignment"
-            android:text="Lorem ipsum dolor sit amet"/>
-
-
-        <TextView
-            android:id="@+id/due_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:textSize="12sp"
-            android:layout_marginTop="3dp"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/tv_assignment"
-            app:layout_constraintStart_toStartOf="@id/tv_assignment"
-            android:text="Due date: "/>
-
-        <TextView
-            android:id="@+id/tv_due_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:textSize="12sp"
-            android:layout_marginStart="3dp"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toEndOf="@id/due_date"
-            app:layout_constraintTop_toTopOf="@id/due_date"
-            app:layout_constraintBottom_toBottomOf="@id/due_date"
-            android:text="3"/>
-
-        <TextView
-            android:id="@+id/day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:textSize="12sp"
-            android:layout_marginStart="4dp"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toEndOf="@id/tv_due_date"
-            app:layout_constraintTop_toTopOf="@id/due_date"
-            app:layout_constraintBottom_toBottomOf="@id/due_date"
-            android:text="Day"/>
 
 
         <ImageButton
@@ -117,8 +54,8 @@
             android:src="@drawable/button_image_update_instructor"
             android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/due_date"
-            app:layout_constraintStart_toStartOf="@id/due_date"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_desc_syllabus"
+            app:layout_constraintStart_toStartOf="@id/tv_desc_syllabus"/>
 
 
 

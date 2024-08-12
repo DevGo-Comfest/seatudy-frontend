@@ -4,6 +4,7 @@ import com.comfest.instructor.data.source.remote.response.CourseResponse
 import com.comfest.instructor.data.source.remote.response.CreateAssignmentResponse
 import com.comfest.instructor.data.source.remote.response.CreateCourseResponse
 import com.comfest.instructor.data.source.remote.response.CreateSyllabusResponse
+import com.comfest.instructor.data.source.remote.response.DetailCourseResponse
 import com.comfest.instructor.data.source.remote.response.UploadImageResponse
 import com.comfest.instructor.domain.model.RequestCreateAssignment
 import com.comfest.instructor.domain.model.RequestCreateCourse
@@ -70,4 +71,11 @@ interface ApiServiceInstructor {
         @Header("Authorization") token: String,
         @Body requestCreateAssignment: RequestCreateAssignment
     ): Response<CreateAssignmentResponse>
+
+
+    @GET("/api/courses/{id}")
+    suspend fun getDetailCourse(
+        @Path("id") courseId: Int,
+        @Header("Authorization") token: String,
+    ): Response<DetailCourseResponse>
 }

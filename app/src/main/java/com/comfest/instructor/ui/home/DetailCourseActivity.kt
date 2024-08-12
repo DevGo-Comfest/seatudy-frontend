@@ -3,6 +3,7 @@ package com.comfest.instructor.ui.home
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -89,7 +90,8 @@ class DetailCourseActivity : AppCompatActivity() {
 
         binding.btnSyllabus.setOnClickListener {
             val intent = Intent(this, SyllabusInstructorActivity::class.java)
-            intent.putExtra("course", course)
+            intent.putExtra("course_detail", course)
+            Log.d("DetailCourseActivity", "ID COURSE ${course?.CourseID}")
             startActivity(intent)
         }
 

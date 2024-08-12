@@ -8,6 +8,7 @@ import com.comfest.instructor.data.source.remote.response.CourseResponse
 import com.comfest.instructor.data.source.remote.response.CreateAssignmentResponse
 import com.comfest.instructor.data.source.remote.response.CreateCourseResponse
 import com.comfest.instructor.data.source.remote.response.CreateSyllabusResponse
+import com.comfest.instructor.data.source.remote.response.DetailCourseResponse
 import com.comfest.instructor.data.source.remote.response.UploadImageResponse
 import com.comfest.instructor.domain.model.RequestCreateAssignment
 import com.comfest.instructor.domain.model.RequestCreateCourse
@@ -111,6 +112,21 @@ class InstructorRepository @Inject constructor(private val apiServiceInstructor:
         emit(Resource.Loading())
         try {
             val response = apiServiceInstructor.createAssignment(id, token, requestCreateAssignment)
+            if (response.isSuccessful) {
+                emit(Resource.Success(response))
+            } else {
+                emit(Resource.Error(response.message()))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
+
+
+    fun getDetailCourse(courseId: Int, token: String): LiveData<Resource<Response<DetailCourseResponse>>> = liveData {
+        emit(Resource.Loading())
+        try {
+            val response = apiServiceInstructor.getDetailCourse(courseId, token)
             if (response.isSuccessful) {
                 emit(Resource.Success(response))
             } else {

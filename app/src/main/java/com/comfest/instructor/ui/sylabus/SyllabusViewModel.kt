@@ -20,6 +20,9 @@ class SyllabusViewModel @Inject constructor(
 
     fun createSyllabus(token: String, requestCreateSyllabus: RequestCreateSyllabus) = instructorRepository.createSyllabus("Bearer $token", requestCreateSyllabus)
     fun createAssignment(id: Int, token: String, requestCreateAssignment: RequestCreateAssignment) = instructorRepository.createAssignment(id, "Bearer $token", requestCreateAssignment)
+
+    fun getDetailCourse(courseId: Int, token: String) = instructorRepository.getDetailCourse(courseId, "Bearer $token")
+
     fun getToken(): LiveData<String> {
         return pref.getTokenUser().asLiveData()
     }

@@ -2,6 +2,7 @@ package com.comfest.instructor.ui.sylabus
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.comfest.instructor.data.dummy.SyllabusDataInstructor
 import com.comfest.instructor.data.source.remote.response.Course
+import com.comfest.instructor.data.source.remote.response.SyllabusDetail
 import com.comfest.instructor.domain.model.RequestCreateAssignment
 import com.comfest.instructor.domain.model.RequestCreateSyllabus
 import com.comfest.instructor.ui.sylabus.adapter.SyllabusInstructorAdapter
@@ -26,19 +28,29 @@ class SyllabusInstructorActivity : AppCompatActivity(), SyllabusInstructorAdapte
 
     private var syllabusId: Int? = null
     private var tokenUser: String? = null
-    private var courseId: Int? = null
+    private var courseId: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivitySyllabusInstructorBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val course = intent.getParcelableExtra<Course>("course")
-        courseId = course?.CourseID
+        val course = intent.getParcelableExtra<Course>("course_detail")
+        courseId = course!!.CourseID
+        Log.d("SyllabusInstructorActivity", "RECEIVED USER_ID $courseId")
 
         syllabusViewModel = ViewModelProvider(this)[SyllabusViewModel::class.java]
-        syllabusViewModel.getToken().observe(this){
-            tokenUser = it
+
+
+        syllabusAdapter = SyllabusInstructorAdapter(this)
+        binding.rvList.adapter = syllabusAdapter
+        binding.rvList.layoutManager = LinearLayoutManager(this)
+
+
+        syllabusViewModel.getToken().observe(this){token ->
+            Log.d("SyllabusInstructorActivity", "RECEIVED TOKEN $token")
+            loadSyllabus(courseId, token)
+            tokenUser = token
         }
 
         binding.ivBack.setOnClickListener {
@@ -53,8 +65,8 @@ class SyllabusInstructorActivity : AppCompatActivity(), SyllabusInstructorAdapte
             addAssignment()
         }
 
-        setupRecyclerView()
-        loadedSyllabus()
+//        setupRecyclerView()
+//        loadedSyllabus()
     }
 
     private fun addAssignment() {
@@ -122,6 +134,7 @@ class SyllabusInstructorActivity : AppCompatActivity(), SyllabusInstructorAdapte
                     is Resource.Success -> {
                         Toast.makeText(this@SyllabusInstructorActivity, "Syllabus created successfully", Toast.LENGTH_SHORT).show()
                         syllabusId = it.data?.body()?.syllabus?.SyllabusID
+                        loadSyllabus(courseId, tokenUser!!)
                     }
 
                     is Resource.Error -> {
@@ -141,33 +154,55 @@ class SyllabusInstructorActivity : AppCompatActivity(), SyllabusInstructorAdapte
     }
 
 
-    private fun setupRecyclerView() {
-        syllabusAdapter = SyllabusInstructorAdapter(this)
-        binding.rvList.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = syllabusAdapter
+//    private fun setupRecyclerView() {
+//        syllabusAdapter = SyllabusInstructorAdapter(this)
+//        binding.rvList.apply {
+//            layoutManager = LinearLayoutManager(context)
+//            adapter = syllabusAdapter
+//        }
+//    }
+
+//    private fun loadedSyllabus() {
+//        val titleDummy = "Lorem ipsum dolor sit amet"
+//        val descDummy = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+//        val sampleSyllabus = listOf(
+//            SyllabusDataInstructor(titleDummy, descDummy, titleDummy, 4),
+//            SyllabusDataInstructor(titleDummy, descDummy, titleDummy, 3),
+//            SyllabusDataInstructor(titleDummy, descDummy, titleDummy, 1),
+//            SyllabusDataInstructor(titleDummy, descDummy, titleDummy, 5),
+//        )
+//        syllabusAdapter.setSyllabus(sampleSyllabus)
+//    }
+
+    override fun onItemClick(syllabus: SyllabusDetail) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onUpdateClick(syllabus: SyllabusDetail) {
+        TODO("Not yet implemented")
+    }
+
+
+    private fun loadSyllabus(courseId: Int, token: String) {
+        syllabusViewModel.getDetailCourse(courseId, token).observe(this@SyllabusInstructorActivity) {
+            when (it) {
+                is Resource.Loading -> {
+                    // Show loading indicator
+                    Toast.makeText(this@SyllabusInstructorActivity, "Loading get syllabuses...", Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Success -> {
+                    it.data?.body()?.course?.syllabuses?.let { syllabusDetail ->
+                        syllabusAdapter.setSyllabus(syllabusDetail)
+                    }
+
+                    Toast.makeText(this@SyllabusInstructorActivity, "Success get syllabuses...", Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Error -> {
+                    // Handle the error
+                    Toast.makeText(this@SyllabusInstructorActivity, "Error get syllabuses...", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
-    private fun loadedSyllabus() {
-        val titleDummy = "Lorem ipsum dolor sit amet"
-        val descDummy = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        val sampleSyllabus = listOf(
-            SyllabusDataInstructor(titleDummy, descDummy, titleDummy, 4),
-            SyllabusDataInstructor(titleDummy, descDummy, titleDummy, 3),
-            SyllabusDataInstructor(titleDummy, descDummy, titleDummy, 1),
-            SyllabusDataInstructor(titleDummy, descDummy, titleDummy, 5),
-        )
-        syllabusAdapter.setSyllabus(sampleSyllabus)
-    }
-
-    override fun onItemClick(syllabus: SyllabusDataInstructor) {
-        val intent = Intent(this, SyllabusMaterialInstructorActivity::class.java)
-        startActivity(intent)
-    }
-
-    override fun onUpdateClick(syllabus: SyllabusDataInstructor) {
-        val intent = Intent(this, UpdateSyllabusActivity::class.java)
-        startActivity(intent)
-    }
 }
