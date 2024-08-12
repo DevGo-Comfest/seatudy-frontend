@@ -3,6 +3,8 @@ package com.comfest.instructor.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.comfest.instructor.data.source.remote.network.ApiServiceInstructor
+import com.comfest.instructor.data.source.remote.response.Course
+import com.comfest.instructor.data.source.remote.response.CourseResponse
 import com.comfest.instructor.data.source.remote.response.CreateCourseResponse
 import com.comfest.instructor.data.source.remote.response.UploadImageResponse
 import com.comfest.instructor.domain.model.RequestCreateCourse
@@ -37,6 +39,20 @@ class InstructorRepository @Inject constructor(private val apiServiceInstructor:
                 emit(Resource.Success(response))
             } else {
                 emit(Resource.Error(response.message))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
+
+    fun getCourse(token: String): LiveData<Resource<Response<CourseResponse>>> = liveData {
+        emit(Resource.Loading())
+        try {
+            val response = apiServiceInstructor.getCourse(token)
+            if (response.isSuccessful) {
+                emit(Resource.Success(response))
+            } else {
+                emit(Resource.Error(response.message()))
             }
         } catch (e: Exception) {
             emit(Resource.Error(e.toString()))

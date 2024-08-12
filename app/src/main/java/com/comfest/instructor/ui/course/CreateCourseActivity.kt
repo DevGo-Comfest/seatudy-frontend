@@ -221,7 +221,7 @@ class CreateCourseActivity : AppCompatActivity() {
                 price = price.toInt(),
                 category = category,
                 difficultyLevel = difficultyLevel,
-                image_url = "https://seastudy.dimas.lol/uploads/a4a5f22d-1ac0-449f-9fa6-fdbfea9ecdb8.png"
+                image_url = imageUrl!!
             )
 
             createCourseViewModel.crateCourse(tokenUser!!, requestCreateCourse).observe(this@CreateCourseActivity) {

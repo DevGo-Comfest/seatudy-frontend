@@ -2,23 +2,33 @@ package com.comfest.instructor.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.comfest.instructor.data.dummy.CourseInstructor
+import com.comfest.instructor.data.source.remote.response.Course
 import com.comfest.instructor.ui.course.UpdateCourseActivity
 import com.comfest.instructor.ui.home.adapter.HomeCourseInstructorAdapter
 import com.comfest.seatudy.R
+import com.comfest.seatudy.data.Resource
 import com.comfest.seatudy.databinding.FragmentHomeInstructorBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class HomeInstructorFragment : Fragment(), HomeCourseInstructorAdapter.OnItemClickListener {
 
     private var _binding: FragmentHomeInstructorBinding? = null
     private val binding get() = _binding!!
     private lateinit var courseAdapter: HomeCourseInstructorAdapter
+    private lateinit var homeInstructorViewModel: HomeInstructorViewModel
+
+    private var token: String ? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,49 +42,69 @@ class HomeInstructorFragment : Fragment(), HomeCourseInstructorAdapter.OnItemCli
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        homeInstructorViewModel = ViewModelProvider(this)[HomeInstructorViewModel::class.java]
+
         setUpRecyclerView()
-        loadCourses()
+//        loadCourses()
     }
 
 
     private fun setUpRecyclerView() {
-        courseAdapter = HomeCourseInstructorAdapter(this)
-        binding.rvList.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = courseAdapter
+//        courseAdapter = HomeCourseInstructorAdapter(this)
+//        binding.rvList.apply {
+//            layoutManager = LinearLayoutManager(context)
+//            adapter = courseAdapter
+//        }
+
+        homeInstructorViewModel.getToken().observe(viewLifecycleOwner) { tokenUser ->
+//            token = tokenUser
+            homeInstructorViewModel.getCourse(tokenUser).observe(viewLifecycleOwner) {
+                when (it) {
+                    is Resource.Loading -> {
+                        Toast.makeText(requireContext(), "Loading get course", Toast.LENGTH_SHORT)
+                            .show()
+                        Log.d("HomeInstructorFragment", token ?: "")
+                    }
+
+                    is Resource.Success -> {
+                        Toast.makeText(requireContext(), "Success get course", Toast.LENGTH_SHORT)
+                            .show()
+                        val data = it.data?.body()
+                        if (data != null) {
+
+
+                            courseAdapter = HomeCourseInstructorAdapter(this)
+                            binding.rvList.layoutManager =
+                                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                            binding.rvList.adapter = courseAdapter
+
+                            courseAdapter.setCourses(data.course)
+                        }
+                    }
+
+                    is Resource.Error -> {
+                        Toast.makeText(requireContext(), "Failed get course", Toast.LENGTH_SHORT).show()
+                        Log.d("HomeInstructorFragment", token ?: "")
+                    }
+                }
+            }
         }
+
+
+
     }
-
-
-    private fun loadCourses() {
-        val sampleCourses = listOf(
-            CourseInstructor(1,  R.drawable.test_dummy ,"Software Engineer Mobile Development Android Engineer", 4, "12H"),
-            CourseInstructor(2,  R.drawable.test_dummy,"iOS Development", 4, "10H"),
-            CourseInstructor(3,  R.drawable.test_dummy,"Web Development", 5, "15H")
-        )
-        courseAdapter.setCourses(sampleCourses)
-    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    override fun onItemClick(course: CourseInstructor) {
-        val intent = Intent(context, DetailCourseActivity::class.java).apply {
-            putExtra("EXTRA_COURSE_ID", course.id)
-            putExtra("EXTRA_COURSE_NAME", course.name)
-            putExtra("EXTRA_COURSE_RATING", course.rating)
-            putExtra("EXTRA_COURSE_DURATION", course.duration)
-            putExtra("EXTRA_COURSE_IMAGE", course.image)
-        }
-        startActivity(intent)
+    override fun onItemClick(course: Course) {
+        Toast.makeText(requireContext(), "Click  course", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onUpdateClick(course: CourseInstructor) {
-        val intent = Intent(context, UpdateCourseActivity::class.java)
-        startActivity(intent)
+    override fun onUpdateClick(course: Course) {
+        Toast.makeText(requireContext(), "Click  course", Toast.LENGTH_SHORT).show()
     }
-
 }
