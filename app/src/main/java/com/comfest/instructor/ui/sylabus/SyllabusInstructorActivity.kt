@@ -8,7 +8,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.comfest.instructor.data.dummy.SyllabusDataInstructor
 import com.comfest.instructor.data.source.remote.response.Course
 import com.comfest.instructor.data.source.remote.response.SyllabusDetail
 import com.comfest.instructor.domain.model.RequestCreateAssignment
@@ -37,7 +36,6 @@ class SyllabusInstructorActivity : AppCompatActivity(), SyllabusInstructorAdapte
 
         val course = intent.getParcelableExtra<Course>("course_detail")
         courseId = course!!.CourseID
-        Log.d("SyllabusInstructorActivity", "RECEIVED USER_ID $courseId")
 
         syllabusViewModel = ViewModelProvider(this)[SyllabusViewModel::class.java]
 
@@ -48,7 +46,6 @@ class SyllabusInstructorActivity : AppCompatActivity(), SyllabusInstructorAdapte
 
 
         syllabusViewModel.getToken().observe(this){token ->
-            Log.d("SyllabusInstructorActivity", "RECEIVED TOKEN $token")
             loadSyllabus(courseId, token)
             tokenUser = token
         }
@@ -152,28 +149,6 @@ class SyllabusInstructorActivity : AppCompatActivity(), SyllabusInstructorAdapte
             }
         }
     }
-
-
-//    private fun setupRecyclerView() {
-//        syllabusAdapter = SyllabusInstructorAdapter(this)
-//        binding.rvList.apply {
-//            layoutManager = LinearLayoutManager(context)
-//            adapter = syllabusAdapter
-//        }
-//    }
-
-//    private fun loadedSyllabus() {
-//        val titleDummy = "Lorem ipsum dolor sit amet"
-//        val descDummy = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-//        val sampleSyllabus = listOf(
-//            SyllabusDataInstructor(titleDummy, descDummy, titleDummy, 4),
-//            SyllabusDataInstructor(titleDummy, descDummy, titleDummy, 3),
-//            SyllabusDataInstructor(titleDummy, descDummy, titleDummy, 1),
-//            SyllabusDataInstructor(titleDummy, descDummy, titleDummy, 5),
-//        )
-//        syllabusAdapter.setSyllabus(sampleSyllabus)
-//    }
-
     override fun onItemClick(syllabus: SyllabusDetail) {
         TODO("Not yet implemented")
     }
@@ -181,7 +156,6 @@ class SyllabusInstructorActivity : AppCompatActivity(), SyllabusInstructorAdapte
     override fun onUpdateClick(syllabus: SyllabusDetail) {
         TODO("Not yet implemented")
     }
-
 
     private fun loadSyllabus(courseId: Int, token: String) {
         syllabusViewModel.getDetailCourse(courseId, token).observe(this@SyllabusInstructorActivity) {

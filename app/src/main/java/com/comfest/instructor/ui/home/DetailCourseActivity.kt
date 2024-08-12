@@ -91,7 +91,6 @@ class DetailCourseActivity : AppCompatActivity() {
         binding.btnSyllabus.setOnClickListener {
             val intent = Intent(this, SyllabusInstructorActivity::class.java)
             intent.putExtra("course_detail", course)
-            Log.d("DetailCourseActivity", "ID COURSE ${course?.CourseID}")
             startActivity(intent)
         }
 
