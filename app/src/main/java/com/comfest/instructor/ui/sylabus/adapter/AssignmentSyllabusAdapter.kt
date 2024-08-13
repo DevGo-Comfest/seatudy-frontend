@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.comfest.instructor.data.source.remote.response.AssignmentSyllabus
 import com.comfest.seatudy.databinding.ItemAssignmentSyllabusInstructorBinding
 
-class AssignmentSyllabusAdapter: RecyclerView.Adapter<AssignmentSyllabusAdapter.AssignmentSyllabusViewHolder>() {
+class AssignmentSyllabusAdapter(
+    private val listener: OnItemClickListener
+): RecyclerView.Adapter<AssignmentSyllabusAdapter.AssignmentSyllabusViewHolder>() {
 
     private var assignment: List<AssignmentSyllabus> = emptyList()
 
@@ -21,6 +23,22 @@ class AssignmentSyllabusAdapter: RecyclerView.Adapter<AssignmentSyllabusAdapter.
                 tvTitleAssignment.text = assignment.title
                 tvDescAssignment.text = assignment.description
                 tvDueDate.text = assignment.maximumTime.toString()
+            }
+        }
+
+        init {
+            binding.btnUpdateSyllabus.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onUpdateClick(assignment[position])
+                }
+            }
+
+            binding.btnDeleteSyllabus.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onDeleteClick(assignment[position])
+                }
             }
         }
     }
@@ -41,5 +59,11 @@ class AssignmentSyllabusAdapter: RecyclerView.Adapter<AssignmentSyllabusAdapter.
     }
 
     override fun getItemCount(): Int  = assignment.size
+
+
+    interface OnItemClickListener {
+        fun onUpdateClick(assignment: AssignmentSyllabus)
+        fun onDeleteClick(assignment: AssignmentSyllabus)
+    }
 
 }

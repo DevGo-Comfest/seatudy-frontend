@@ -7,6 +7,7 @@ import com.comfest.instructor.data.source.remote.response.CreateCourseResponse
 import com.comfest.instructor.data.source.remote.response.CreateSyllabusResponse
 import com.comfest.instructor.data.source.remote.response.DeleteResponse
 import com.comfest.instructor.data.source.remote.response.DetailCourseResponse
+import com.comfest.instructor.data.source.remote.response.UpdateAssignmentResponse
 import com.comfest.instructor.data.source.remote.response.UploadImageResponse
 import com.comfest.instructor.domain.model.RequestCreateAssignment
 import com.comfest.instructor.domain.model.RequestCreateCourse
@@ -103,6 +104,21 @@ interface ApiServiceInstructor {
     @DELETE("api/syllabus/{id}")
     suspend fun deleteSyllabus(
         @Path("id") syllabusId: Int,
+        @Header("Authorization") token: String,
+    ): Response<DeleteResponse>
+
+
+    @PUT("api/assignments/{id}")
+    suspend fun updateAssignment(
+        @Path("id") assignmentId: Int,
+        @Header("Authorization") token: String,
+        @Body requestCreateAssignment: RequestCreateAssignment
+    ): Response<UpdateAssignmentResponse>
+
+
+    @DELETE("api/assignments/{id}")
+    suspend fun deleteAssignment(
+        @Path("id") assignmentId: Int,
         @Header("Authorization") token: String,
     ): Response<DeleteResponse>
 }

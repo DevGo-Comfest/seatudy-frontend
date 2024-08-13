@@ -137,8 +137,6 @@ class SyllabusInstructorActivity : AppCompatActivity(), SyllabusInstructorAdapte
                     Toast.makeText(this@SyllabusInstructorActivity, "Success delete syllabus", Toast.LENGTH_SHORT).show()
                 }
                 is Resource.Error -> {
-                    // Handle the error
-                    Log.d("SyllabusInstructorActivity", "")
                     Toast.makeText(this@SyllabusInstructorActivity, it.message, Toast.LENGTH_SHORT).show()
                 }
             }

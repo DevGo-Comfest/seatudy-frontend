@@ -1,5 +1,6 @@
 package com.comfest.instructor.ui.sylabus
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -7,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.comfest.instructor.data.source.remote.response.AssignmentSyllabus
 import com.comfest.instructor.data.source.remote.response.SyllabusDetail
 import com.comfest.instructor.domain.model.RequestCreateAssignment
 import com.comfest.instructor.ui.sylabus.adapter.AssignmentSyllabusAdapter
@@ -16,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class AssignmentSyllabusInstructorActivity : AppCompatActivity() {
+class AssignmentSyllabusInstructorActivity : AppCompatActivity(), AssignmentSyllabusAdapter.OnItemClickListener {
 
     private lateinit var binding: ActivityAssignmentSyllabusInstructorBinding
     private lateinit var syllabusViewModel: SyllabusViewModel
@@ -35,7 +37,7 @@ class AssignmentSyllabusInstructorActivity : AppCompatActivity() {
         val syllabus = intent.getParcelableExtra<SyllabusDetail>("syllabus")
         syllabusId = syllabus?.syllabusID
 
-        assignmentAdapter = AssignmentSyllabusAdapter()
+        assignmentAdapter = AssignmentSyllabusAdapter(this)
         binding.rvList.apply {
             adapter = assignmentAdapter
             layoutManager = LinearLayoutManager(this@AssignmentSyllabusInstructorActivity)
@@ -76,6 +78,7 @@ class AssignmentSyllabusInstructorActivity : AppCompatActivity() {
 
                     is Resource.Success -> {
                         Toast.makeText(this@AssignmentSyllabusInstructorActivity, "Assignment created successfully", Toast.LENGTH_SHORT).show()
+                        loadAssignment(syllabusId!!, tokenUser!!)
                     }
 
                     is Resource.Error -> {
@@ -94,6 +97,34 @@ class AssignmentSyllabusInstructorActivity : AppCompatActivity() {
         }
     }
 
+
+
+
+
+    override fun onUpdateClick(assignment: AssignmentSyllabus) {
+        val intent = Intent(this, UpdateAssignmentSyllabusActivity::class.java)
+        intent.putExtra("assignment", assignment)
+
+        val syllabus = intent.getParcelableExtra<SyllabusDetail>("syllabus")
+        intent.putExtra("syllabus", syllabus)
+        startActivity(intent)
+    }
+
+    override fun onDeleteClick(assignment: AssignmentSyllabus) {
+        syllabusViewModel.deleteAssignment(assignment.assignmentID, tokenUser!!).observe(this) {
+            when (it) {
+                is Resource.Loading -> {
+                }
+                is Resource.Success -> {
+                    loadAssignment(syllabusId!!, tokenUser!!)
+                    Toast.makeText(this@AssignmentSyllabusInstructorActivity, "Success delete assignment", Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Error -> {
+                    Toast.makeText(this@AssignmentSyllabusInstructorActivity, it.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 
 
     private fun loadAssignment(syllabusId: Int, token: String) {

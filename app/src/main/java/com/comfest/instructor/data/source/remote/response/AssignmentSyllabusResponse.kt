@@ -1,6 +1,9 @@
 package com.comfest.instructor.data.source.remote.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
 data class AssignmentSyllabusResponse(
     @SerializedName("syllabus")
@@ -37,6 +40,8 @@ data class SyllabusAssignmentResponse(
     val assignments: List<AssignmentSyllabus>
 )
 
+
+@Parcelize
 data class AssignmentSyllabus(
     @SerializedName("AssignmentID")
     val assignmentID: Int,
@@ -54,9 +59,9 @@ data class AssignmentSyllabus(
     val maximumTime: Int,
 
     @SerializedName("Submissions")
-    val submissions: Any?,
+    val submissions: @RawValue Any?,
 
     @SerializedName("UserAssignments")
-    val userAssignments: Any?
-)
+    val userAssignments: @RawValue Any?
+): Parcelable
 

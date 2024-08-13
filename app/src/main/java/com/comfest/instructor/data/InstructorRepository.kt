@@ -11,6 +11,7 @@ import com.comfest.instructor.data.source.remote.response.CreateCourseResponse
 import com.comfest.instructor.data.source.remote.response.CreateSyllabusResponse
 import com.comfest.instructor.data.source.remote.response.DeleteResponse
 import com.comfest.instructor.data.source.remote.response.DetailCourseResponse
+import com.comfest.instructor.data.source.remote.response.UpdateAssignmentResponse
 import com.comfest.instructor.data.source.remote.response.UploadImageResponse
 import com.comfest.instructor.domain.model.RequestCreateAssignment
 import com.comfest.instructor.domain.model.RequestCreateCourse
@@ -174,6 +175,36 @@ class InstructorRepository @Inject constructor(private val apiServiceInstructor:
         emit(Resource.Loading())
         try {
             val response = apiServiceInstructor.deleteSyllabus(syllabusId, token)
+            if (response.isSuccessful) {
+                emit(Resource.Success(response))
+            } else {
+                emit(Resource.Error(response.message()))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
+
+
+    fun updateAssignment(assignmentId: Int, token: String, requestCreateAssignment: RequestCreateAssignment): LiveData<Resource<Response<UpdateAssignmentResponse>>> = liveData {
+        emit(Resource.Loading())
+        try {
+            val response = apiServiceInstructor.updateAssignment(assignmentId, token, requestCreateAssignment)
+            if (response.isSuccessful) {
+                emit(Resource.Success(response))
+            } else {
+                emit(Resource.Error(response.message()))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
+
+
+    fun deleteAssignment(assignmentId: Int, token: String): LiveData<Resource<Response<DeleteResponse>>> = liveData {
+        emit(Resource.Loading())
+        try {
+            val response = apiServiceInstructor.deleteAssignment(assignmentId, token)
             if (response.isSuccessful) {
                 emit(Resource.Success(response))
             } else {

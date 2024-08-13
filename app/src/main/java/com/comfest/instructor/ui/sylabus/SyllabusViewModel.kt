@@ -30,6 +30,9 @@ class SyllabusViewModel @Inject constructor(
 
     fun deleteSyllabus(syllabusId: Int,token: String) = instructorRepository.deleteSyllabus(syllabusId, "Bearer $token")
 
+    fun updateAssignment(assignmentId: Int,token: String, requestCreateAssignment: RequestCreateAssignment) = instructorRepository.updateAssignment(assignmentId, "Bearer $token", requestCreateAssignment)
+
+    fun deleteAssignment(assignmentId: Int,token: String) = instructorRepository.deleteAssignment(assignmentId, "Bearer $token")
     fun getToken(): LiveData<String> {
         return pref.getTokenUser().asLiveData()
     }
