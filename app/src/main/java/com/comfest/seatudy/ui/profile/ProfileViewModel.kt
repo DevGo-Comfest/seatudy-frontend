@@ -21,9 +21,27 @@ class ProfileViewModel @Inject constructor(
 
     fun topUp(balance: DataTopUp, token: String) = repo.topUp(balance, token)
 
-    fun saveThemeSetting(state: Boolean) {
+    fun deleteLoginUser(state: Boolean) {
         viewModelScope.launch {
             pref.saveLoginUser(state)
+        }
+    }
+
+    fun deleteToken(token: String) {
+        viewModelScope.launch {
+            pref.saveTokenUser(token)
+        }
+    }
+
+    fun deleteRoleUser(role: String) {
+        viewModelScope.launch {
+            pref.saveRoleUser(role)
+        }
+    }
+
+    fun deleteName(name: String) {
+        viewModelScope.launch {
+            pref.saveNameUser(name)
         }
     }
 

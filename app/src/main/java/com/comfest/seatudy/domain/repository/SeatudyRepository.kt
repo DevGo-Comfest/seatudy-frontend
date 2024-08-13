@@ -1,5 +1,6 @@
 package com.comfest.seatudy.domain.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.comfest.seatudy.data.Resource
@@ -8,10 +9,15 @@ import com.comfest.seatudy.data.source.respon.ResponseCoursesList
 import com.comfest.seatudy.data.source.respon.ResponseCoursesListDetail
 import com.comfest.seatudy.data.source.respon.ResponseCoursesListDetailCategory
 import com.comfest.seatudy.data.source.respon.ResponseEnrollCourse
+import com.comfest.seatudy.data.source.respon.ResponseEnrollments
+import com.comfest.seatudy.data.source.respon.ResponseForums
 import com.comfest.seatudy.data.source.respon.ResponseLogin
 import com.comfest.seatudy.data.source.respon.ResponseProfile
+import com.comfest.seatudy.data.source.respon.ResponseProgress
 import com.comfest.seatudy.data.source.respon.ResponseRegister
+import com.comfest.seatudy.data.source.respon.ResponseSyllabus
 import com.comfest.seatudy.data.source.respon.ResponseTopUp
+import com.comfest.seatudy.domain.model.DataBuy
 import com.comfest.seatudy.domain.model.DataLogin
 import com.comfest.seatudy.domain.model.DataRegister
 import com.comfest.seatudy.domain.model.DataTopUp
@@ -62,10 +68,73 @@ class SeatudyRepository @Inject constructor(private val apiService: ApiService) 
         }
     }
 
-    fun getCourseCategory(category: String): LiveData<Resource<Response<ResponseCoursesListDetailCategory>>> = liveData {
+    fun getCourseCategory(category: String): LiveData<Resource<Response<ResponseCoursesListDetailCategory>>> =
+        liveData {
+            emit(Resource.Loading())
+            try {
+                val apiClient = apiService.getCourseCategory(category)
+                if (apiClient.isSuccessful) {
+                    emit(Resource.Success(apiClient))
+                } else {
+                    emit(Resource.Error(apiClient.message()))
+                }
+            } catch (e: Exception) {
+                emit(Resource.Error(e.toString()))
+            }
+        }
+
+    fun getSearchCourseName(category: String): LiveData<Resource<Response<ResponseCoursesListDetailCategory>>> =
+        liveData {
+            emit(Resource.Loading())
+            try {
+                val apiClient = apiService.getSearchCourseName(category)
+                if (apiClient.isSuccessful) {
+                    emit(Resource.Success(apiClient))
+                } else {
+                    emit(Resource.Error(apiClient.message()))
+                }
+            } catch (e: Exception) {
+                emit(Resource.Error(e.toString()))
+            }
+        }
+
+    fun getCoursesWithID(id: String): LiveData<Resource<Response<ResponseCoursesListDetail>>> =
+        liveData {
+            emit(Resource.Loading())
+            try {
+                val apiClient = apiService.getCoursesID(id)
+                if (apiClient.isSuccessful) {
+                    emit(Resource.Success(apiClient))
+                } else {
+                    emit(Resource.Error(apiClient.message()))
+                }
+            } catch (e: Exception) {
+                emit(Resource.Error(e.toString()))
+            }
+        }
+
+    fun getEnrolledCourse(token: String): LiveData<Resource<Response<ResponseEnrollCourse>>> =
+        liveData {
+            emit(Resource.Loading())
+            try {
+                val apiClient = apiService.getEnrolledCourse(token)
+                if (apiClient.isSuccessful) {
+                    emit(Resource.Success(apiClient))
+                } else {
+                    emit(Resource.Error(apiClient.message()))
+                }
+            } catch (e: Exception) {
+                emit(Resource.Error(e.toString()))
+            }
+        }
+
+    fun buyCourse(
+        dataBuy: DataBuy,
+        token: String
+    ): LiveData<Resource<Response<ResponseEnrollments>>> = liveData {
         emit(Resource.Loading())
         try {
-            val apiClient = apiService.getCourseCategory(category)
+            val apiClient = apiService.buyCourse(dataBuy, token)
             if (apiClient.isSuccessful) {
                 emit(Resource.Success(apiClient))
             } else {
@@ -76,10 +145,29 @@ class SeatudyRepository @Inject constructor(private val apiService: ApiService) 
         }
     }
 
-    fun getSearchCourseName(category: String): LiveData<Resource<Response<ResponseCoursesListDetailCategory>>> = liveData {
+    fun getForumID(id: String, token: String): LiveData<Resource<Response<ResponseForums>>> =
+        liveData {
+            emit(Resource.Loading())
+            try {
+                val apiClient = apiService.getForumID(id, token)
+                if (apiClient.isSuccessful) {
+                    emit(Resource.Success(apiClient))
+                } else {
+                    emit(Resource.Error(apiClient.message()))
+                }
+            } catch (e: Exception) {
+                emit(Resource.Error(e.toString()))
+            }
+        }
+
+    fun getSearchCategoryLevelRating(
+        category: String,
+        level: String,
+        rating: String
+    ): LiveData<Resource<Response<ResponseCoursesListDetailCategory>>> = liveData {
         emit(Resource.Loading())
         try {
-            val apiClient = apiService.getSearchCourseName(category)
+            val apiClient = apiService.getSearchCategoryLevelRating(category, level, rating)
             if (apiClient.isSuccessful) {
                 emit(Resource.Success(apiClient))
             } else {
@@ -90,33 +178,36 @@ class SeatudyRepository @Inject constructor(private val apiService: ApiService) 
         }
     }
 
-    fun getCoursesWithID(id: String): LiveData<Resource<Response<ResponseCoursesListDetail>>> = liveData {
-        emit(Resource.Loading())
-        try {
-            val apiClient = apiService.getCoursesID(id)
-            if (apiClient.isSuccessful) {
-                emit(Resource.Success(apiClient))
-            } else {
-                emit(Resource.Error(apiClient.message()))
+    fun getSyllabus(id: String): LiveData<Resource<Response<ResponseSyllabus>>> =
+        liveData {
+            emit(Resource.Loading())
+            try {
+                val apiClient = apiService.getSyllabus(id)
+                if (apiClient.isSuccessful) {
+                    emit(Resource.Success(apiClient))
+                } else {
+                    emit(Resource.Error(apiClient.message()))
+                }
+            } catch (e: Exception) {
+                emit(Resource.Error(e.toString()))
             }
-        } catch (e: Exception) {
-            emit(Resource.Error(e.toString()))
         }
-    }
 
-    fun getEnrolledCourse(token: String): LiveData<Resource<Response<ResponseEnrollCourse>>> = liveData {
-        emit(Resource.Loading())
-        try {
-            val apiClient = apiService.getEnrolledCourse(token)
-            if (apiClient.isSuccessful) {
-                emit(Resource.Success(apiClient))
-            } else {
-                emit(Resource.Error(apiClient.message()))
+    //BLM DIPAKEI
+    fun getProgress(id: String, token: String): LiveData<Resource<Response<ResponseProgress>>> =
+        liveData {
+            emit(Resource.Loading())
+            try {
+                val apiClient = apiService.getProgress(id, token)
+                if (apiClient.isSuccessful) {
+                    emit(Resource.Success(apiClient))
+                } else {
+                    emit(Resource.Error(apiClient.message()))
+                }
+            } catch (e: Exception) {
+                emit(Resource.Error(e.toString()))
             }
-        } catch (e: Exception) {
-            emit(Resource.Error(e.toString()))
         }
-    }
 
     fun getProfile(token: String): LiveData<Resource<Response<ResponseProfile>>> = liveData {
         emit(Resource.Loading())

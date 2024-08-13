@@ -14,6 +14,8 @@ import com.comfest.seatudy.databinding.FragmentProfileBinding
 import com.comfest.seatudy.ui.auth.login.LoginActivity
 import com.comfest.seatudy.ui.cart.topup.TopUpActivity
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.NumberFormat
+import java.util.Locale
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
@@ -40,7 +42,10 @@ class ProfileFragment : Fragment() {
         }
 
         binding.btnSignOut.setOnClickListener {
-            profileViewModel.saveThemeSetting(false)
+            profileViewModel.deleteLoginUser(false)
+            profileViewModel.deleteToken("")
+            profileViewModel.deleteName("")
+            profileViewModel.deleteRoleUser("")
             startActivity(Intent(requireContext(), LoginActivity::class.java))
             requireActivity().supportFragmentManager.popBackStack()
         }
@@ -59,8 +64,12 @@ class ProfileFragment : Fragment() {
                     is Resource.Success -> {
                         val profile = it.data?.body()
                         binding.apply {
+                            val dataBalance = profile?.balance
+                            val formatRupiah = NumberFormat.getCurrencyInstance(Locale("in", "ID"))
+                            val formattedString = formatRupiah.format(dataBalance).replace(",00", "")
+
                             tvNameUser.text = profile?.name
-                            tvBalance.text = "Rp. ${profile?.balance.toString()}"
+                            tvBalance.text = formattedString//"Rp. ${profile?.balance.toString()}"
                         }
                     }
                     is Resource.Error -> {

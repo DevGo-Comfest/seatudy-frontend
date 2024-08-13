@@ -1,34 +1,31 @@
 package com.comfest.seatudy.ui.dashboard.detailsyllabus
 
-import android.content.Context
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.comfest.seatudy.R
+import com.comfest.seatudy.ui.dashboard.detailcourse.fragment.CourseProgramFragment
 import com.comfest.seatudy.ui.dashboard.detailsyllabus.fargment.SubmissionFragment
-import com.comfest.seatudy.ui.dashboard.detailsyllabus.fargment.SyllabusFragment
 
-private val TAB_TITLES = arrayOf(
+val TAB_TITLES = arrayOf(
     R.string.tab_syllabus,
     R.string.tab_submission
 )
 
-class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
-    FragmentPagerAdapter(fm) {
+class SectionsPagerAdapter(
+    fragmentActivity: FragmentActivity,
+    private val courseID: String
+) : FragmentStateAdapter(fragmentActivity) {
 
-    override fun getItem(position: Int): Fragment {
+    override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> SyllabusFragment()
-            1 -> SubmissionFragment()
+            0 -> CourseProgramFragment(courseID)
+            1 -> SubmissionFragment(courseID)
             else -> throw IllegalStateException("Unexpected position $position")
         }
     }
 
-    override fun getPageTitle(position: Int): CharSequence {
-        return context.resources.getString(TAB_TITLES[position])
-    }
-
-    override fun getCount(): Int {
+    override fun getItemCount(): Int {
         return 2
     }
 }

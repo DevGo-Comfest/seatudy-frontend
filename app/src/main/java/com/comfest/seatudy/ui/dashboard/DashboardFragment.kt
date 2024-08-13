@@ -38,7 +38,7 @@ class DashboardFragment : Fragment() {
 
     private fun recyclerviewCourseList() {
         dashboardViewModel.getToken().observe(viewLifecycleOwner) {
-            dashboardViewModel.getEnrolledCourse(it).observe(viewLifecycleOwner) { value ->
+            dashboardViewModel.getEnrolledCourse("Bearer $it").observe(viewLifecycleOwner) { value ->
                 when(value){
                     is Resource.Loading -> {
 
@@ -52,6 +52,8 @@ class DashboardFragment : Fragment() {
                                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                             binding.rvMyCourse.adapter = adapterCourseDashboard
                         }
+
+
                     }
 
                     is Resource.Error -> {

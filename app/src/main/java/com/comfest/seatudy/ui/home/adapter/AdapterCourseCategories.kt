@@ -25,7 +25,7 @@ class AdapterCourseCategories(private val items: List<ResponseCoursesDetail>) :
             binding.cardCourse.setOnClickListener {
                 val intent =
                     Intent(itemView.context, CourseDetailActivity::class.java).apply {
-                        putExtra("TITLE", item.courseID)
+                        putExtra("TITLE", item.courseID.toString())
                     }
                 itemView.context.startActivity(intent)
             }

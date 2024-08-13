@@ -35,12 +35,6 @@ class SettingsPreferences @Inject constructor(private val dataStore: DataStore<P
         }
     }
 
-    fun getImageProfile(): Flow<String> {
-        return dataStore.data.map { preferences ->
-            preferences[imageUser] ?: ""
-        }
-    }
-
     fun getTokenUser(): Flow<String> {
         return dataStore.data.map { preferences->
             preferences[tokenUser] ?: ""
@@ -72,10 +66,5 @@ class SettingsPreferences @Inject constructor(private val dataStore: DataStore<P
         }
     }
 
-    suspend fun saveImageProfile(imageProfile: String) {
-        dataStore.edit { preferences ->
-            preferences[imageUser] = imageProfile
-        }
-    }
 
 }

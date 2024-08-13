@@ -20,6 +20,9 @@ data class ResponseCoursesDetail(
     @field:SerializedName("PrimaryAuthor")
     val instructorID: String,
 
+    @field:SerializedName("PrimaryAuthorName")
+    val primaryAuthorName: String,
+
     @field:SerializedName("Title")
     val title: String,
 

@@ -1,6 +1,7 @@
 package com.comfest.seatudy.ui.home
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.comfest.seatudy.ui.home.adapter.AdapterCourseCategories
 import com.comfest.seatudy.ui.home.adapter.AdapterCourseList
 import com.comfest.seatudy.ui.home.adapter.AdapterCourseSearch
 import com.comfest.seatudy.ui.home.adapter.AdapterListCategories
+import com.comfest.seatudy.ui.home.viewall.ViewAllActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,11 +46,22 @@ class HomeFragment : Fragment() {
 
         homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
+        binding.viewAll1.setOnClickListener {
+            viewAll()
+        }
+
+        binding.viewAll2.setOnClickListener {
+            viewAll()
+        }
+
         recyclerviewCourseList()
-        recyclerviewCourseCategories("Android")
         recyclerviewCategories()
         getName()
         search()
+    }
+
+    private fun viewAll() {
+        startActivity(Intent(requireContext(), ViewAllActivity::class.java))
     }
 
     private fun search() {
@@ -122,20 +135,27 @@ class HomeFragment : Fragment() {
     }
 
     private fun recyclerviewCategories() {
-        val list = listOf(
-            "Networking",
-            "Cybersecurity",
-            "Web Development",
-            "Mobile Development",
-            "Desktop Development",
-            "Android"
-        )
-        adapterListCategories = AdapterListCategories(list) { category ->
-            recyclerviewCourseCategories(category)
+        homeViewModel.getCourse().observe(viewLifecycleOwner) { value ->
+            when(value){
+                is Resource.Loading -> {
+
+                }
+                is Resource.Success -> {
+                    val data = value.data?.body()?.courses
+                    if (data != null) {
+                        adapterListCategories = AdapterListCategories(data) { category ->
+                            recyclerviewCourseCategories(category)
+                        }
+                        binding.rvCourseCategories.layoutManager =
+                            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                        binding.rvCourseCategories.adapter = adapterListCategories
+                    }
+                }
+                is Resource.Error -> {
+
+                }
+            }
         }
-        binding.rvCourseCategories.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.rvCourseCategories.adapter = adapterListCategories
     }
 
     private fun recyclerviewCourseCategories(category: String) {

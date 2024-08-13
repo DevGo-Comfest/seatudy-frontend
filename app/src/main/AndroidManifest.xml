@@ -21,34 +21,49 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Seatudy"
         tools:targetApi="31">
+
         <activity
-            android:name="com.comfest.seatudy.utils.ErrorActivity"
+            android:name="com.comfest.seatudy.ui.dashboard.detailsubmission.DetailSubmissionActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.home.viewall.ViewAllActivity"
             android:exported="false" />
         <activity
-            android:name="com.comfest.seatudy.ui.cart.topup.VerifyAmountActivity"
+            android:name=".utils.ErrorActivity"
             android:exported="false" />
         <activity
-            android:name="com.comfest.seatudy.ui.dashboard.detailpersyllabus.CourseDetailPerSyllabusActivity"
+            android:name=".ui.cart.payment.PaymentActivity"
             android:exported="false" />
         <activity
-            android:name="com.comfest.seatudy.ui.cart.topup.TopUpActivity"
+            android:name=".ui.cart.topup.VerifyAmountActivity"
             android:exported="false" />
         <activity
-            android:name="com.comfest.seatudy.ui.dashboard.detailsyllabus.CourseDetailSyllabusActivity"
+            android:name=".ui.dashboard.detailpersyllabus.CourseDetailPerSyllabusActivity"
             android:exported="false" />
         <activity
-            android:name="com.comfest.seatudy.ui.auth.register.RegisterActivity"
+            android:name=".ui.cart.topup.TopUpActivity"
             android:exported="false" />
         <activity
-            android:name="com.comfest.seatudy.ui.auth.login.LoginActivity"
+            android:name=".ui.dashboard.detailsyllabus.CourseDetailSyllabusActivity"
             android:exported="false" />
         <activity
-            android:name="com.comfest.seatudy.ui.NavigationActivity"
+            android:name=".ui.auth.register.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.NavigationActivity"
             android:exported="false"
             android:label="@string/title_activity_navigation" />
         <activity
-            android:name="com.comfest.seatudy.ui.dashboard.detailcourse.CourseDetailActivity"
+            android:name=".ui.dashboard.detailcourse.CourseDetailActivity"
             android:exported="false" />
+
+
+
+
         <activity
             android:name="com.comfest.instructor.ui.assignment.AssignmentInstructorActivity"
             android:exported="false" />
@@ -58,13 +73,12 @@
         <activity
             android:name="com.comfest.instructor.ui.home.DetailCourseActivity"
             android:exported="false" />
-
         <activity
             android:name="com.comfest.instructor.ui.MainActivityInstructor"
-            android:exported="false"/>
-
-        <activity android:name="com.comfest.instructor.ui.course.CreateCourseActivity"
-            android:exported="false"/>
+            android:exported="false" />
+        <activity
+            android:name="com.comfest.instructor.ui.course.CreateCourseActivity"
+            android:exported="false" />
 
         <activity
             android:name=".MainActivity"

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.comfest.seatudy.R
 
-class SubmissionFragment : Fragment() {
+class SubmissionFragment(val courseID: String) : Fragment() {
 
 
     override fun onCreateView(
@@ -17,5 +17,7 @@ class SubmissionFragment : Fragment() {
 
         return inflater.inflate(R.layout.fragment_submission, container, false)
     }
+
+    // berupa card yang isi nya subsmission to Detail Submission
 
 }

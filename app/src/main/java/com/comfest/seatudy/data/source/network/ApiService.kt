@@ -4,10 +4,15 @@ import com.comfest.seatudy.data.source.respon.ResponseCoursesList
 import com.comfest.seatudy.data.source.respon.ResponseCoursesListDetail
 import com.comfest.seatudy.data.source.respon.ResponseCoursesListDetailCategory
 import com.comfest.seatudy.data.source.respon.ResponseEnrollCourse
+import com.comfest.seatudy.data.source.respon.ResponseEnrollments
+import com.comfest.seatudy.data.source.respon.ResponseForums
 import com.comfest.seatudy.data.source.respon.ResponseLogin
 import com.comfest.seatudy.data.source.respon.ResponseProfile
+import com.comfest.seatudy.data.source.respon.ResponseProgress
 import com.comfest.seatudy.data.source.respon.ResponseRegister
+import com.comfest.seatudy.data.source.respon.ResponseSyllabus
 import com.comfest.seatudy.data.source.respon.ResponseTopUp
+import com.comfest.seatudy.domain.model.DataBuy
 import com.comfest.seatudy.domain.model.DataLogin
 import com.comfest.seatudy.domain.model.DataRegister
 import com.comfest.seatudy.domain.model.DataTopUp
@@ -26,7 +31,6 @@ interface ApiService {
 
     @POST("api/register")
     suspend fun registerUser(@Body dataRegister: DataRegister): ResponseRegister
-
 
     @GET("api/courses")
     suspend fun getCourses(): Response<ResponseCoursesList>
@@ -51,8 +55,36 @@ interface ApiService {
         @Header("Authorization") authToken: String
     ): Response<ResponseEnrollCourse>
 
+    @POST("api/enroll")
+    suspend fun buyCourse(
+        @Body dataBuy: DataBuy,
+        @Header("Authorization") authToken: String
+    ): Response<ResponseEnrollments>
 
 
+    @POST("api/progress/course/{id}")
+    suspend fun getProgress(
+        @Path("id") id: String,
+        @Header("Authorization") authToken: String
+    ): Response<ResponseProgress>
+
+    @GET("api/courses/search")
+    suspend fun getSearchCategoryLevelRating(
+        @Query("category") category: String,
+        @Query("difficulty_level") level: String,
+        @Query("rating") rating: String
+    ): Response<ResponseCoursesListDetailCategory>
+
+    @GET("api/syllabus/{id}")
+    suspend fun getSyllabus(
+        @Path("id") id: String
+    ): Response<ResponseSyllabus>
+
+    @GET("api/forum-post/{id}")
+    suspend fun getForumID(
+        @Path("id") id: String,
+        @Header("Authorization") authToken: String
+    ): Response<ResponseForums>
 
     @GET("api/profile")
     suspend fun getProfile(@Header("Authorization") authToken: String): Response<ResponseProfile>
