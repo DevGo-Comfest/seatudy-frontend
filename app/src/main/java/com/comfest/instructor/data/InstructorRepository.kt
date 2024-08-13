@@ -20,6 +20,7 @@ import com.comfest.instructor.domain.model.RequestCreateCourse
 import com.comfest.instructor.domain.model.RequestCreateSyllabus
 import com.comfest.instructor.domain.model.RequestCreateSyllabusMaterial
 import com.comfest.instructor.domain.model.RequestUpdateSyllabus
+import com.comfest.instructor.domain.model.RequestUpdateSyllabusMaterial
 import com.comfest.seatudy.data.Resource
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
@@ -237,6 +238,35 @@ class InstructorRepository @Inject constructor(private val apiServiceInstructor:
         emit(Resource.Loading())
         try {
             val response = apiServiceInstructor.getSyllabusMaterialById(syllabusId, token)
+            if (response.isSuccessful) {
+                emit(Resource.Success(response))
+            } else {
+                emit(Resource.Error(response.message()))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
+
+    fun updateSyllabusMaterial(syllabusMaterialId: Int, token: String, requestUpdateSyllabusMaterial: RequestUpdateSyllabusMaterial): LiveData<Resource<Response<CreateSyllabusMaterialResponse>>> = liveData {
+        emit(Resource.Loading())
+        try {
+            val response = apiServiceInstructor.updateSyllabusMaterial(syllabusMaterialId, token, requestUpdateSyllabusMaterial)
+            if (response.isSuccessful) {
+                emit(Resource.Success(response))
+            } else {
+                emit(Resource.Error(response.message()))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
+
+
+    fun deleteSyllabusMaterial(syllabusMaterialId: Int, token: String): LiveData<Resource<Response<DeleteResponse>>> = liveData {
+        emit(Resource.Loading())
+        try {
+            val response = apiServiceInstructor.deleteSyllabusMaterial(syllabusMaterialId, token)
             if (response.isSuccessful) {
                 emit(Resource.Success(response))
             } else {

@@ -16,6 +16,7 @@ import com.comfest.instructor.domain.model.RequestCreateCourse
 import com.comfest.instructor.domain.model.RequestCreateSyllabus
 import com.comfest.instructor.domain.model.RequestCreateSyllabusMaterial
 import com.comfest.instructor.domain.model.RequestUpdateSyllabus
+import com.comfest.instructor.domain.model.RequestUpdateSyllabusMaterial
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -139,4 +140,17 @@ interface ApiServiceInstructor {
         @Header("Authorization") token: String,
     ): Response<SyllabusMaterialResponse>
 
+
+    @PUT("api/syllabus-material/{id}")
+    suspend fun updateSyllabusMaterial(
+        @Path("id") syllabusMaterialId: Int,
+        @Header("Authorization") token: String,
+        @Body requestUpdateSyllabusMaterial: RequestUpdateSyllabusMaterial
+    ): Response<CreateSyllabusMaterialResponse>
+
+    @DELETE("api/syllabus-material/{id}")
+    suspend fun deleteSyllabusMaterial(
+        @Path("id") syllabusMaterialId: Int,
+        @Header("Authorization") token: String,
+    ): Response<DeleteResponse>
 }

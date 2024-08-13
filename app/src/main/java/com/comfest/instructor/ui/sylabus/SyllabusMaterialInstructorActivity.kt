@@ -134,7 +134,26 @@ class SyllabusMaterialInstructorActivity : AppCompatActivity(), SyllabusMaterial
     override fun onUpdateClick(syllabusMaterial: DataSyllabusMaterialResponse) {
         val intent = Intent(this, UpdateSyllabusMaterialActivity::class.java)
         intent.putExtra("syllabus_material", syllabusMaterial)
+
+        val syllabus = intent.getParcelableExtra<SyllabusDetail>("syllabus")
+        intent.putExtra("syllabus", syllabus)
         startActivity(intent)
+    }
+
+    override fun onDeleteClick(syllabusMaterial: DataSyllabusMaterialResponse) {
+        syllabusViewModel.deleteSyllabusMaterial(syllabusMaterial.syllabusMaterialID, tokenUser!!).observe(this@SyllabusMaterialInstructorActivity) {
+            when (it) {
+                is Resource.Loading -> {
+                }
+                is Resource.Success -> {
+                    loadSyllabusMaterial(syllabusMaterial.syllabusMaterialID, tokenUser!!)
+                    Toast.makeText(this@SyllabusMaterialInstructorActivity, "Success delete syllabus material", Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Error -> {
+                    Toast.makeText(this@SyllabusMaterialInstructorActivity, it.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
 

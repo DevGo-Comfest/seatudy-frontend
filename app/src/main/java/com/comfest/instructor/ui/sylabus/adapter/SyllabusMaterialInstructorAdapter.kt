@@ -48,6 +48,13 @@ class SyllabusMaterialInstructorAdapter(
                     listener.onUpdateClick(syllabusMaterial[position])
                 }
             }
+
+            binding.btnDeleteSylllabusMaterial.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onDeleteClick(syllabusMaterial[position])
+                }
+            }
         }
 
         fun releaseYoutubePlayer() {
@@ -88,5 +95,6 @@ class SyllabusMaterialInstructorAdapter(
 
     interface OnItemClickListener {
         fun onUpdateClick(syllabusMaterial: DataSyllabusMaterialResponse)
+        fun onDeleteClick(syllabusMaterial: DataSyllabusMaterialResponse)
     }
 }
