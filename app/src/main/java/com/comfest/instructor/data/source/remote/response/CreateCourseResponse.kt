@@ -1,6 +1,9 @@
 package com.comfest.instructor.data.source.remote.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
 data class CreateCourseResponse(
     @field:SerializedName("course")
@@ -10,12 +13,14 @@ data class CreateCourseResponse(
     val message: String
 )
 
+
+@Parcelize
 data class Course(
     @field:SerializedName("CourseID")
     val CourseID: Int,
 
-    @field:SerializedName("UserID")
-    val UserID: String,
+    @field:SerializedName("PrimaryAuthor")
+    val PrimaryAuthor: String,
 
     @field:SerializedName("Title")
     val Title: String,
@@ -51,17 +56,17 @@ data class Course(
     val IsDeleted: Boolean,
 
     @field:SerializedName("Syllabuses")
-    val Syllabuses: Any?, // Adjust type based on actual data
+    val Syllabuses: @RawValue Any?, // Adjust type based on actual data
 
     @field:SerializedName("Enrollments")
-    val Enrollments: Any?, // Adjust type based on actual data
+    val Enrollments: @RawValue Any?, // Adjust type based on actual data
 
     @field:SerializedName("Progresses")
-    val Progresses: Any?, // Adjust type based on actual data
+    val Progresses: @RawValue Any?, // Adjust type based on actual data
 
     @field:SerializedName("ForumPosts")
-    val ForumPosts: Any?, // Adjust type based on actual data
+    val ForumPosts: @RawValue Any?, // Adjust type based on actual data
 
     @field:SerializedName("Reviews")
-    val Reviews: Any? // Adjust type based on actual data
-)
+    val Reviews: @RawValue Any? // Adjust type based on actual data
+): Parcelable

@@ -10,7 +10,10 @@ import com.comfest.instructor.ui.home.HomeInstructorFragment
 import com.comfest.instructor.ui.profile.ProfileInstructorFragment
 import com.comfest.seatudy.R
 import com.comfest.seatudy.databinding.ActivityMainInstructorBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class MainActivityInstructor : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainInstructorBinding

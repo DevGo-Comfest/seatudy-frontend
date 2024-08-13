@@ -4,27 +4,26 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.comfest.instructor.data.dummy.SyllabusDataInstructor
+import com.comfest.instructor.data.source.remote.response.SyllabusDetail
 import com.comfest.seatudy.databinding.ItemSyllabusInstructorBinding
 
 class SyllabusInstructorAdapter(
     private val listener: OnItemClickListener
 ): RecyclerView.Adapter<SyllabusInstructorAdapter.SyllabusInstructorViewHolder>() {
 
-    private var syllabus: List<SyllabusDataInstructor> = emptyList()
+    private var syllabus: List<SyllabusDetail> = emptyList()
 
-    fun setSyllabus(newSyllabus: List<SyllabusDataInstructor>) {
+    fun setSyllabus(newSyllabus: List<SyllabusDetail>) {
         syllabus = newSyllabus
         notifyDataSetChanged()
 
     }
     inner class SyllabusInstructorViewHolder(private val binding: ItemSyllabusInstructorBinding): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(syllabusData: SyllabusDataInstructor) {
+        fun bind(syllabusData: SyllabusDetail) {
             binding.apply {
                 tvTitleSyllabus.text = syllabusData.title
                 tvDescSyllabus.text = syllabusData.description
-                tvAssignment.text = syllabusData.titleAssignment
-                tvDueDate.text = syllabusData.dueDateAssignment.toString()
             }
         }
 
@@ -43,6 +42,29 @@ class SyllabusInstructorAdapter(
                     listener.onUpdateClick(syllabus[position])
                 }
             }
+
+            binding.btnAddAssignment.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onAddAssignmentClick(syllabus[position])
+                }
+            }
+
+            binding.btnDeleteSyllabus.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onDeleteClick(syllabus[position])
+                }
+            }
+
+            binding.btnAddSyllabusMaterial.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onAddSyllabusMaterialClick(syllabus[position])
+                }
+            }
+
+
         }
 
     }
@@ -65,7 +87,12 @@ class SyllabusInstructorAdapter(
     override fun getItemCount(): Int = syllabus.size
 
     interface OnItemClickListener {
-        fun onItemClick(syllabus: SyllabusDataInstructor)
-        fun onUpdateClick(syllabus: SyllabusDataInstructor)
+        fun onItemClick(syllabus: SyllabusDetail)
+        fun onUpdateClick(syllabus: SyllabusDetail)
+
+        fun onAddAssignmentClick(syllabus: SyllabusDetail)
+        fun onAddSyllabusMaterialClick(syllabus: SyllabusDetail)
+
+        fun onDeleteClick(syllabus: SyllabusDetail)
     }
 }

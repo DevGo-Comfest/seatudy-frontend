@@ -90,6 +90,14 @@ class CreateCourseActivity : AppCompatActivity() {
                     is Resource.Error -> {
                         Toast.makeText(this@CreateCourseActivity, "Upload failed", Toast.LENGTH_SHORT).show()
                     }
+
+                    else -> {
+                        Toast.makeText(
+                            this@CreateCourseActivity,
+                            "Check your image",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             }
         }
@@ -147,11 +155,16 @@ class CreateCourseActivity : AppCompatActivity() {
 
     private fun setupAdapterSpinner() {
         val categories = listOf(
-            CategoryCourse("Networking"),
-            CategoryCourse("Cybersecurity"),
-            CategoryCourse("Web Development"),
-            CategoryCourse("Mobile Development"),
-            CategoryCourse("Desktop Development"),
+            CategoryCourse("Android"),
+            CategoryCourse("Web"),
+            CategoryCourse("Desktop"),
+            CategoryCourse("Multiplatform"),
+            CategoryCourse("Game"),
+            CategoryCourse("Machine Learning"),
+            CategoryCourse("Data Scientist"),
+            CategoryCourse("React"),
+            CategoryCourse("DevOps"),
+            CategoryCourse("Cloud"),
         )
 
         val levelCourses = listOf(
@@ -208,7 +221,7 @@ class CreateCourseActivity : AppCompatActivity() {
                 price = price.toInt(),
                 category = category,
                 difficultyLevel = difficultyLevel,
-                image_url = imageUrl ?: ""
+                image_url = imageUrl!!
             )
 
             createCourseViewModel.crateCourse(tokenUser!!, requestCreateCourse).observe(this@CreateCourseActivity) {
@@ -225,6 +238,14 @@ class CreateCourseActivity : AppCompatActivity() {
 
                     is Resource.Error -> {
                         Toast.makeText(this@CreateCourseActivity, "Failed to create course: ${it.message}", Toast.LENGTH_SHORT).show()
+                    }
+
+                    else -> {
+                        Toast.makeText(
+                            this@CreateCourseActivity,
+                            "Recheck your input course",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }

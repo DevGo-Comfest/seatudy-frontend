@@ -1,10 +1,14 @@
 package com.comfest.instructor.ui.home.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.comfest.instructor.data.dummy.CourseInstructor
+import com.comfest.instructor.data.source.remote.response.Course
+import com.comfest.instructor.data.source.remote.response.CourseResponse
 import com.comfest.seatudy.databinding.ItemMycourseInstructorBinding
 
 class HomeCourseInstructorAdapter(
@@ -12,9 +16,9 @@ class HomeCourseInstructorAdapter(
 ): RecyclerView.Adapter<HomeCourseInstructorAdapter.HomeCourseInstructorViewHolder>() {
 
 
-    private var courses: List<CourseInstructor> = emptyList()
+    private var courses: List<Course> = emptyList()
 
-    fun setCourses(newCourses: List<CourseInstructor>) {
+    fun setCourses(newCourses: List<Course>) {
         courses = newCourses
         notifyDataSetChanged()
     }
@@ -52,17 +56,23 @@ class HomeCourseInstructorAdapter(
             }
         }
 
-        fun bind(course: CourseInstructor) {
-            binding.tvNameCourse.text = course.name
-            binding.ratingBar.rating = course.rating.toFloat()
-            binding.tvTime.text = course.duration
 
-            binding.ivCourse.setImageResource(course.image)
+        fun bind(course: Course) {
+            binding.tvNameCourse.text = course.Title
+            binding.ratingBar.rating = course.Rating.toFloat()
+            binding.tvTime.text = "test"
+
+            Glide.with(itemView.context)
+                .load(course.ImageURL)
+                .centerCrop()
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(binding.ivCourse)
         }
     }
 
     interface OnItemClickListener {
-        fun onItemClick(course: CourseInstructor)
-        fun onUpdateClick(course: CourseInstructor)
+        fun onItemClick(course: Course)
+        fun onUpdateClick(course: Course)
     }
 }

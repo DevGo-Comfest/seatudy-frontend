@@ -1,10 +1,11 @@
 package com.comfest.instructor.ui.sylabus.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.comfest.instructor.data.dummy.SyllabusDataInstructor
-import com.comfest.instructor.data.dummy.SyllabusMaterialInstructor
+import com.comfest.instructor.data.source.remote.response.DataSyllabusMaterialResponse
+import com.comfest.instructor.data.source.remote.response.SyllabusMaterial
 import com.comfest.seatudy.databinding.ItemSyllabusMaterialInstructorBinding
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
@@ -13,21 +14,22 @@ class SyllabusMaterialInstructorAdapter(
     private val listener: OnItemClickListener
 ): RecyclerView.Adapter<SyllabusMaterialInstructorAdapter.SyllabusMaterialInstructorViewHolder>() {
 
-    private var syllabusMaterial: List<SyllabusMaterialInstructor> = emptyList()
+    private var syllabusMaterial: List<DataSyllabusMaterialResponse> = emptyList()
 
-    fun setSyllabusMaterial(newSyllabusMaterial: List<SyllabusMaterialInstructor>) {
+    fun setSyllabusMaterial(newSyllabusMaterial: List<DataSyllabusMaterialResponse>) {
         syllabusMaterial = newSyllabusMaterial
+        Log.d("Adapter", "Received Syllabus Material: $newSyllabusMaterial")
         notifyDataSetChanged()
     }
 
     inner class SyllabusMaterialInstructorViewHolder(private val binding: ItemSyllabusMaterialInstructorBinding): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(syllabusMaterial: SyllabusMaterialInstructor) {
+        fun bind(syllabusMaterial: DataSyllabusMaterialResponse) {
             binding.apply {
                 tvTitleSyllabusMaterial.text = syllabusMaterial.title
-                tvDescSyllabusMaterial.text = syllabusMaterial.desc
+                tvDescSyllabusMaterial.text = syllabusMaterial.description
 
-                val videoId = extractYoutubeVideoId(syllabusMaterial.linkMaterial)
+                val videoId = extractYoutubeVideoId(syllabusMaterial.urlMaterial)
 
                 youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
                     override fun onReady(youTubePlayer: YouTubePlayer) {
@@ -44,6 +46,13 @@ class SyllabusMaterialInstructorAdapter(
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     listener.onUpdateClick(syllabusMaterial[position])
+                }
+            }
+
+            binding.btnDeleteSylllabusMaterial.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onDeleteClick(syllabusMaterial[position])
                 }
             }
         }
@@ -85,6 +94,7 @@ class SyllabusMaterialInstructorAdapter(
 
 
     interface OnItemClickListener {
-        fun onUpdateClick(syllabusMaterial: SyllabusMaterialInstructor)
+        fun onUpdateClick(syllabusMaterial: DataSyllabusMaterialResponse)
+        fun onDeleteClick(syllabusMaterial: DataSyllabusMaterialResponse)
     }
 }
