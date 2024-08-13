@@ -3,8 +3,7 @@ package com.comfest.instructor.ui.sylabus.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.comfest.instructor.data.dummy.SyllabusDataInstructor
-import com.comfest.instructor.data.dummy.SyllabusMaterialInstructor
+import com.comfest.instructor.data.source.remote.response.SyllabusMaterial
 import com.comfest.seatudy.databinding.ItemSyllabusMaterialInstructorBinding
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
@@ -13,21 +12,21 @@ class SyllabusMaterialInstructorAdapter(
     private val listener: OnItemClickListener
 ): RecyclerView.Adapter<SyllabusMaterialInstructorAdapter.SyllabusMaterialInstructorViewHolder>() {
 
-    private var syllabusMaterial: List<SyllabusMaterialInstructor> = emptyList()
+    private var syllabusMaterial: List<SyllabusMaterial> = emptyList()
 
-    fun setSyllabusMaterial(newSyllabusMaterial: List<SyllabusMaterialInstructor>) {
+    fun setSyllabusMaterial(newSyllabusMaterial: List<SyllabusMaterial>) {
         syllabusMaterial = newSyllabusMaterial
         notifyDataSetChanged()
     }
 
     inner class SyllabusMaterialInstructorViewHolder(private val binding: ItemSyllabusMaterialInstructorBinding): RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(syllabusMaterial: SyllabusMaterialInstructor) {
+        fun bind(syllabusMaterial: SyllabusMaterial) {
             binding.apply {
                 tvTitleSyllabusMaterial.text = syllabusMaterial.title
-                tvDescSyllabusMaterial.text = syllabusMaterial.desc
+                tvDescSyllabusMaterial.text = syllabusMaterial.description
 
-                val videoId = extractYoutubeVideoId(syllabusMaterial.linkMaterial)
+                val videoId = extractYoutubeVideoId(syllabusMaterial.urlMaterial)
 
                 youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
                     override fun onReady(youTubePlayer: YouTubePlayer) {
@@ -85,6 +84,6 @@ class SyllabusMaterialInstructorAdapter(
 
 
     interface OnItemClickListener {
-        fun onUpdateClick(syllabusMaterial: SyllabusMaterialInstructor)
+        fun onUpdateClick(syllabusMaterial: SyllabusMaterial)
     }
 }

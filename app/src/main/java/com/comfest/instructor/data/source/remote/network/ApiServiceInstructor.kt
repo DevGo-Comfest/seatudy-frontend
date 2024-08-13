@@ -4,14 +4,17 @@ import com.comfest.instructor.data.source.remote.response.AssignmentSyllabusResp
 import com.comfest.instructor.data.source.remote.response.CourseResponse
 import com.comfest.instructor.data.source.remote.response.CreateAssignmentResponse
 import com.comfest.instructor.data.source.remote.response.CreateCourseResponse
+import com.comfest.instructor.data.source.remote.response.CreateSyllabusMaterialResponse
 import com.comfest.instructor.data.source.remote.response.CreateSyllabusResponse
 import com.comfest.instructor.data.source.remote.response.DeleteResponse
 import com.comfest.instructor.data.source.remote.response.DetailCourseResponse
+import com.comfest.instructor.data.source.remote.response.SyllabusMaterialResponse
 import com.comfest.instructor.data.source.remote.response.UpdateAssignmentResponse
 import com.comfest.instructor.data.source.remote.response.UploadImageResponse
 import com.comfest.instructor.domain.model.RequestCreateAssignment
 import com.comfest.instructor.domain.model.RequestCreateCourse
 import com.comfest.instructor.domain.model.RequestCreateSyllabus
+import com.comfest.instructor.domain.model.RequestCreateSyllabusMaterial
 import com.comfest.instructor.domain.model.RequestUpdateSyllabus
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -121,4 +124,19 @@ interface ApiServiceInstructor {
         @Path("id") assignmentId: Int,
         @Header("Authorization") token: String,
     ): Response<DeleteResponse>
+
+
+    @POST("api/syllabus-material")
+    suspend fun createSyllabusMaterial (
+        @Header("Authorization") token: String,
+        @Body requestCreateSyllabusMaterial: RequestCreateSyllabusMaterial
+    ): Response<CreateSyllabusMaterialResponse>
+
+
+    @GET("api/syllabus-material/{id}")
+    suspend fun getSyllabusMaterialById(
+        @Path("id") syllabusMaterialId: Int,
+        @Header("Authorization") token: String,
+    ): Response<SyllabusMaterialResponse>
+
 }

@@ -8,14 +8,17 @@ import com.comfest.instructor.data.source.remote.response.Course
 import com.comfest.instructor.data.source.remote.response.CourseResponse
 import com.comfest.instructor.data.source.remote.response.CreateAssignmentResponse
 import com.comfest.instructor.data.source.remote.response.CreateCourseResponse
+import com.comfest.instructor.data.source.remote.response.CreateSyllabusMaterialResponse
 import com.comfest.instructor.data.source.remote.response.CreateSyllabusResponse
 import com.comfest.instructor.data.source.remote.response.DeleteResponse
 import com.comfest.instructor.data.source.remote.response.DetailCourseResponse
+import com.comfest.instructor.data.source.remote.response.SyllabusMaterialResponse
 import com.comfest.instructor.data.source.remote.response.UpdateAssignmentResponse
 import com.comfest.instructor.data.source.remote.response.UploadImageResponse
 import com.comfest.instructor.domain.model.RequestCreateAssignment
 import com.comfest.instructor.domain.model.RequestCreateCourse
 import com.comfest.instructor.domain.model.RequestCreateSyllabus
+import com.comfest.instructor.domain.model.RequestCreateSyllabusMaterial
 import com.comfest.instructor.domain.model.RequestUpdateSyllabus
 import com.comfest.seatudy.data.Resource
 import okhttp3.MultipartBody
@@ -205,6 +208,35 @@ class InstructorRepository @Inject constructor(private val apiServiceInstructor:
         emit(Resource.Loading())
         try {
             val response = apiServiceInstructor.deleteAssignment(assignmentId, token)
+            if (response.isSuccessful) {
+                emit(Resource.Success(response))
+            } else {
+                emit(Resource.Error(response.message()))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
+
+    fun createSyllabusMaterial(token: String, requestCreateSyllabusMaterial: RequestCreateSyllabusMaterial): LiveData<Resource<Response<CreateSyllabusMaterialResponse>>> = liveData {
+        emit(Resource.Loading())
+        try {
+            val response = apiServiceInstructor.createSyllabusMaterial(token, requestCreateSyllabusMaterial)
+            if (response.isSuccessful) {
+                emit(Resource.Success(response))
+            } else {
+                emit(Resource.Error(response.message()))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
+
+
+    fun getSyllabusMaterialById(syllabusMaterialId: Int, token: String): LiveData<Resource<Response<SyllabusMaterialResponse>>> = liveData {
+        emit(Resource.Loading())
+        try {
+            val response = apiServiceInstructor.getSyllabusMaterialById(syllabusMaterialId, token)
             if (response.isSuccessful) {
                 emit(Resource.Success(response))
             } else {

@@ -71,6 +71,9 @@
             android:name="com.comfest.instructor.ui.sylabus.UpdateSyllabusActivity"
             android:exported="false" />
         <activity
+            android:name="com.comfest.instructor.ui.sylabus.SyllabusMaterialInstructorActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

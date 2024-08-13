@@ -7,6 +7,7 @@ import com.comfest.instructor.data.InstructorRepository
 import com.comfest.instructor.domain.model.RequestCreateAssignment
 import com.comfest.instructor.domain.model.RequestCreateCourse
 import com.comfest.instructor.domain.model.RequestCreateSyllabus
+import com.comfest.instructor.domain.model.RequestCreateSyllabusMaterial
 import com.comfest.instructor.domain.model.RequestUpdateSyllabus
 import com.comfest.seatudy.utils.SettingsPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,6 +34,11 @@ class SyllabusViewModel @Inject constructor(
     fun updateAssignment(assignmentId: Int,token: String, requestCreateAssignment: RequestCreateAssignment) = instructorRepository.updateAssignment(assignmentId, "Bearer $token", requestCreateAssignment)
 
     fun deleteAssignment(assignmentId: Int,token: String) = instructorRepository.deleteAssignment(assignmentId, "Bearer $token")
+
+    fun createSyllabusMaterial(token: String, requestCreateSyllabusMaterial: RequestCreateSyllabusMaterial) = instructorRepository.createSyllabusMaterial("Bearer $token", requestCreateSyllabusMaterial)
+
+    fun getSyllabusMaterialById(syllabusMaterialId: Int,token: String) = instructorRepository.getSyllabusMaterialById(syllabusMaterialId, "Bearer $token")
+
     fun getToken(): LiveData<String> {
         return pref.getTokenUser().asLiveData()
     }

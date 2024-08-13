@@ -124,7 +124,9 @@ class SyllabusInstructorActivity : AppCompatActivity(), SyllabusInstructorAdapte
     }
 
     override fun onAddSyllabusMaterialClick(syllabus: SyllabusDetail) {
-        TODO("Not yet implemented")
+        val intent = Intent(this, SyllabusMaterialInstructorActivity::class.java)
+        intent.putExtra("syllabus", syllabus)
+        startActivity(intent)
     }
 
     override fun onDeleteClick(syllabus: SyllabusDetail) {
