@@ -133,9 +133,9 @@ interface ApiServiceInstructor {
     ): Response<CreateSyllabusMaterialResponse>
 
 
-    @GET("api/syllabus-material/{id}")
+    @GET("api/syllabus-materials/{id}")
     suspend fun getSyllabusMaterialById(
-        @Path("id") syllabusMaterialId: Int,
+        @Path("id") syllabusId: Int,
         @Header("Authorization") token: String,
     ): Response<SyllabusMaterialResponse>
 

@@ -37,7 +37,7 @@ class SyllabusViewModel @Inject constructor(
 
     fun createSyllabusMaterial(token: String, requestCreateSyllabusMaterial: RequestCreateSyllabusMaterial) = instructorRepository.createSyllabusMaterial("Bearer $token", requestCreateSyllabusMaterial)
 
-    fun getSyllabusMaterialById(syllabusMaterialId: Int,token: String) = instructorRepository.getSyllabusMaterialById(syllabusMaterialId, "Bearer $token")
+    fun getSyllabusMaterialById(syllabusId: Int,token: String) = instructorRepository.getSyllabusMaterialById(syllabusId, "Bearer $token")
 
     fun getToken(): LiveData<String> {
         return pref.getTokenUser().asLiveData()

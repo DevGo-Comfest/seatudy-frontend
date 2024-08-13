@@ -233,10 +233,10 @@ class InstructorRepository @Inject constructor(private val apiServiceInstructor:
     }
 
 
-    fun getSyllabusMaterialById(syllabusMaterialId: Int, token: String): LiveData<Resource<Response<SyllabusMaterialResponse>>> = liveData {
+    fun getSyllabusMaterialById(syllabusId: Int, token: String): LiveData<Resource<Response<SyllabusMaterialResponse>>> = liveData {
         emit(Resource.Loading())
         try {
-            val response = apiServiceInstructor.getSyllabusMaterialById(syllabusMaterialId, token)
+            val response = apiServiceInstructor.getSyllabusMaterialById(syllabusId, token)
             if (response.isSuccessful) {
                 emit(Resource.Success(response))
             } else {

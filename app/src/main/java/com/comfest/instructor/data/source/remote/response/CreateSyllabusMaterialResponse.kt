@@ -1,6 +1,8 @@
 package com.comfest.instructor.data.source.remote.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class CreateSyllabusMaterialResponse(
     @SerializedName("message")
@@ -11,6 +13,8 @@ data class CreateSyllabusMaterialResponse(
 )
 
 
+
+@Parcelize
 data class SyllabusMaterial(
     @SerializedName("SyllabusMaterialID")
     val syllabusMaterialID: Int,
@@ -32,4 +36,4 @@ data class SyllabusMaterial(
 
     @SerializedName("SyllabusID")
     val syllabusID: Int
-)
+): Parcelable

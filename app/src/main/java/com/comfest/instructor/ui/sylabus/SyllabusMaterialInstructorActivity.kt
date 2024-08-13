@@ -8,9 +8,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.comfest.instructor.data.dummy.SyllabusMaterialInstructor
+import com.comfest.instructor.data.source.remote.response.DataSyllabusMaterialResponse
 import com.comfest.instructor.data.source.remote.response.SyllabusDetail
-import com.comfest.instructor.data.source.remote.response.SyllabusMaterial
 import com.comfest.instructor.domain.model.RequestCreateSyllabusMaterial
 import com.comfest.instructor.ui.sylabus.adapter.SyllabusMaterialInstructorAdapter
 import com.comfest.seatudy.data.Resource
@@ -45,12 +44,13 @@ class SyllabusMaterialInstructorActivity : AppCompatActivity(), SyllabusMaterial
         }
 
         syllabusAdapter = SyllabusMaterialInstructorAdapter(this)
-        binding.rvList.apply {
-            adapter = syllabusAdapter
-            layoutManager = LinearLayoutManager(this@SyllabusMaterialInstructorActivity)
-        }
+
+        binding.rvList.adapter = syllabusAdapter
+        binding.rvList.layoutManager = LinearLayoutManager(this)
+
 
         syllabusViewModel.getToken().observe(this){token ->
+            loadSyllabusMaterial(syllabusId!!, token)
             tokenUser = token
         }
 
@@ -89,7 +89,7 @@ class SyllabusMaterialInstructorActivity : AppCompatActivity(), SyllabusMaterial
                     is Resource.Success -> {
                         Toast.makeText(this@SyllabusMaterialInstructorActivity, "Syllabus created successfully", Toast.LENGTH_SHORT).show()
                         syllabusMaterialId = it.data?.body()?.syllabusMaterial?.syllabusMaterialID
-//                        loadSyllabusMaterial(syllabusMaterialId!!, tokenUser!!)
+                        loadSyllabusMaterial(syllabusId!!, tokenUser!!)
                         Log.d("SyllabusMaterialInstructorActivity", "ID Syllabus material $syllabusMaterialId")
                     }
 
@@ -115,9 +115,14 @@ class SyllabusMaterialInstructorActivity : AppCompatActivity(), SyllabusMaterial
                 is Resource.Loading -> {
                 }
                 is Resource.Success -> {
+                    Log.d("SyllabusMaterial", "Data: ${it.data?.body()?.syllabusMaterial}")
+                    val syllabusMaterials = it.data?.body()?.syllabusMaterial
                     it.data?.body()?.syllabusMaterial.let { syllabusDetail ->
-                        syllabusAdapter.setSyllabusMaterial(listOf(syllabusDetail!!))
+                        syllabusAdapter.setSyllabusMaterial(syllabusDetail!!)
                     }
+                    Log.d("SyllabusMaterialInstructorActivity", "Syllabus materials received: $syllabusMaterials")
+                    Toast.makeText(this@SyllabusMaterialInstructorActivity, "Success get syllabuses...", Toast.LENGTH_SHORT).show()
+
                 }
                 is Resource.Error -> {
                     Toast.makeText(this@SyllabusMaterialInstructorActivity, "Error get syllabuses...", Toast.LENGTH_SHORT).show()
@@ -126,8 +131,9 @@ class SyllabusMaterialInstructorActivity : AppCompatActivity(), SyllabusMaterial
         }
     }
 
-    override fun onUpdateClick(syllabusMaterial: SyllabusMaterial) {
+    override fun onUpdateClick(syllabusMaterial: DataSyllabusMaterialResponse) {
         val intent = Intent(this, UpdateSyllabusMaterialActivity::class.java)
+        intent.putExtra("syllabus_material", syllabusMaterial)
         startActivity(intent)
     }
 
