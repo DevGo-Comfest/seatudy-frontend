@@ -1,6 +1,9 @@
 package com.comfest.instructor.data.source.remote.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
 data class DetailCourseResponse(
     @SerializedName("course")
@@ -63,6 +66,7 @@ data class CourseDetail(
     val reviews: Any? // Adjust the type if needed
 )
 
+@Parcelize
 data class SyllabusDetail(
     @SerializedName("SyllabusID")
     val syllabusID: Int,
@@ -83,8 +87,8 @@ data class SyllabusDetail(
     val courseID: Int,
 
     @SerializedName("Materials")
-    val materials: Any?, // Adjust the type if needed
+    val materials: @RawValue Any?, // Adjust the type if needed
 
     @SerializedName("Assignments")
-    val assignments: Any? // Adjust the type if needed
-)
+    val assignments: @RawValue Any? // Adjust the type if needed
+): Parcelable

@@ -87,6 +87,7 @@ dependencies {
 
     // Dagger
     implementation("com.google.dagger:hilt-android:2.50")
+    implementation("androidx.activity:activity:1.9.1")
     kapt("com.google.dagger:hilt-android-compiler:2.50")
     implementation("androidx.hilt:hilt-work:1.2.0")
     kapt("androidx.hilt:hilt-compiler:1.2.0")
