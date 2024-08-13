@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.comfest.instructor.data.source.remote.response.Course
 import com.comfest.instructor.data.source.remote.response.SyllabusDetail
-import com.comfest.instructor.domain.model.RequestCreateAssignment
 import com.comfest.instructor.domain.model.RequestCreateSyllabus
 import com.comfest.instructor.ui.sylabus.adapter.SyllabusInstructorAdapter
 import com.comfest.seatudy.data.Resource
@@ -59,47 +58,6 @@ class SyllabusInstructorActivity : AppCompatActivity(), SyllabusInstructorAdapte
         }
     }
 
-//    private fun addAssignment() {
-//        binding.apply {
-//            val titleAssignment = edTitleAssignment.text.toString()
-//            val descAssignment = edDescAssignment.text.toString()
-//            val time = edDueAssignment.text.toString()
-//            if (titleAssignment.isEmpty() || descAssignment.isEmpty() || time.isEmpty() ) {
-//                Toast.makeText(this@SyllabusInstructorActivity, "Please fill in all the fields add assignment", Toast.LENGTH_SHORT).show()
-//            }
-//
-//            val requestCreateAssignment = RequestCreateAssignment(
-//                title = titleAssignment,
-//                description = descAssignment,
-//                maximumTime = time.toInt()
-//            )
-//
-//            syllabusViewModel.createAssignment(syllabusId!!, tokenUser!!, requestCreateAssignment).observe(this@SyllabusInstructorActivity) {
-//                when(it) {
-//                    is Resource.Loading -> {
-//                        Toast.makeText(this@SyllabusInstructorActivity, "Creating assignment...", Toast.LENGTH_SHORT).show()
-//                    }
-//
-//                    is Resource.Success -> {
-//                        Toast.makeText(this@SyllabusInstructorActivity, "Assignment created successfully", Toast.LENGTH_SHORT).show()
-//                    }
-//
-//                    is Resource.Error -> {
-//                        Toast.makeText(this@SyllabusInstructorActivity, "Failed to create assignment: ${it.message}", Toast.LENGTH_SHORT).show()
-//                    }
-//
-//                    else -> {
-//                        Toast.makeText(
-//                            this@SyllabusInstructorActivity,
-//                            "Recheck your input assignment",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//                    }
-//                }
-//            }
-//        }
-//    }
-
     private fun addSyllabus() {
         binding.apply {
             val titleSyllabus = edTitleSylabus.text.toString()
@@ -112,7 +70,7 @@ class SyllabusInstructorActivity : AppCompatActivity(), SyllabusInstructorAdapte
             val requestCreateSyllabus = RequestCreateSyllabus(
                 title = titleSyllabus,
                 description = descSyllabus,
-                courseId = courseId!!
+                courseId = courseId
             )
 
             syllabusViewModel.createSyllabus(tokenUser!!, requestCreateSyllabus).observe(this@SyllabusInstructorActivity) {
@@ -145,38 +103,57 @@ class SyllabusInstructorActivity : AppCompatActivity(), SyllabusInstructorAdapte
     override fun onItemClick(syllabus: SyllabusDetail) {
         val intent = Intent(this, AssignmentSyllabusInstructorActivity::class.java)
         intent.putExtra("syllabus", syllabus)
-        Log.d("SyllabusInstructorActivity", "SEND ${syllabus.syllabusID}")
         startActivity(intent)
     }
 
     override fun onUpdateClick(syllabus: SyllabusDetail) {
-        TODO("Not yet implemented")
+        val intent = Intent(this, UpdateSyllabusActivity::class.java)
+        intent.putExtra("syllabus", syllabus)
+        startActivity(intent)
     }
 
     override fun onAddAssignmentClick(syllabus: SyllabusDetail) {
         val intent = Intent(this, AssignmentSyllabusInstructorActivity::class.java)
         intent.putExtra("syllabus", syllabus)
-        Log.d("SyllabusInstructorActivity", "SEND ${syllabus.syllabusID}")
+
+        val course = intent.getParcelableExtra<Course>("course_detail")
+        intent.putExtra("course_detail", course)
         startActivity(intent)
+
+
     }
 
     override fun onAddSyllabusMaterialClick(syllabus: SyllabusDetail) {
         TODO("Not yet implemented")
     }
 
+    override fun onDeleteClick(syllabus: SyllabusDetail) {
+        syllabusViewModel.deleteSyllabus(syllabus.syllabusID, tokenUser!!).observe(this){
+            when (it) {
+                is Resource.Loading -> {
+                }
+                is Resource.Success -> {
+                    loadSyllabus(courseId, tokenUser!!)
+                    Toast.makeText(this@SyllabusInstructorActivity, "Success delete syllabus", Toast.LENGTH_SHORT).show()
+                }
+                is Resource.Error -> {
+                    // Handle the error
+                    Log.d("SyllabusInstructorActivity", "")
+                    Toast.makeText(this@SyllabusInstructorActivity, it.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
     private fun loadSyllabus(courseId: Int, token: String) {
         syllabusViewModel.getDetailCourse(courseId, token).observe(this@SyllabusInstructorActivity) {
             when (it) {
                 is Resource.Loading -> {
-                    // Show loading indicator
-                    Toast.makeText(this@SyllabusInstructorActivity, "Loading get syllabuses...", Toast.LENGTH_SHORT).show()
                 }
                 is Resource.Success -> {
                     it.data?.body()?.course?.syllabuses?.let { syllabusDetail ->
                         syllabusAdapter.setSyllabus(syllabusDetail)
                     }
-
-                    Toast.makeText(this@SyllabusInstructorActivity, "Success get syllabuses...", Toast.LENGTH_SHORT).show()
                 }
                 is Resource.Error -> {
                     // Handle the error

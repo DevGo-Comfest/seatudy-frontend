@@ -3,16 +3,19 @@ package com.comfest.instructor.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.comfest.instructor.data.source.remote.network.ApiServiceInstructor
+import com.comfest.instructor.data.source.remote.response.AssignmentSyllabusResponse
 import com.comfest.instructor.data.source.remote.response.Course
 import com.comfest.instructor.data.source.remote.response.CourseResponse
 import com.comfest.instructor.data.source.remote.response.CreateAssignmentResponse
 import com.comfest.instructor.data.source.remote.response.CreateCourseResponse
 import com.comfest.instructor.data.source.remote.response.CreateSyllabusResponse
+import com.comfest.instructor.data.source.remote.response.DeleteResponse
 import com.comfest.instructor.data.source.remote.response.DetailCourseResponse
 import com.comfest.instructor.data.source.remote.response.UploadImageResponse
 import com.comfest.instructor.domain.model.RequestCreateAssignment
 import com.comfest.instructor.domain.model.RequestCreateCourse
 import com.comfest.instructor.domain.model.RequestCreateSyllabus
+import com.comfest.instructor.domain.model.RequestUpdateSyllabus
 import com.comfest.seatudy.data.Resource
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
@@ -137,5 +140,48 @@ class InstructorRepository @Inject constructor(private val apiServiceInstructor:
         }
     }
 
+
+    fun getAssignmentBySyllabusId(syllabusId: Int, token: String): LiveData<Resource<Response<AssignmentSyllabusResponse>>> = liveData {
+        emit(Resource.Loading())
+        try {
+            val response = apiServiceInstructor.getAssignmentBySyllabusId(syllabusId, token)
+            if (response.isSuccessful) {
+                emit(Resource.Success(response))
+            } else {
+                emit(Resource.Error(response.message()))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
+
+
+    fun updateSyllabus(syllabusId: Int, token: String, requestUpdateSyllabus: RequestUpdateSyllabus): LiveData<Resource<Response<CreateSyllabusResponse>>> = liveData {
+        emit(Resource.Loading())
+        try {
+            val response = apiServiceInstructor.updateSyllabus(syllabusId, token, requestUpdateSyllabus)
+            if (response.isSuccessful) {
+                emit(Resource.Success(response))
+            } else {
+                emit(Resource.Error(response.message()))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
+
+    fun deleteSyllabus(syllabusId: Int, token: String): LiveData<Resource<Response<DeleteResponse>>> = liveData {
+        emit(Resource.Loading())
+        try {
+            val response = apiServiceInstructor.deleteSyllabus(syllabusId, token)
+            if (response.isSuccessful) {
+                emit(Resource.Success(response))
+            } else {
+                emit(Resource.Error(response.message()))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
 
 }

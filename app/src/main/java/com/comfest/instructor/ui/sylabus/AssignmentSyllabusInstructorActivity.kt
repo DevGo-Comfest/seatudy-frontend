@@ -5,13 +5,11 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import com.comfest.instructor.data.source.remote.response.Syllabus
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.comfest.instructor.data.source.remote.response.SyllabusDetail
 import com.comfest.instructor.domain.model.RequestCreateAssignment
-import com.comfest.seatudy.R
+import com.comfest.instructor.ui.sylabus.adapter.AssignmentSyllabusAdapter
 import com.comfest.seatudy.data.Resource
 import com.comfest.seatudy.databinding.ActivityAssignmentSyllabusInstructorBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +20,7 @@ class AssignmentSyllabusInstructorActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAssignmentSyllabusInstructorBinding
     private lateinit var syllabusViewModel: SyllabusViewModel
+    private lateinit var assignmentAdapter: AssignmentSyllabusAdapter
 
 
     private var syllabusId: Int? = null
@@ -36,9 +35,16 @@ class AssignmentSyllabusInstructorActivity : AppCompatActivity() {
         val syllabus = intent.getParcelableExtra<SyllabusDetail>("syllabus")
         syllabusId = syllabus?.syllabusID
 
+        assignmentAdapter = AssignmentSyllabusAdapter()
+        binding.rvList.apply {
+            adapter = assignmentAdapter
+            layoutManager = LinearLayoutManager(this@AssignmentSyllabusInstructorActivity)
+        }
+
         syllabusViewModel = ViewModelProvider(this)[SyllabusViewModel::class.java]
-        syllabusViewModel.getToken().observe(this){
-            tokenUser = it
+        syllabusViewModel.getToken().observe(this){ token ->
+            loadAssignment(syllabusId!!, token)
+            tokenUser = token
         }
 
         binding.btnAddAssignment.setOnClickListener {
@@ -47,8 +53,7 @@ class AssignmentSyllabusInstructorActivity : AppCompatActivity() {
     }
 
 
-
-        private fun addAssignment() {
+    private fun addAssignment() {
         binding.apply {
             val titleAssignment = edTitleAssignment.text.toString()
             val descAssignment = edDescAssignment.text.toString()
@@ -67,8 +72,6 @@ class AssignmentSyllabusInstructorActivity : AppCompatActivity() {
                 when(it) {
                     is Resource.Loading -> {
                         Toast.makeText(this@AssignmentSyllabusInstructorActivity, "Creating assignment...", Toast.LENGTH_SHORT).show()
-                        Log.d("AssignmentInstructorActivity", "SYLLABUS_ID: $syllabusId")
-                        Log.d("AssignmentInstructorActivity", "TOKEN_USER: $tokenUser")
                     }
 
                     is Resource.Success -> {
@@ -86,6 +89,25 @@ class AssignmentSyllabusInstructorActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                     }
+                }
+            }
+        }
+    }
+
+
+
+    private fun loadAssignment(syllabusId: Int, token: String) {
+        syllabusViewModel.getAssignmentBySyllabusId(syllabusId, token).observe(this@AssignmentSyllabusInstructorActivity) {
+            when (it) {
+                is Resource.Loading -> {
+                }
+                is Resource.Success -> {
+                    it.data?.body()?.syllabus?.assignments?.let { assignment ->
+                        assignmentAdapter.setAssignment(assignment)
+                    }
+                }
+                is Resource.Error -> {
+                    Toast.makeText(this@AssignmentSyllabusInstructorActivity, "Error get assignment...", Toast.LENGTH_SHORT).show()
                 }
             }
         }
