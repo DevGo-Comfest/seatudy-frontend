@@ -39,10 +39,10 @@
             android:name=".utils.ErrorActivity"
             android:exported="false" />
         <activity
-            android:name="com.comfest.seatudy.ui.dashboard.detailsyllabus.CourseDetailPerSyllabusActivity"
+            android:name="com.comfest.seatudy.ui.dashboard.detailsyllabus.CourseDetailSyllabusActivity"
             android:exported="false" />
         <activity
-            android:name="com.comfest.seatudy.ui.dashboard.detailcourse.CourseDetailSyllabusActivity"
+            android:name="com.comfest.seatudy.ui.dashboard.detailcourse.CourseDetailActivity"
             android:exported="false" />
         <activity
             android:name="com.comfest.seatudy.ui.auth.register.RegisterActivity"
@@ -54,9 +54,7 @@
             android:name="com.comfest.seatudy.ui.NavigationActivity"
             android:exported="false"
             android:label="@string/title_activity_navigation" />
-        <activity
-            android:name="com.comfest.seatudy.ui.dashboard.detail.CourseDetailActivity"
-            android:exported="false" />
+
         <activity
             android:name="com.comfest.instructor.ui.assignment.AssignmentInstructorActivity"
             android:exported="false" />
