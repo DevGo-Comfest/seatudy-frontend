@@ -13,6 +13,7 @@ import com.comfest.instructor.data.source.remote.response.CreateSyllabusResponse
 import com.comfest.instructor.data.source.remote.response.DataSubmissionUserResponse
 import com.comfest.instructor.data.source.remote.response.DeleteResponse
 import com.comfest.instructor.data.source.remote.response.DetailCourseResponse
+import com.comfest.instructor.data.source.remote.response.DiscussionInstructorResponse
 import com.comfest.instructor.data.source.remote.response.InstructorResponse
 import com.comfest.instructor.data.source.remote.response.SyllabusMaterialResponse
 import com.comfest.instructor.data.source.remote.response.UpdateAssignmentResponse
@@ -315,6 +316,21 @@ class InstructorRepository @Inject constructor(private val apiServiceInstructor:
         emit(Resource.Loading())
         try {
             val response = apiServiceInstructor.getSubmissionUser(syllabusId,token)
+            if (response.isSuccessful) {
+                emit(Resource.Success(response))
+            } else {
+                emit(Resource.Error(response.message()))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
+
+
+    fun getDiscussion(courseId: Int, token: String): LiveData<Resource<Response<DiscussionInstructorResponse>>> = liveData {
+        emit(Resource.Loading())
+        try {
+            val response = apiServiceInstructor.getDiscussion(courseId,token)
             if (response.isSuccessful) {
                 emit(Resource.Success(response))
             } else {

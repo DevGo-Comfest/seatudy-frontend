@@ -4,23 +4,24 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.comfest.instructor.data.dummy.DiscussionInstructor
+import com.comfest.instructor.data.source.remote.response.Discussion
 import com.comfest.seatudy.databinding.ItemDiscussionInstructorBinding
 
 class DiscussionInstructorAdapter: RecyclerView.Adapter<DiscussionInstructorAdapter.DiscussionInstructorViewHolder>() {
 
-    private var discussion: List<DiscussionInstructor> = emptyList()
+    private var discussion: List<Discussion> = emptyList()
 
-    fun setDiscussion(newDiscussion: List<DiscussionInstructor>) {
+    fun setDiscussion(newDiscussion: List<Discussion>) {
         discussion = newDiscussion
         notifyDataSetChanged()
     }
     inner class DiscussionInstructorViewHolder(private val binding: ItemDiscussionInstructorBinding): RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bind(discussionData: DiscussionInstructor) {
+        fun bind(discussionData: Discussion) {
             binding.apply {
-                tvNameUser.text = discussionData.name
-                tvDiscussion.text = discussionData.message
+                tvNameUser.text = discussionData.userName
+                tvDiscussion.text = discussionData.content
             }
         }
 

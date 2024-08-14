@@ -111,6 +111,7 @@ class DetailCourseActivity : AppCompatActivity() {
 
         binding.btnDiscussion.setOnClickListener {
             val intent = Intent(this, DiscussionInstructorActivity::class.java)
+            intent.putExtra("course", course)
             startActivity(intent)
         }
     }

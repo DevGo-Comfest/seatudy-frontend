@@ -9,6 +9,7 @@ import com.comfest.instructor.data.source.remote.response.CreateSyllabusResponse
 import com.comfest.instructor.data.source.remote.response.DataSubmissionUserResponse
 import com.comfest.instructor.data.source.remote.response.DeleteResponse
 import com.comfest.instructor.data.source.remote.response.DetailCourseResponse
+import com.comfest.instructor.data.source.remote.response.DiscussionInstructorResponse
 import com.comfest.instructor.data.source.remote.response.InstructorResponse
 import com.comfest.instructor.data.source.remote.response.SyllabusMaterialResponse
 import com.comfest.instructor.data.source.remote.response.UpdateAssignmentResponse
@@ -176,5 +177,13 @@ interface ApiServiceInstructor {
         @Path("id") syllabusId: Int,
         @Header("Authorization") token: String,
     ): Response<DataSubmissionUserResponse>
+
+
+    //get discussion
+    @GET("api/forum-post/{id}")
+    suspend fun getDiscussion(
+        @Path("id") courseId: Int,
+        @Header("Authorization") token: String,
+    ): Response<DiscussionInstructorResponse>
 
 }
