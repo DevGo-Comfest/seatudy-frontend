@@ -8,9 +8,11 @@ import com.comfest.instructor.data.source.remote.response.CreateSyllabusMaterial
 import com.comfest.instructor.data.source.remote.response.CreateSyllabusResponse
 import com.comfest.instructor.data.source.remote.response.DeleteResponse
 import com.comfest.instructor.data.source.remote.response.DetailCourseResponse
+import com.comfest.instructor.data.source.remote.response.InstructorResponse
 import com.comfest.instructor.data.source.remote.response.SyllabusMaterialResponse
 import com.comfest.instructor.data.source.remote.response.UpdateAssignmentResponse
 import com.comfest.instructor.data.source.remote.response.UploadImageResponse
+import com.comfest.instructor.domain.model.RequestAssignInstructor
 import com.comfest.instructor.domain.model.RequestCreateAssignment
 import com.comfest.instructor.domain.model.RequestCreateCourse
 import com.comfest.instructor.domain.model.RequestCreateSyllabus
@@ -18,6 +20,7 @@ import com.comfest.instructor.domain.model.RequestCreateSyllabusMaterial
 import com.comfest.instructor.domain.model.RequestUpdateSyllabus
 import com.comfest.instructor.domain.model.RequestUpdateSyllabusMaterial
 import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -153,4 +156,16 @@ interface ApiServiceInstructor {
         @Path("id") syllabusMaterialId: Int,
         @Header("Authorization") token: String,
     ): Response<DeleteResponse>
+
+
+    @GET("api/instructors")
+    suspend fun getInstructor(): Response<InstructorResponse>
+
+    @POST("api/courses/{id}/instructors")
+    suspend fun addAssignInstructor(
+        @Path("id") courseId: Int,
+        @Header("Authorization") token: String,
+        @Body requestAssignInstructor: RequestAssignInstructor,
+    ): Response<ResponseBody>
+
 }

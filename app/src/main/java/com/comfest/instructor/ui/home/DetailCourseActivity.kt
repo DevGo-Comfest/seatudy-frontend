@@ -101,6 +101,7 @@ class DetailCourseActivity : AppCompatActivity() {
         
         binding.btnAssignInstructor.setOnClickListener { 
             val intent = Intent(this, AddInstructorActivity::class.java)
+            intent.putExtra("course", course)
             startActivity(intent)
         }
 
