@@ -156,7 +156,7 @@
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ed_title_course"
+                android:id="@+id/ed_message_discussion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Send message..."

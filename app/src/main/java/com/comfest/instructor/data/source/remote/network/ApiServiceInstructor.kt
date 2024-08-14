@@ -4,6 +4,7 @@ import com.comfest.instructor.data.source.remote.response.AssignmentSyllabusResp
 import com.comfest.instructor.data.source.remote.response.CourseResponse
 import com.comfest.instructor.data.source.remote.response.CreateAssignmentResponse
 import com.comfest.instructor.data.source.remote.response.CreateCourseResponse
+import com.comfest.instructor.data.source.remote.response.CreateDiscussionResponse
 import com.comfest.instructor.data.source.remote.response.CreateSyllabusMaterialResponse
 import com.comfest.instructor.data.source.remote.response.CreateSyllabusResponse
 import com.comfest.instructor.data.source.remote.response.DataSubmissionUserResponse
@@ -17,6 +18,7 @@ import com.comfest.instructor.data.source.remote.response.UploadImageResponse
 import com.comfest.instructor.domain.model.RequestAssignInstructor
 import com.comfest.instructor.domain.model.RequestCreateAssignment
 import com.comfest.instructor.domain.model.RequestCreateCourse
+import com.comfest.instructor.domain.model.RequestCreateDiscussion
 import com.comfest.instructor.domain.model.RequestCreateSyllabus
 import com.comfest.instructor.domain.model.RequestCreateSyllabusMaterial
 import com.comfest.instructor.domain.model.RequestUpdateSyllabus
@@ -185,5 +187,12 @@ interface ApiServiceInstructor {
         @Path("id") courseId: Int,
         @Header("Authorization") token: String,
     ): Response<DiscussionInstructorResponse>
+
+
+    @POST("api/forum-post")
+    suspend fun addMessageDiscussion(
+        @Header("Authorization") token: String,
+        @Body requestCreateDiscussion: RequestCreateDiscussion,
+    ): Response<CreateDiscussionResponse>
 
 }

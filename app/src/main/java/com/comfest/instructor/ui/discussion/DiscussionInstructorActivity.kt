@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.comfest.instructor.data.source.remote.response.Course
+import com.comfest.instructor.domain.model.RequestCreateDiscussion
 import com.comfest.instructor.ui.discussion.adapter.DiscussionInstructorAdapter
 import com.comfest.seatudy.data.Resource
 import com.comfest.seatudy.databinding.ActivityDiscussionInstructorBinding
@@ -19,6 +20,8 @@ class DiscussionInstructorActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDiscussionInstructorBinding
     private lateinit var discussionAdapter: DiscussionInstructorAdapter
     private lateinit var viewModel: DiscussionViewModel
+
+    private var tokenUser: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,11 +36,16 @@ class DiscussionInstructorActivity : AppCompatActivity() {
 
         viewModel.getToken().observe(this){token ->
             loadDiscussion(course?.CourseID!!, token )
+            tokenUser = token
         }
 
 
         binding.ivBack.setOnClickListener {
             onBackPressed()
+        }
+
+        binding.btnSendDiscussion.setOnClickListener {
+            addMessageDiscussion(course?.CourseID!!)
         }
 
         setupRecyclerView()
@@ -50,6 +58,46 @@ class DiscussionInstructorActivity : AppCompatActivity() {
         binding.rvList.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = discussionAdapter
+        }
+    }
+
+    private fun addMessageDiscussion(id: Int) {
+        binding.apply {
+            val contentMessage = binding.edMessageDiscussion.text.toString()
+
+            if (contentMessage.isEmpty()) {
+                Toast.makeText(this@DiscussionInstructorActivity, "Please fill in all the field", Toast.LENGTH_SHORT).show()
+            }
+
+            val requestCreateDiscussion = RequestCreateDiscussion(
+                courseId = id,
+                messageDiscussion = contentMessage
+
+            )
+
+            viewModel.createMessageDiscussion(tokenUser, requestCreateDiscussion).observe(this@DiscussionInstructorActivity){
+                when(it) {
+                    is Resource.Loading -> {
+                    }
+
+                    is Resource.Success -> {
+                        Toast.makeText(this@DiscussionInstructorActivity, "Discussion message created successfully", Toast.LENGTH_SHORT).show()
+                        loadDiscussion(id, tokenUser)
+                    }
+
+                    is Resource.Error -> {
+                        Toast.makeText(this@DiscussionInstructorActivity, "Failed to create message: ${it.message}", Toast.LENGTH_SHORT).show()
+                    }
+
+                    else -> {
+                        Toast.makeText(
+                            this@DiscussionInstructorActivity,
+                            "Recheck your input discussion",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
         }
     }
 
@@ -72,14 +120,4 @@ class DiscussionInstructorActivity : AppCompatActivity() {
             }
         }
     }
-
-
-//    private fun loadDiscussion() {
-//        val sampleDiscussion = listOf(
-//            DiscussionInstructor("Dewa Tri Wijaya", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."),
-//            DiscussionInstructor("Joko Sukmo", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."),
-//        )
-//
-//        discussionAdapter.setDiscussion(sampleDiscussion)
-//    }
 }
