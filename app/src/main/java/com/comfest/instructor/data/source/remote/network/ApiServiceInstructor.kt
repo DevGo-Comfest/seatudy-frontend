@@ -6,6 +6,7 @@ import com.comfest.instructor.data.source.remote.response.CreateAssignmentRespon
 import com.comfest.instructor.data.source.remote.response.CreateCourseResponse
 import com.comfest.instructor.data.source.remote.response.CreateSyllabusMaterialResponse
 import com.comfest.instructor.data.source.remote.response.CreateSyllabusResponse
+import com.comfest.instructor.data.source.remote.response.DataSubmissionUserResponse
 import com.comfest.instructor.data.source.remote.response.DeleteResponse
 import com.comfest.instructor.data.source.remote.response.DetailCourseResponse
 import com.comfest.instructor.data.source.remote.response.InstructorResponse
@@ -167,5 +168,13 @@ interface ApiServiceInstructor {
         @Header("Authorization") token: String,
         @Body requestAssignInstructor: RequestAssignInstructor,
     ): Response<ResponseBody>
+
+
+    //get submission user
+    @GET("api/assignments/{id}")
+    suspend fun getSubmissionUser(
+        @Path("id") syllabusId: Int,
+        @Header("Authorization") token: String,
+    ): Response<DataSubmissionUserResponse>
 
 }

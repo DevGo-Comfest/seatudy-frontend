@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.comfest.instructor.data.source.remote.response.Course
 import com.comfest.instructor.data.source.remote.response.SyllabusDetail
 import com.comfest.instructor.domain.model.RequestCreateSyllabus
+import com.comfest.instructor.ui.assignment.AssignmentInstructorActivity
 import com.comfest.instructor.ui.sylabus.adapter.SyllabusInstructorAdapter
 import com.comfest.seatudy.data.Resource
 import com.comfest.seatudy.databinding.ActivitySyllabusInstructorBinding
@@ -143,6 +144,12 @@ class SyllabusInstructorActivity : AppCompatActivity(), SyllabusInstructorAdapte
                 }
             }
         }
+    }
+
+    override fun onSubmissionUser(syllabus: SyllabusDetail) {
+        val intent = Intent(this, AssignmentInstructorActivity::class.java)
+        intent.putExtra("syllabus", syllabus)
+        startActivity(intent)
     }
 
     private fun loadSyllabus(courseId: Int, token: String) {

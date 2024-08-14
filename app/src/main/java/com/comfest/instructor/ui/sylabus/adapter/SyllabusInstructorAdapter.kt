@@ -64,6 +64,13 @@ class SyllabusInstructorAdapter(
                 }
             }
 
+            binding.btnSubmissionUser.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onSubmissionUser(syllabus[position])
+                }
+            }
+
 
         }
 
@@ -94,5 +101,7 @@ class SyllabusInstructorAdapter(
         fun onAddSyllabusMaterialClick(syllabus: SyllabusDetail)
 
         fun onDeleteClick(syllabus: SyllabusDetail)
+
+        fun onSubmissionUser(syllabus: SyllabusDetail)
     }
 }

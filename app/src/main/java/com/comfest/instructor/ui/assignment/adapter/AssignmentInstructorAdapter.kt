@@ -4,13 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.comfest.instructor.data.dummy.AssignmentInstructor
+import com.comfest.instructor.data.source.remote.response.Submission
 import com.comfest.seatudy.databinding.ItemAssignmentInstructorBinding
 
 class AssignmentInstructorAdapter: RecyclerView.Adapter<AssignmentInstructorAdapter.AssignmentInstructorViewHolder>() {
 
-    private var assignment: List<AssignmentInstructor> = emptyList()
+    private var assignment: List<Submission> = emptyList()
 
-    fun setAssignment(newAssignment: List<AssignmentInstructor>) {
+    fun setAssignment(newAssignment: List<Submission>) {
         assignment = newAssignment
         notifyDataSetChanged()
     }
@@ -18,11 +19,12 @@ class AssignmentInstructorAdapter: RecyclerView.Adapter<AssignmentInstructorAdap
     inner class AssignmentInstructorViewHolder(private val binding: ItemAssignmentInstructorBinding): RecyclerView.ViewHolder(binding.root) {
 
 
-        fun bind(assignmentData: AssignmentInstructor) {
+        fun bind(assignmentData: Submission) {
             binding.apply {
-                tvNameStudent.text = assignmentData.nameStudent
-                tvAttachmentStudent.text = assignmentData.linkAttachment
-                submitedAt.text = assignmentData.dateSubmit
+                tvNameStudent.text = "Student"
+                tvAttachmentStudent.text = assignmentData.contentURL
+                submitedAt.text = assignmentData.createdAt
+                edGradeSubmission.setText(assignmentData.grade.toString())
             }
         }
     }

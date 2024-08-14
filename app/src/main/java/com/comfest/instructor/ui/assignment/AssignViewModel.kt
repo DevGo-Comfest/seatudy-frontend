@@ -20,6 +20,8 @@ class AssignViewModel @Inject constructor(
 
     fun assignInstructor(courseId: Int, token: String, requestAssignInstructor: RequestAssignInstructor) = instructorRepository.assignInstructor(courseId, "Bearer $token", requestAssignInstructor)
 
+    fun getSubmissionUser(syllabusId: Int, token: String) = instructorRepository.getSubmissionUser(syllabusId, "Bearer $token")
+
     fun getToken(): LiveData<String> {
         return pref.getTokenUser().asLiveData()
     }
