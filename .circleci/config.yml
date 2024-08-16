@@ -1,22 +1,29 @@
 version: 2.1
  
 orbs:
-  android: 2.1.2
+  android: circleci/android@0.2.1
  
 jobs:
   build:
+    docker:
+      - image: circleci/android:api-30
     executor: android/android
     steps:
       - checkout
       - restore_cache:
           key: android-orb-v1-
       - run:
-          name: Install OpenJDK 17
-          command: |
-            sudo apt-get update && sudo apt-get install openjdk-17-jdk
-            sudo update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java
-            sudo update-alternatives --set javac /usr/lib/jvm/java-17-openjdk-amd64/bin/javac
-            java -version
+          name: Install JDK 17
+          command: sudo apt-get update && sudo apt-get install -y openjdk-17-jdk
+      - run:
+          name: Set JDK 17 as default
+          command: sudo update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java
+      - run:
+          name: Verify Java Version
+          command: java -version
+      - run:
+          name: Build the project
+          command: ./gradlew assembleDebug
       - run:
           name: Chmod permissions
           command: sudo chmod +x ./gradlew
