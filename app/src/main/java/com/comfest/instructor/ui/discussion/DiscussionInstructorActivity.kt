@@ -2,11 +2,13 @@ package com.comfest.instructor.ui.discussion
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.comfest.instructor.data.source.remote.response.Course
 import com.comfest.instructor.domain.model.RequestCreateDiscussion
 import com.comfest.instructor.ui.discussion.adapter.DiscussionInstructorAdapter
@@ -40,16 +42,25 @@ class DiscussionInstructorActivity : AppCompatActivity() {
         }
 
 
+        Glide.with(this)
+            .load(course?.ImageURL)
+            .centerCrop()
+            .into(binding.ivDetailCourse)
+
+        binding.tvTitle.text = course?.Title
+        binding.tvDesc.text = course?.Description
+        binding.ratingBar.rating = course?.Rating!!.toFloat()
+
+
         binding.ivBack.setOnClickListener {
             onBackPressed()
         }
 
         binding.btnSendDiscussion.setOnClickListener {
-            addMessageDiscussion(course?.CourseID!!)
+            addMessageDiscussion(course.CourseID)
         }
 
         setupRecyclerView()
-//        loadDiscussion()
     }
 
 
@@ -108,13 +119,24 @@ class DiscussionInstructorActivity : AppCompatActivity() {
                 is Resource.Loading -> {
                 }
                 is Resource.Success -> {
-                    discussionAdapter.setDiscussion(it.data?.body()?.forumPosts!!)
-                    val message = it.data?.body()?.forumPosts!!.map { item -> item.content }
-                    Log.d("DiscussionInstructorActivity", "DATA CONTENT: $message")
-                    Toast.makeText(this@DiscussionInstructorActivity, "Success get submision", Toast.LENGTH_SHORT).show()
+
+                    val discussion = it.data?.body()?.forumPosts
+
+                    if (discussion.isNullOrEmpty()) {
+                        binding.ivNoData.visibility = View.VISIBLE
+                        binding.tvNoData.visibility = View.VISIBLE
+                        binding.edMessageDiscussion.visibility = View.GONE
+                        binding.btnSendDiscussion.visibility = View.GONE
+                        binding.rvList.visibility = View.GONE
+                    } else {
+                        binding.ivNoData.visibility = View.GONE
+                        binding.tvNoData.visibility = View.GONE
+                        binding.rvList.visibility = View.VISIBLE
+
+                        discussionAdapter.setDiscussion(discussion)
+                    }
                 }
                 is Resource.Error -> {
-                    Log.d("AssignmentInstructorActivity", "ERROR: ${it.message}")
                     Toast.makeText(this@DiscussionInstructorActivity, it.message, Toast.LENGTH_SHORT).show()
                 }
             }

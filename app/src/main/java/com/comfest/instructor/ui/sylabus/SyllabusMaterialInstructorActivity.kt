@@ -3,6 +3,7 @@ package com.comfest.instructor.ui.sylabus
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -115,14 +116,17 @@ class SyllabusMaterialInstructorActivity : AppCompatActivity(), SyllabusMaterial
                 is Resource.Loading -> {
                 }
                 is Resource.Success -> {
-                    Log.d("SyllabusMaterial", "Data: ${it.data?.body()?.syllabusMaterial}")
                     val syllabusMaterials = it.data?.body()?.syllabusMaterial
-                    it.data?.body()?.syllabusMaterial.let { syllabusDetail ->
-                        syllabusAdapter.setSyllabusMaterial(syllabusDetail!!)
+                    if (syllabusMaterials.isNullOrEmpty()) {
+                        binding.ivNoData.visibility = View.VISIBLE
+                        binding.tvNoData.visibility = View.VISIBLE
+                        binding.rvList.visibility = View.GONE
+                    } else {
+                        binding.ivNoData.visibility = View.GONE
+                        binding.tvNoData.visibility = View.GONE
+                        binding.rvList.visibility = View.VISIBLE
+                        syllabusAdapter.setSyllabusMaterial(syllabusMaterials)
                     }
-                    Log.d("SyllabusMaterialInstructorActivity", "Syllabus materials received: $syllabusMaterials")
-                    Toast.makeText(this@SyllabusMaterialInstructorActivity, "Success get syllabuses...", Toast.LENGTH_SHORT).show()
-
                 }
                 is Resource.Error -> {
                     Toast.makeText(this@SyllabusMaterialInstructorActivity, "Error get syllabuses...", Toast.LENGTH_SHORT).show()

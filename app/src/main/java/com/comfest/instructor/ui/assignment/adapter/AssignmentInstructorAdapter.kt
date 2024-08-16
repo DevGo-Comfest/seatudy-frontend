@@ -6,8 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.comfest.instructor.data.dummy.AssignmentInstructor
 import com.comfest.instructor.data.source.remote.response.Submission
 import com.comfest.seatudy.databinding.ItemAssignmentInstructorBinding
+import com.comfest.seatudy.utils.DateFormatter
 
-class AssignmentInstructorAdapter: RecyclerView.Adapter<AssignmentInstructorAdapter.AssignmentInstructorViewHolder>() {
+class AssignmentInstructorAdapter(
+    private val listener: OnItemClickListener
+): RecyclerView.Adapter<AssignmentInstructorAdapter.AssignmentInstructorViewHolder>() {
 
     private var assignment: List<Submission> = emptyList()
 
@@ -23,8 +26,19 @@ class AssignmentInstructorAdapter: RecyclerView.Adapter<AssignmentInstructorAdap
             binding.apply {
                 tvNameStudent.text = "Student"
                 tvAttachmentStudent.text = assignmentData.contentURL
-                submitedAt.text = assignmentData.createdAt
+                val formattedDate = DateFormatter.formatDate(assignmentData.createdAt)
+                submitedAt.text = formattedDate
                 edGradeSubmission.setText(assignmentData.grade.toString())
+            }
+        }
+
+        init {
+            binding.btnGiveAGrade.setOnClickListener {
+                val position = adapterPosition
+                val grade = binding.edGradeSubmission.text.toString()
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onAddGradeClick(assignment[position], grade.toInt())
+                }
             }
         }
     }
@@ -41,5 +55,9 @@ class AssignmentInstructorAdapter: RecyclerView.Adapter<AssignmentInstructorAdap
 
     override fun onBindViewHolder(holder: AssignmentInstructorViewHolder, position: Int) {
         holder.bind(assignment[position])
+    }
+
+    interface OnItemClickListener{
+        fun onAddGradeClick(submission: Submission, grade: Int)
     }
 }

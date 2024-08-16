@@ -182,18 +182,15 @@ class UpdateCourseActivity : AppCompatActivity() {
                 updateCourseViewModel.updateCourse(course!!.CourseID, tokenUser!!, requestUpdateCourse).observe(this@UpdateCourseActivity) {
                     when(it) {
                         is Resource.Loading -> {
-                            Toast.makeText(this@UpdateCourseActivity, "Updating course...", Toast.LENGTH_SHORT).show()
                         }
 
                         is Resource.Success -> {
                             Toast.makeText(this@UpdateCourseActivity, "Course updated successfully", Toast.LENGTH_SHORT).show()
-                            // Optionally, you can navigate back or clear the form
-                            finish() // Or any other action like navigating to another activity
+                            finish()
                         }
 
                         is Resource.Error -> {
                             Toast.makeText(this@UpdateCourseActivity, "Failed to update course: ${it.message}", Toast.LENGTH_SHORT).show()
-                            Log.d("UpdateCourseActivity", "ERROR: ${it.message}")
                         }
 
                         else -> {

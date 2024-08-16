@@ -3,8 +3,6 @@ package com.comfest.instructor.ui.home
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -12,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.comfest.instructor.data.source.remote.response.Course
 import com.comfest.instructor.ui.assignment.AddInstructorActivity
-import com.comfest.instructor.ui.assignment.AssignmentInstructorActivity
 import com.comfest.instructor.ui.discussion.DiscussionInstructorActivity
 import com.comfest.instructor.ui.sylabus.SyllabusInstructorActivity
 import com.comfest.seatudy.data.Resource
@@ -64,7 +61,6 @@ class DetailCourseActivity : AppCompatActivity() {
             homeInstructorViewModel.activatedCourse(course!!.CourseID, tokenUser!!).observe(this){
                 when(it) {
                     is Resource.Loading -> {
-                        Toast.makeText(this@DetailCourseActivity, "Loading Activated Course", Toast.LENGTH_SHORT).show()
                     }
 
                     is Resource.Success -> {
@@ -91,11 +87,6 @@ class DetailCourseActivity : AppCompatActivity() {
         binding.btnSyllabus.setOnClickListener {
             val intent = Intent(this, SyllabusInstructorActivity::class.java)
             intent.putExtra("course_detail", course)
-            startActivity(intent)
-        }
-
-        binding.btnAssignment.setOnClickListener {
-            val intent = Intent(this, AssignmentInstructorActivity::class.java)
             startActivity(intent)
         }
         

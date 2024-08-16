@@ -3,6 +3,7 @@ package com.comfest.instructor.ui.sylabus
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -28,13 +29,14 @@ class SyllabusInstructorActivity : AppCompatActivity(), SyllabusInstructorAdapte
     private var syllabusId: Int? = null
     private var tokenUser: String? = null
     private var courseId: Int = 0
+    private var course: Course? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivitySyllabusInstructorBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val course = intent.getParcelableExtra<Course>("course_detail")
+        course = intent.getParcelableExtra("course_detail")
         courseId = course!!.CourseID
 
         syllabusViewModel = ViewModelProvider(this)[SyllabusViewModel::class.java]
@@ -77,11 +79,9 @@ class SyllabusInstructorActivity : AppCompatActivity(), SyllabusInstructorAdapte
             syllabusViewModel.createSyllabus(tokenUser!!, requestCreateSyllabus).observe(this@SyllabusInstructorActivity) {
                 when(it) {
                     is Resource.Loading -> {
-                        Toast.makeText(this@SyllabusInstructorActivity, "Creating syllabus...", Toast.LENGTH_SHORT).show()
                     }
 
                     is Resource.Success -> {
-                        Toast.makeText(this@SyllabusInstructorActivity, "Syllabus created successfully", Toast.LENGTH_SHORT).show()
                         syllabusId = it.data?.body()?.syllabus?.SyllabusID
                         loadSyllabus(courseId, tokenUser!!)
                     }
@@ -117,11 +117,8 @@ class SyllabusInstructorActivity : AppCompatActivity(), SyllabusInstructorAdapte
         val intent = Intent(this, AssignmentSyllabusInstructorActivity::class.java)
         intent.putExtra("syllabus", syllabus)
 
-        val course = intent.getParcelableExtra<Course>("course_detail")
         intent.putExtra("course_detail", course)
         startActivity(intent)
-
-
     }
 
     override fun onAddSyllabusMaterialClick(syllabus: SyllabusDetail) {
@@ -149,6 +146,8 @@ class SyllabusInstructorActivity : AppCompatActivity(), SyllabusInstructorAdapte
     override fun onSubmissionUser(syllabus: SyllabusDetail) {
         val intent = Intent(this, AssignmentInstructorActivity::class.java)
         intent.putExtra("syllabus", syllabus)
+
+        intent.putExtra("course", course)
         startActivity(intent)
     }
 
@@ -158,7 +157,15 @@ class SyllabusInstructorActivity : AppCompatActivity(), SyllabusInstructorAdapte
                 is Resource.Loading -> {
                 }
                 is Resource.Success -> {
-                    it.data?.body()?.course?.syllabuses?.let { syllabusDetail ->
+                    val syllabusDetail = it.data?.body()?.course?.syllabuses
+                    if (syllabusDetail.isNullOrEmpty()) {
+                        binding.ivNoData.visibility = View.VISIBLE
+                        binding.tvNoData.visibility = View.VISIBLE
+                        binding.rvList.visibility = View.GONE
+                    } else {
+                        binding.ivNoData.visibility = View.GONE
+                        binding.tvNoData.visibility = View.GONE
+                        binding.rvList.visibility = View.VISIBLE
                         syllabusAdapter.setSyllabus(syllabusDetail)
                     }
                 }

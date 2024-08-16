@@ -232,8 +232,7 @@ class CreateCourseActivity : AppCompatActivity() {
 
                     is Resource.Success -> {
                         Toast.makeText(this@CreateCourseActivity, "Course created successfully", Toast.LENGTH_SHORT).show()
-                        // Optionally, you can navigate back or clear the form
-                        finish() // Or any other action like navigating to another activity
+                        finish()
                     }
 
                     is Resource.Error -> {

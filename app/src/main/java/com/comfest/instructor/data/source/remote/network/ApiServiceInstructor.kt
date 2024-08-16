@@ -1,5 +1,6 @@
 package com.comfest.instructor.data.source.remote.network
 
+import com.comfest.instructor.data.source.remote.response.AddGradeSubmissionResponse
 import com.comfest.instructor.data.source.remote.response.AssignmentSyllabusResponse
 import com.comfest.instructor.data.source.remote.response.CourseResponse
 import com.comfest.instructor.data.source.remote.response.CreateAssignmentResponse
@@ -15,6 +16,7 @@ import com.comfest.instructor.data.source.remote.response.InstructorResponse
 import com.comfest.instructor.data.source.remote.response.SyllabusMaterialResponse
 import com.comfest.instructor.data.source.remote.response.UpdateAssignmentResponse
 import com.comfest.instructor.data.source.remote.response.UploadImageResponse
+import com.comfest.instructor.domain.model.RequestAddGradeSubmission
 import com.comfest.instructor.domain.model.RequestAssignInstructor
 import com.comfest.instructor.domain.model.RequestCreateAssignment
 import com.comfest.instructor.domain.model.RequestCreateCourse
@@ -194,5 +196,14 @@ interface ApiServiceInstructor {
         @Header("Authorization") token: String,
         @Body requestCreateDiscussion: RequestCreateDiscussion,
     ): Response<CreateDiscussionResponse>
+
+
+    // give a grade submission
+    @PUT("/api/submissions/{id}/grade")
+    suspend fun addGradeSubmission(
+        @Path("id") submissionId: Int,
+        @Header("Authorization") token: String,
+        @Body requestAddGradeSubmission: RequestAddGradeSubmission
+    ): Response<AddGradeSubmissionResponse>
 
 }
