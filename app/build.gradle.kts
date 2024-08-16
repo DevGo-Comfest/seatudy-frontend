@@ -25,7 +25,7 @@ android {
         buildConfigField(
             "String",
             "API_SEATUDY_URL",
-            projectProperties["API_SEATUDY_BASE_URL"] as String
+            "https://seastudy.dimas.lol/"
         )
     }
 
