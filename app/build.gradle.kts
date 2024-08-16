@@ -25,7 +25,7 @@ android {
         buildConfigField(
             "String",
             "API_SEATUDY_URL",
-            projectProperties["API_SEATUDY_BASE_URL"] as String
+            "https://seastudy.dimas.lol/"
         )
     }
 
@@ -53,9 +53,9 @@ android {
 }
 
 fun readProperties(propertiesFile: File) = Properties().apply {
-    propertiesFile.inputStream().use { fis ->
-        load(fis)
-    }
+    //propertiesFile.inputStream().use { fis ->
+    //    load(fis)
+    //}
 }
 
 dependencies {
