@@ -9,7 +9,7 @@ jobs:
       name: android/android
       resource_class: medium
       environment:
-        JDK_URL: "https://download.java.net/java/GA/jdk17/0d1cfde4252546c6931946de8db48ee2/35/GPL/openjdk-17_linux-x64_bin.tar.gz"
+      JDK_URL: "https://download.java.net/java/GA/jdk17/0d1cfde4252546c6931946de8db48ee2/35/GPL/openjdk-17_linux-x64_bin.tar.gz"
     steps:
       - checkout
       - run:
