@@ -5,17 +5,15 @@ orbs:
  
 jobs:
   build:
-    executor:
-      name: android/android
-      resource_class: medium
-      environment:
-      JDK_URL: "https://download.java.net/java/GA/jdk17/0d1cfde4252546c6931946de8db48ee2/35/GPL/openjdk-17_linux-x64_bin.tar.gz"
+    executor: android/android
     steps:
       - checkout
       - run:
-          name: Install JDK 17
+          name: Set up remote Docker and Install JDK 17
           command: |
-            curl -O $JDK_URL
+            sudo apt-get update
+            sudo apt-get install -y wget tar
+            wget https://download.java.net/java/GA/jdk17/0d1cfde4252546c6931946de8db48ee2/35/GPL/openjdk-17_linux-x64_bin.tar.gz
             sudo tar xzvf openjdk-17_linux-x64_bin.tar.gz -C /usr/local
             sudo update-alternatives --install /usr/bin/java java /usr/local/jdk-17/bin/java 1
             sudo update-alternatives --set java /usr/local/jdk-17/bin/java
