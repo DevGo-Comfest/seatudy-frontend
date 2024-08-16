@@ -9,6 +9,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Import Google Cloud SDK Public Key
+          command: |
+            sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C0BA5CE6DC6315A3
+      - run:
           name: Install JDK 17
           command: |
             sudo apt-get update
