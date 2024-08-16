@@ -53,9 +53,9 @@ android {
 }
 
 fun readProperties(propertiesFile: File) = Properties().apply {
-    propertiesFile.inputStream().use { fis ->
-        load(fis)
-    }
+    //propertiesFile.inputStream().use { fis ->
+    //    load(fis)
+    //}
 }
 
 dependencies {
