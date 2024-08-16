@@ -45,6 +45,9 @@ jobs:
       # Checkout the code as the first step.
 
       - checkout
+      - run:
+          name: Grant execute permissions for gradlew
+          command: chmod +x ./gradlew
 
       - run: ./gradlew clean build --no-daemon --stacktrace
 
