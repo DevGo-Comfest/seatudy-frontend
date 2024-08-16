@@ -13,8 +13,12 @@ jobs:
       - restore_cache:
           key: android-orb-v1-
       - run:
-          name: Install JDK 17
-          command: sudo apt-get update && sudo apt-get install -y openjdk-17-jdk
+          name: Install JDK 17 and dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y gnupg
+            curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+            sudo apt-get update
       - run:
           name: Set JDK 17 as default
           command: sudo update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java
