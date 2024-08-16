@@ -5,33 +5,23 @@ orbs:
  
 jobs:
   build:
-    docker:
-      - image: circleci/android:api-30
-    executor: android/android
+    executor:
+      name: android/android
+      resource_class: medium
+      environment:
+        JDK_URL: "https://download.java.net/java/GA/jdk17/0d1cfde4252546c6931946de8db48ee2/35/GPL/openjdk-17_linux-x64_bin.tar.gz"
     steps:
       - checkout
-      - restore_cache:
-          key: android-orb-v1-
-      - run:
-          name: Install dependencies and Google Cloud public key
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y gnupg2 curl
-            curl -sSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-            echo "deb http://packages.cloud.google.com/apt cloud-sdk-buster main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-            sudo apt-get update
       - run:
           name: Install JDK 17
-          command: sudo apt-get install -y openjdk-17-jdk
-      - run:
-          name: Set Java 17 as default
-          command: sudo update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java
-      - run:
-          name: Verify Java Version
-          command: java -version
-      - run:
-          name: Build the project
-          command: ./gradlew assembleDebug
+          command: |
+            curl -O $JDK_URL
+            sudo tar xzvf openjdk-17_linux-x64_bin.tar.gz -C /usr/local
+            sudo update-alternatives --install /usr/bin/java java /usr/local/jdk-17/bin/java 1
+            sudo update-alternatives --set java /usr/local/jdk-17/bin/java
+            java -version
+      - restore_cache:
+          key: android-orb-v1-
       - run:
           name: Chmod permissions
           command: sudo chmod +x ./gradlew
