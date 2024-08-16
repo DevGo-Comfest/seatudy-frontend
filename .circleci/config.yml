@@ -19,6 +19,7 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get install -y wget tar
+            sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C0BA5CE6DC6315A3
             wget https://download.java.net/java/GA/jdk17/0d1cfde4252546c6931946de8db48ee2/35/GPL/openjdk-17_linux-x64_bin.tar.gz
             sudo tar xzvf openjdk-17_linux-x64_bin.tar.gz -C /usr/local
             sudo update-alternatives --install /usr/bin/java java /usr/local/jdk-17/bin/java 1
