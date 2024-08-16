@@ -71,9 +71,9 @@ class ViewAllActivity : AppCompatActivity() {
                 }
 
                 is Resource.Success -> {
-                    val data = data.data?.body()?.courses
-                    if (data != null) {
-                        adapterCategory = AdapterListCategories(data) {
+                    val responseCourses = data.data?.body()?.courses
+                    if (responseCourses != null) {
+                        adapterCategory = AdapterListCategories(responseCourses) {
                             category = it
                         }
                         binding.rvCategories.layoutManager =

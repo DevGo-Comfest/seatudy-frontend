@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,9 +47,6 @@ class CourseDetailPerSyllabusActivity : AppCompatActivity() {
             if (currentCourseIndex < size - 1) {
                 currentCourseIndex++
                 data(currentCourseIndex)
-
-                // Next Send Progress per syllabus
-
             }
         }
     }

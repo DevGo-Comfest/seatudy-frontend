@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.comfest.seatudy.data.Resource
-import com.comfest.seatudy.data.source.respon.ResponseSyllabuses
 import com.comfest.seatudy.databinding.FragmentDashboardBinding
 import dagger.hilt.android.AndroidEntryPoint
 

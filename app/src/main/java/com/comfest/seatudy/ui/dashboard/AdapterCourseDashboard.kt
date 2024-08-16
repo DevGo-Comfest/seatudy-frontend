@@ -1,5 +1,6 @@
 package com.comfest.seatudy.ui.dashboard
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
@@ -7,9 +8,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.comfest.seatudy.data.source.respon.ResponseCoursesDetail
-import com.comfest.seatudy.data.source.respon.ResponseCoursesListDetail
 import com.comfest.seatudy.data.source.respon.ResponseEnrolledCourse
-import com.comfest.seatudy.data.source.respon.ResponseSyllabuses
 import com.comfest.seatudy.databinding.ItemCardCourseProgramBinding
 import com.comfest.seatudy.ui.dashboard.detailcourse.CourseDetailActivity
 
@@ -22,6 +21,7 @@ class AdapterCourseDashboard(
 
     inner class AdapterServiceViewHolder(private val binding: ItemCardCourseProgramBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(item: ResponseEnrolledCourse) {
             binding.tvNameCourse.text = item.title
             binding.tvSumProgress.progress = progress

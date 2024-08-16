@@ -17,6 +17,4 @@ class SubmissionFragment(val courseID: String) : Fragment() {
         return inflater.inflate(R.layout.fragment_submission, container, false)
     }
 
-    // berupa card yang isi nya subsmission to Detail Submission atau hasil review
-
 }

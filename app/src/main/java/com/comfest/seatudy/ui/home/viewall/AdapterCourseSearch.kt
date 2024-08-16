@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.comfest.seatudy.data.source.respon.ResponseCourses
 import com.comfest.seatudy.data.source.respon.ResponseCoursesDetail
 import com.comfest.seatudy.databinding.ItemCardCourseHomeBinding
 import com.comfest.seatudy.ui.dashboard.detailcourse.CourseDetailActivity

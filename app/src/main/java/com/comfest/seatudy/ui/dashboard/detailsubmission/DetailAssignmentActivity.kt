@@ -4,13 +4,13 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.comfest.seatudy.data.Resource
 import com.comfest.seatudy.databinding.ActivityDetailSubmissionBinding
 import com.comfest.seatudy.domain.model.DataUrlAssignment
 import com.comfest.seatudy.ui.NavigationActivity
+import com.comfest.seatudy.utils.ToastResource.toastResource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,19 +45,18 @@ class DetailAssignmentActivity : AppCompatActivity() {
 
         binding.btnSendAssignment.setOnClickListener {
             val link = binding.tvLinkAssignment.text.toString()
-            Log.d("CEK LINK", link)
             submissionViewModel.getToken().observe(this) { token ->
                 submissionViewModel.sendAssignment(id, DataUrlAssignment(link), "Bearer $token").observe(this) { data ->
                     when(data){
                         is Resource.Loading -> {
-
+                            toastResource("Loading", this@DetailAssignmentActivity)
                         }
                         is Resource.Success -> {
-                            Toast.makeText(this, "Succes Send Submission", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Success Send Submission", Toast.LENGTH_SHORT).show()
                             startActivity(Intent(this, NavigationActivity::class.java))
                         }
                         is Resource.Error -> {
-
+                            toastResource("Error Ocurred", this@DetailAssignmentActivity)
                         }
                     }
                 }
