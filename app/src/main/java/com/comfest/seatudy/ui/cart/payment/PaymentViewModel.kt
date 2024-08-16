@@ -15,8 +15,6 @@ class PaymentViewModel @Inject constructor(
     private val repo: SeatudyRepository
 ) : ViewModel() {
 
-    fun getCoursesWithID(id: String) = repo.getCoursesWithID(id)
-
     fun buyCourse(dataBuy: DataBuy, token: String) = repo.buyCourse(dataBuy, token)
 
     fun getProfile(token: String) = repo.getProfile(token)

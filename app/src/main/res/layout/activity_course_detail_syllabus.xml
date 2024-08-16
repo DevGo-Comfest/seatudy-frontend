@@ -96,7 +96,7 @@
                             android:id="@+id/tvProgressSyllabus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="4/10 Lessons"
+                            android:text="1/4 Lessons"
                             android:textColor="@color/white" />
                     </LinearLayout>
                 </LinearLayout>
@@ -106,7 +106,6 @@
                     style="@android:style/Widget.ProgressBar.Horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:progress="55"
                     android:progressTint="@color/green" />
             </LinearLayout>
         </FrameLayout>

@@ -4,12 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.comfest.seatudy.data.Resource
 import com.comfest.seatudy.databinding.ActivityRegisterBinding
 import com.comfest.seatudy.domain.model.DataRegister
 import com.comfest.seatudy.ui.auth.login.LoginActivity
+import com.comfest.seatudy.utils.ToastResource
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -67,13 +67,12 @@ class RegisterActivity : AppCompatActivity() {
 
                         is Resource.Error -> {
                             binding.loading.visibility = View.GONE
-                            Toast.makeText(this@RegisterActivity, "Register Failed", Toast.LENGTH_SHORT)
-                                .show()
+                            ToastResource.toastResource("Register Failed", this@RegisterActivity)
                         }
                     }
                 }
             }else{
-                Toast.makeText(this@RegisterActivity, "Recheck your name, email and password", Toast.LENGTH_SHORT).show()
+                ToastResource.toastResource("Recheck your name, email and password", this@RegisterActivity)
             }
         }
     }

@@ -9,9 +9,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.comfest.seatudy.data.Resource
 import com.comfest.seatudy.databinding.FragmentForumsBinding
-import com.comfest.seatudy.ui.dashboard.AdapterCourseDashboard
 import com.comfest.seatudy.ui.dashboard.detailcourse.CourseDetailViewModel
 import com.comfest.seatudy.ui.dashboard.detailcourse.adapter.AdapterForums
+import com.comfest.seatudy.utils.ToastResource.toastResource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,21 +37,18 @@ class ForumsFragment(val courseID: String) : Fragment() {
             courseDetailViewModel.getForumID(courseID, "Bearer $token").observe(viewLifecycleOwner) { data ->
                 when (data) {
                     is Resource.Loading -> {
-
+                        toastResource("Loading", requireContext())
                     }
-
                     is Resource.Success -> {
                         val dataForum = data.data?.body()?.forumPosts
                         if (dataForum != null) {
                             adapterForums = AdapterForums(dataForum)
-                            binding.rvForum.layoutManager =
-                                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                            binding.rvForum.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                             binding.rvForum.adapter = adapterForums
                         }
                     }
-
                     is Resource.Error -> {
-
+                        toastResource("Error Occurred", requireContext())
                     }
                 }
             }

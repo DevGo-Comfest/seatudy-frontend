@@ -28,7 +28,6 @@ class AdapterMaterial(private val items: List<ResponseMaterials>) :
                 }
             })
 
-            // Handle lifecycle events if needed
             (itemView.context as? LifecycleOwner)?.lifecycle?.addObserver(binding.youtubePlayerView)
         }
     }

@@ -14,6 +14,8 @@ class DashboardViewModel @Inject constructor(
     private val repo: SeatudyRepository
 ) : ViewModel() {
 
+    fun getCoursesWithID(id: String) = repo.getCoursesWithID(id)
+
     fun getEnrolledCourse(token: String) = repo.getEnrolledCourse(token)
 
     fun getProgress(id: String, token: String) = repo.getProgress(id, token)

@@ -1,11 +1,11 @@
 package com.comfest.seatudy.ui.dashboard.detailcourse.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.comfest.seatudy.data.Resource
@@ -53,24 +53,40 @@ class CourseProgramFragment(val courseID: String) : Fragment() {
                         courseDetailViewModel.getEnrolledCourse("Bearer $it").observe(viewLifecycleOwner) { value ->
                                 when (value) {
                                     is Resource.Loading -> {
-
+                                        Toast.makeText(
+                                            requireContext(),
+                                            "Loading",
+                                            Toast.LENGTH_SHORT
+                                        )
+                                            .show()
                                     }
 
                                     is Resource.Success -> {
                                         val isCourseEnrolled = value.data?.body()?.courses?.any { it.courseID == courseID.toInt() } ?: false
                                         if (isCourseEnrolled) {
-                                            val data = dataID.data?.body()?.courses?.syllabuses
-                                            if (data != null) {
-                                                Log.d("CEK SYLLABUS", "${data.size}")
-                                                adapterCourseProgram = AdapterCourseProgram(data, true, data.size)
+                                            val dataSyllabus = dataID.data?.body()?.courses?.syllabuses
+                                            if (data != null && dataSyllabus != null) {
+                                                adapterCourseProgram = AdapterCourseProgram(data, true, dataSyllabus.size)
                                                 binding.rvSyllabus.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                                                 binding.rvSyllabus.adapter = adapterCourseProgram
+                                            }else{
+                                                Toast.makeText(
+                                                    requireContext(),
+                                                    "Data Course Empty, Please Buy Course",
+                                                    Toast.LENGTH_SHORT
+                                                )
+                                                    .show()
                                             }
                                         }
                                     }
 
                                     is Resource.Error -> {
-
+                                        Toast.makeText(
+                                            requireContext(),
+                                            "Error Occurred",
+                                            Toast.LENGTH_SHORT
+                                        )
+                                            .show()
                                     }
                                 }
                         }
@@ -82,8 +98,5 @@ class CourseProgramFragment(val courseID: String) : Fragment() {
                 }
             }
         }
-
-
     }
-
 }

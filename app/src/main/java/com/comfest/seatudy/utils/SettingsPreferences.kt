@@ -13,7 +13,6 @@ class SettingsPreferences @Inject constructor(private val dataStore: DataStore<P
 
     private val loginUser = booleanPreferencesKey("login_user")
     private val nameUser = stringPreferencesKey("name_user")
-    private val imageUser = stringPreferencesKey("image_user")
     private val tokenUser = stringPreferencesKey("token_user")
     private val roleUser = stringPreferencesKey("role_user")
 
@@ -65,6 +64,5 @@ class SettingsPreferences @Inject constructor(private val dataStore: DataStore<P
             preferences[nameUser] = name
         }
     }
-
 
 }

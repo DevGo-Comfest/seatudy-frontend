@@ -9,6 +9,7 @@ import com.comfest.seatudy.databinding.ActivityVerifyAmountBinding
 import com.comfest.seatudy.domain.model.DataTopUp
 import com.comfest.seatudy.ui.NavigationActivity
 import com.comfest.seatudy.ui.profile.ProfileViewModel
+import com.comfest.seatudy.utils.ToastResource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,7 +37,7 @@ class VerifyAmountActivity : AppCompatActivity() {
             profileViewModel.topUp(DataTopUp(amount.toInt(), payment), "Bearer $it").observe(this) { respon ->
                 when (respon) {
                     is Resource.Loading -> {
-
+                        ToastResource.toastResource("Loading", this@VerifyAmountActivity)
                     }
 
                     is Resource.Success -> {
@@ -45,7 +46,7 @@ class VerifyAmountActivity : AppCompatActivity() {
                     }
 
                     is Resource.Error -> {
-
+                        ToastResource.toastResource("Error Occurred", this@VerifyAmountActivity)
                     }
                 }
 

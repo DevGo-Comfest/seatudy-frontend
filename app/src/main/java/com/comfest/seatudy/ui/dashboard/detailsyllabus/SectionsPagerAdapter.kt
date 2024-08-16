@@ -5,11 +5,13 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.comfest.seatudy.R
 import com.comfest.seatudy.ui.dashboard.detailcourse.fragment.CourseProgramFragment
+import com.comfest.seatudy.ui.dashboard.detailsyllabus.fargment.ForumDetailFragment
 import com.comfest.seatudy.ui.dashboard.detailsyllabus.fargment.SubmissionFragment
 
 val TAB_TITLES = arrayOf(
     R.string.tab_syllabus,
-    R.string.tab_submission
+    R.string.tab_submission,
+    R.string.tab_forum
 )
 
 class SectionsPagerAdapter(
@@ -21,11 +23,12 @@ class SectionsPagerAdapter(
         return when (position) {
             0 -> CourseProgramFragment(courseID)
             1 -> SubmissionFragment(courseID)
+            2 -> ForumDetailFragment(courseID)
             else -> throw IllegalStateException("Unexpected position $position")
         }
     }
 
     override fun getItemCount(): Int {
-        return 2
+        return 3
     }
 }

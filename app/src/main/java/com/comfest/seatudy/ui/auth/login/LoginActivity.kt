@@ -5,10 +5,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.comfest.instructor.ui.MainActivityInstructor
 import com.comfest.seatudy.R
@@ -17,6 +15,7 @@ import com.comfest.seatudy.databinding.ActivityLoginBinding
 import com.comfest.seatudy.domain.model.DataLogin
 import com.comfest.seatudy.ui.NavigationActivity
 import com.comfest.seatudy.ui.auth.register.RegisterActivity
+import com.comfest.seatudy.utils.ToastResource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -91,17 +90,12 @@ class LoginActivity : AppCompatActivity() {
 
                         is Resource.Error -> {
                             binding.loading.visibility = View.GONE
-                            Toast.makeText(this@LoginActivity, "Login Failed", Toast.LENGTH_SHORT)
-                                .show()
+                            ToastResource.toastResource("Login Failed", this@LoginActivity)
                         }
                     }
                 }
             } else {
-                Toast.makeText(
-                    this@LoginActivity,
-                    "Recheck your email and password",
-                    Toast.LENGTH_SHORT
-                ).show()
+                ToastResource.toastResource("Recheck your email and password", this@LoginActivity)
             }
         }
     }
@@ -112,9 +106,7 @@ class LoginActivity : AppCompatActivity() {
             tvPassword.setOnTouchListener { _, event ->
                 if (event.action == MotionEvent.ACTION_UP) {
                     if (event.rawX >= (tvPassword.right - tvPassword.compoundDrawables[2].bounds.width())) {
-                        // Toggle password visibility
                         if (isPasswordVisible) {
-                            // Hide the password
                             tvPassword.inputType =
                                 InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
                             tvPassword.setCompoundDrawablesWithIntrinsicBounds(
@@ -124,7 +116,6 @@ class LoginActivity : AppCompatActivity() {
                                 0
                             )
                         } else {
-                            // Show the password
                             tvPassword.inputType =
                                 InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
                             tvPassword.setCompoundDrawablesWithIntrinsicBounds(
@@ -134,7 +125,6 @@ class LoginActivity : AppCompatActivity() {
                                 0
                             )
                         }
-                        // Move the cursor to the end of the text
                         tvPassword.setSelection(tvPassword.text.length)
                         isPasswordVisible = !isPasswordVisible
                         return@setOnTouchListener true

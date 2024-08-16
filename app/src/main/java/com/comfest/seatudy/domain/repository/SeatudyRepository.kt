@@ -1,6 +1,5 @@
 package com.comfest.seatudy.domain.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.comfest.seatudy.data.Resource
@@ -12,15 +11,22 @@ import com.comfest.seatudy.data.source.respon.ResponseEnrollCourse
 import com.comfest.seatudy.data.source.respon.ResponseEnrollments
 import com.comfest.seatudy.data.source.respon.ResponseForums
 import com.comfest.seatudy.data.source.respon.ResponseLogin
+import com.comfest.seatudy.data.source.respon.ResponseOpenAssignment
 import com.comfest.seatudy.data.source.respon.ResponseProfile
 import com.comfest.seatudy.data.source.respon.ResponseProgress
 import com.comfest.seatudy.data.source.respon.ResponseRegister
+import com.comfest.seatudy.data.source.respon.ResponseSendForums
+import com.comfest.seatudy.data.source.respon.ResponseSubmissions
 import com.comfest.seatudy.data.source.respon.ResponseSyllabus
 import com.comfest.seatudy.data.source.respon.ResponseTopUp
+import com.comfest.seatudy.data.source.respon.ResponseUserAssignment
+import com.comfest.seatudy.domain.model.DataAssignment
 import com.comfest.seatudy.domain.model.DataBuy
+import com.comfest.seatudy.domain.model.DataForum
 import com.comfest.seatudy.domain.model.DataLogin
 import com.comfest.seatudy.domain.model.DataRegister
 import com.comfest.seatudy.domain.model.DataTopUp
+import com.comfest.seatudy.domain.model.DataUrlAssignment
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -160,6 +166,22 @@ class SeatudyRepository @Inject constructor(private val apiService: ApiService) 
             }
         }
 
+    fun sendPostForum(dataForum: DataForum, token: String): LiveData<Resource<Response<ResponseSendForums>>> =
+        liveData {
+            emit(Resource.Loading())
+            try {
+                val apiClient = apiService.sendPostForum(dataForum, token)
+                if (apiClient.isSuccessful) {
+                    emit(Resource.Success(apiClient))
+                } else {
+                    emit(Resource.Error(apiClient.message()))
+                }
+            } catch (e: Exception) {
+                emit(Resource.Error(e.toString()))
+            }
+        }
+
+
     fun getSearchCategoryLevelRating(
         category: String,
         level: String,
@@ -193,7 +215,51 @@ class SeatudyRepository @Inject constructor(private val apiService: ApiService) 
             }
         }
 
-    //BLM DIPAKEI
+    fun sendOpenAssignment(dataAssignment: DataAssignment, authToken: String): LiveData<Resource<Response<ResponseOpenAssignment>>> =
+    liveData {
+        emit(Resource.Loading())
+        try {
+            val apiClient = apiService.sendOpenAssignment(dataAssignment, authToken)
+            if (apiClient.isSuccessful) {
+                emit(Resource.Success(apiClient))
+            } else {
+                emit(Resource.Error(apiClient.message()))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
+
+    fun sendAssignment(id: String, dataUrl: DataUrlAssignment, token: String): LiveData<Resource<Response<ResponseSubmissions>>> =
+        liveData {
+            emit(Resource.Loading())
+            try {
+                val apiClient = apiService.sendAssignment(id, dataUrl, token)
+                if (apiClient.isSuccessful) {
+                    emit(Resource.Success(apiClient))
+                } else {
+                    emit(Resource.Error(apiClient.message()))
+                }
+            } catch (e: Exception) {
+                emit(Resource.Error(e.toString()))
+            }
+        }
+
+    fun getUserAssignment(id: String, token: String): LiveData<Resource<Response<ResponseUserAssignment>>> =
+        liveData {
+            emit(Resource.Loading())
+            try {
+                val apiClient = apiService.getUserAssignment(id, token)
+                if (apiClient.isSuccessful) {
+                    emit(Resource.Success(apiClient))
+                } else {
+                    emit(Resource.Error(apiClient.message()))
+                }
+            } catch (e: Exception) {
+                emit(Resource.Error(e.toString()))
+            }
+        }
+
     fun getProgress(id: String, token: String): LiveData<Resource<Response<ResponseProgress>>> =
         liveData {
             emit(Resource.Loading())

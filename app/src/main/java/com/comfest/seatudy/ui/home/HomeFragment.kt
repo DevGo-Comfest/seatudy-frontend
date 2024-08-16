@@ -56,6 +56,7 @@ class HomeFragment : Fragment() {
 
         recyclerviewCourseList()
         recyclerviewCategories()
+        recyclerviewCourseCategories("Android")
         getName()
         search()
     }

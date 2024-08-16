@@ -1,16 +1,13 @@
 package com.comfest.seatudy.domain.model
 
-import com.google.gson.annotations.SerializedName
-
 data class DataCourseList(
     val nameCourse: String,
     val rating: String,
     val hour: String,
     val levelCourse: String,
     val category: String,
-    val progress: String,
     val description: String,
-    val price: String,
+    val price: Int,
     val imageURL: String,
     val createdDate: String,
     val updatedAt: String,
@@ -28,8 +25,8 @@ data class DataSyllabus(
 )
 
 data class DataForum(
-    val nameUser: String,
-    val description: String
+    val course_id: Int,
+    val content: String
 )
 
 data class DataReview(

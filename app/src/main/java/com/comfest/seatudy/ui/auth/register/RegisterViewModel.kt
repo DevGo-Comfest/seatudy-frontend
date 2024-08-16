@@ -3,13 +3,11 @@ package com.comfest.seatudy.ui.auth.register
 import androidx.lifecycle.ViewModel
 import com.comfest.seatudy.domain.repository.SeatudyRepository
 import com.comfest.seatudy.domain.model.DataRegister
-import com.comfest.seatudy.utils.SettingsPreferences
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    private val pref: SettingsPreferences,
     private val repo: SeatudyRepository
 ) : ViewModel() {
 

@@ -29,9 +29,7 @@ class ReviewsFragment(val courseID: String) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         courseDetailViewModel = ViewModelProvider(this)[CourseDetailViewModel::class.java]
 
-        binding.tvName.text = ""
-        binding.tvReview.text = ""
-        binding.tvRating.rating = "2".toFloat()
+        binding.cardReview.visibility = View.GONE
     }
 
 }

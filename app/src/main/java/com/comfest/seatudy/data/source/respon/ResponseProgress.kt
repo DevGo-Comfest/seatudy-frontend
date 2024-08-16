@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class ResponseProgress(
     @field:SerializedName("progress")
-    val progress: String
+    val progress: Int
 )

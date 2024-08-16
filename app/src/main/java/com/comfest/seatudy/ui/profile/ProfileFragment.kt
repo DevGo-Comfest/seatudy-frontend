@@ -7,12 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.comfest.seatudy.data.Resource
 import com.comfest.seatudy.databinding.FragmentProfileBinding
 import com.comfest.seatudy.ui.auth.login.LoginActivity
 import com.comfest.seatudy.ui.cart.topup.TopUpActivity
+import com.comfest.seatudy.utils.ToastResource
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.NumberFormat
 import java.util.Locale
@@ -38,7 +38,7 @@ class ProfileFragment : Fragment() {
         profileViewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
 
         binding.btnTopUp.setOnClickListener {
-           startActivity(Intent(requireContext(), TopUpActivity::class.java))
+            startActivity(Intent(requireContext(), TopUpActivity::class.java))
         }
 
         binding.btnSignOut.setOnClickListener {
@@ -46,7 +46,9 @@ class ProfileFragment : Fragment() {
             profileViewModel.deleteToken("")
             profileViewModel.deleteName("")
             profileViewModel.deleteRoleUser("")
-            startActivity(Intent(requireContext(), LoginActivity::class.java))
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
+            startActivity(intent)
             requireActivity().supportFragmentManager.popBackStack()
         }
 
@@ -54,13 +56,14 @@ class ProfileFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun getProfile(){
+    private fun getProfile() {
         profileViewModel.getToken().observe(viewLifecycleOwner) { token ->
-            profileViewModel.getProfile("Bearer $token").observe(viewLifecycleOwner){
-                when(it){
+            profileViewModel.getProfile("Bearer $token").observe(viewLifecycleOwner) {
+                when (it) {
                     is Resource.Loading -> {
-
+                        ToastResource.toastResource("Loading", requireContext())
                     }
+
                     is Resource.Success -> {
                         val profile = it.data?.body()
                         binding.apply {
@@ -69,12 +72,12 @@ class ProfileFragment : Fragment() {
                             val formattedString = formatRupiah.format(dataBalance).replace(",00", "")
 
                             tvNameUser.text = profile?.name
-                            tvBalance.text = formattedString//"Rp. ${profile?.balance.toString()}"
+                            tvBalance.text = formattedString
                         }
                     }
+
                     is Resource.Error -> {
-                        Toast.makeText(requireContext(), "Error Occurred", Toast.LENGTH_SHORT)
-                            .show()
+                        ToastResource.toastResource("Error Occurred", requireContext())
                     }
                 }
             }
