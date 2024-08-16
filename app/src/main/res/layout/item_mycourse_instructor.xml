@@ -18,14 +18,14 @@
 
         <ImageView
             android:id="@+id/iv_course"
-            android:layout_width="121dp"
-            android:layout_height="75dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="307dp"
+            android:layout_height="144dp"
+            android:layout_marginStart="7dp"
             android:layout_marginTop="10dp"
-            tools:src="@tools:sample/backgrounds/scenic"
-            android:layout_marginStart="7dp"/>
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic" />
 
 
         <TextView

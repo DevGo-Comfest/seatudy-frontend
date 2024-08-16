@@ -3,20 +3,28 @@ package com.comfest.instructor.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.comfest.instructor.data.source.remote.network.ApiServiceInstructor
+import com.comfest.instructor.data.source.remote.response.AddGradeSubmissionResponse
 import com.comfest.instructor.data.source.remote.response.AssignmentSyllabusResponse
 import com.comfest.instructor.data.source.remote.response.Course
 import com.comfest.instructor.data.source.remote.response.CourseResponse
 import com.comfest.instructor.data.source.remote.response.CreateAssignmentResponse
 import com.comfest.instructor.data.source.remote.response.CreateCourseResponse
+import com.comfest.instructor.data.source.remote.response.CreateDiscussionResponse
 import com.comfest.instructor.data.source.remote.response.CreateSyllabusMaterialResponse
 import com.comfest.instructor.data.source.remote.response.CreateSyllabusResponse
+import com.comfest.instructor.data.source.remote.response.DataSubmissionUserResponse
 import com.comfest.instructor.data.source.remote.response.DeleteResponse
 import com.comfest.instructor.data.source.remote.response.DetailCourseResponse
+import com.comfest.instructor.data.source.remote.response.DiscussionInstructorResponse
+import com.comfest.instructor.data.source.remote.response.InstructorResponse
 import com.comfest.instructor.data.source.remote.response.SyllabusMaterialResponse
 import com.comfest.instructor.data.source.remote.response.UpdateAssignmentResponse
 import com.comfest.instructor.data.source.remote.response.UploadImageResponse
+import com.comfest.instructor.domain.model.RequestAddGradeSubmission
+import com.comfest.instructor.domain.model.RequestAssignInstructor
 import com.comfest.instructor.domain.model.RequestCreateAssignment
 import com.comfest.instructor.domain.model.RequestCreateCourse
+import com.comfest.instructor.domain.model.RequestCreateDiscussion
 import com.comfest.instructor.domain.model.RequestCreateSyllabus
 import com.comfest.instructor.domain.model.RequestCreateSyllabusMaterial
 import com.comfest.instructor.domain.model.RequestUpdateSyllabus
@@ -276,5 +284,103 @@ class InstructorRepository @Inject constructor(private val apiServiceInstructor:
             emit(Resource.Error(e.toString()))
         }
     }
+
+
+    fun getInstructor(): LiveData<Resource<Response<InstructorResponse>>> = liveData {
+        emit(Resource.Loading())
+        try {
+            val response = apiServiceInstructor.getInstructor()
+            if (response.isSuccessful) {
+                emit(Resource.Success(response))
+            } else {
+                emit(Resource.Error(response.message()))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
+
+
+    fun assignInstructor(courseId: Int, token: String, requestAssignInstructor: RequestAssignInstructor): LiveData<Resource<Response<ResponseBody>>> = liveData {
+        emit(Resource.Loading())
+        try {
+            val response = apiServiceInstructor.addAssignInstructor(courseId,token, requestAssignInstructor)
+            if (response.isSuccessful) {
+                emit(Resource.Success(response))
+            } else {
+                emit(Resource.Error(response.message()))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
+
+
+    fun getSubmissionUser(syllabusId: Int, token: String): LiveData<Resource<Response<DataSubmissionUserResponse>>> = liveData {
+        emit(Resource.Loading())
+        try {
+            val response = apiServiceInstructor.getSubmissionUser(syllabusId,token)
+            if (response.isSuccessful) {
+                emit(Resource.Success(response))
+            } else {
+                emit(Resource.Error(response.message()))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
+
+
+    fun getDiscussion(courseId: Int, token: String): LiveData<Resource<Response<DiscussionInstructorResponse>>> = liveData {
+        emit(Resource.Loading())
+        try {
+            val response = apiServiceInstructor.getDiscussion(courseId,token)
+            if (response.isSuccessful) {
+                emit(Resource.Success(response))
+            } else {
+                emit(Resource.Error(response.message()))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
+
+
+    fun createMessageDiscussion(token: String, requestCreateDiscussion: RequestCreateDiscussion): LiveData<Resource<Response<CreateDiscussionResponse>>> = liveData {
+        emit(Resource.Loading())
+        try {
+            val response = apiServiceInstructor.addMessageDiscussion(token, requestCreateDiscussion)
+            if (response.isSuccessful) {
+                emit(Resource.Success(response))
+            } else {
+                emit(Resource.Error(response.message()))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
+
+
+    fun addGrade(submissionId: Int, token: String, requestAddGradeSubmission: RequestAddGradeSubmission): LiveData<Resource<Response<AddGradeSubmissionResponse>>> = liveData {
+        emit(Resource.Loading())
+        try {
+            val response = apiServiceInstructor.addGradeSubmission(submissionId, token, requestAddGradeSubmission)
+            if (response.isSuccessful) {
+                emit(Resource.Success(response))
+            } else {
+                emit(Resource.Error(response.message()))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.toString()))
+        }
+    }
+
+
+
+
+
+
+
+
 
 }

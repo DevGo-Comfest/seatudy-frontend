@@ -43,14 +43,14 @@ class HomeCourseInstructorAdapter(
         init {
             itemView.setOnClickListener {
                 val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
+                if (position != RecyclerView.NO_POSITION && position < courses.size) {
                     listener.onItemClick(courses[position])
                 }
             }
 
             binding.btnUpdate.setOnClickListener {
                 val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
+                if (position != RecyclerView.NO_POSITION && position < courses.size) {
                     listener.onUpdateClick(courses[position])
                 }
             }

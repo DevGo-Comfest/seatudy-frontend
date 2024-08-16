@@ -112,6 +112,11 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 
     testImplementation("junit:junit:4.13.2")
+    testImplementation ("org.mockito:mockito-core:4.5.1")
+    testImplementation ("org.mockito:mockito-inline:4.5.1")
+    testImplementation ("androidx.arch.core:core-testing:2.2.0")
+    testImplementation ("org.mockito.kotlin:mockito-kotlin:3.2.0")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
 }

@@ -3,6 +3,7 @@ package com.comfest.instructor.ui.sylabus
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -133,7 +134,16 @@ class AssignmentSyllabusInstructorActivity : AppCompatActivity(), AssignmentSyll
                 is Resource.Loading -> {
                 }
                 is Resource.Success -> {
-                    it.data?.body()?.syllabus?.assignments?.let { assignment ->
+                    val assignment = it.data?.body()?.syllabus?.assignments
+
+                    if (assignment.isNullOrEmpty()) {
+                        binding.ivNoData.visibility = View.VISIBLE
+                        binding.tvNoData.visibility = View.VISIBLE
+                        binding.rvList.visibility = View.GONE
+                    } else {
+                        binding.ivNoData.visibility = View.GONE
+                        binding.tvNoData.visibility = View.GONE
+                        binding.rvList.visibility = View.VISIBLE
                         assignmentAdapter.setAssignment(assignment)
                     }
                 }

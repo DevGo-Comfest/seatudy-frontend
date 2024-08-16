@@ -4,21 +4,22 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.comfest.instructor.data.dummy.InstructorData
+import com.comfest.instructor.data.source.remote.response.Instructor
 import com.comfest.seatudy.databinding.ItemAssignInstructorBinding
 
 class AddInstructorAdapter: RecyclerView.Adapter<AddInstructorAdapter.AddInstructorViewHolder>() {
 
 
-    private var instructorData: List<InstructorData> = emptyList()
+    private var instructorData: List<Instructor> = emptyList()
     private val selectedItems = mutableSetOf<Int>()
 
-    fun setInstructor(newInstructor: List<InstructorData>) {
+    fun setInstructor(newInstructor: List<Instructor>) {
         instructorData = newInstructor
         notifyDataSetChanged()
     }
 
     inner class AddInstructorViewHolder(private val binding: ItemAssignInstructorBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(instructor: InstructorData) {
+        fun bind(instructor: Instructor) {
             binding.checkBox.isChecked = selectedItems.contains(adapterPosition)
             binding.checkBox.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
@@ -58,7 +59,7 @@ class AddInstructorAdapter: RecyclerView.Adapter<AddInstructorAdapter.AddInstruc
     }
 
 
-    fun getSelectedItem(): List<InstructorData> {
+    fun getSelectedItem(): List<Instructor> {
         return selectedItems.map { instructorData[it] }
     }
 }

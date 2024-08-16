@@ -96,6 +96,12 @@
             android:name="com.comfest.instructor.ui.sylabus.UpdateSyllabusMaterialActivity"
             android:exported="false" />
         <activity
+            android:name="com.comfest.instructor.ui.assignment.AddInstructorActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.comfest.instructor.ui.discussion.DiscussionInstructorActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

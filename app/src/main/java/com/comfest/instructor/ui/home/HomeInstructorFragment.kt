@@ -10,11 +10,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.comfest.instructor.data.dummy.CourseInstructor
 import com.comfest.instructor.data.source.remote.response.Course
 import com.comfest.instructor.ui.course.UpdateCourseActivity
 import com.comfest.instructor.ui.home.adapter.HomeCourseInstructorAdapter
-import com.comfest.seatudy.R
 import com.comfest.seatudy.data.Resource
 import com.comfest.seatudy.databinding.FragmentHomeInstructorBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,34 +44,19 @@ class HomeInstructorFragment : Fragment(), HomeCourseInstructorAdapter.OnItemCli
         homeInstructorViewModel = ViewModelProvider(this)[HomeInstructorViewModel::class.java]
 
         setUpRecyclerView()
-//        loadCourses()
     }
 
 
     private fun setUpRecyclerView() {
-//        courseAdapter = HomeCourseInstructorAdapter(this)
-//        binding.rvList.apply {
-//            layoutManager = LinearLayoutManager(context)
-//            adapter = courseAdapter
-//        }
-
         homeInstructorViewModel.getToken().observe(viewLifecycleOwner) { tokenUser ->
-//            token = tokenUser
             homeInstructorViewModel.getCourse(tokenUser).observe(viewLifecycleOwner) {
                 when (it) {
                     is Resource.Loading -> {
-                        Toast.makeText(requireContext(), "Loading get course", Toast.LENGTH_SHORT)
-                            .show()
-                        Log.d("HomeInstructorFragment", token ?: "")
                     }
 
                     is Resource.Success -> {
-                        Toast.makeText(requireContext(), "Success get course", Toast.LENGTH_SHORT)
-                            .show()
                         val data = it.data?.body()
                         if (data != null) {
-
-
                             courseAdapter = HomeCourseInstructorAdapter(this)
                             binding.rvList.layoutManager =
                                 LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -85,14 +68,10 @@ class HomeInstructorFragment : Fragment(), HomeCourseInstructorAdapter.OnItemCli
 
                     is Resource.Error -> {
                         Toast.makeText(requireContext(), "Failed get course", Toast.LENGTH_SHORT).show()
-                        Log.d("HomeInstructorFragment", token ?: "")
                     }
                 }
             }
         }
-
-
-
     }
 
     override fun onDestroyView() {

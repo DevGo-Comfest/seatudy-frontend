@@ -1,23 +1,32 @@
 package com.comfest.instructor.data.source.remote.network
 
+import com.comfest.instructor.data.source.remote.response.AddGradeSubmissionResponse
 import com.comfest.instructor.data.source.remote.response.AssignmentSyllabusResponse
 import com.comfest.instructor.data.source.remote.response.CourseResponse
 import com.comfest.instructor.data.source.remote.response.CreateAssignmentResponse
 import com.comfest.instructor.data.source.remote.response.CreateCourseResponse
+import com.comfest.instructor.data.source.remote.response.CreateDiscussionResponse
 import com.comfest.instructor.data.source.remote.response.CreateSyllabusMaterialResponse
 import com.comfest.instructor.data.source.remote.response.CreateSyllabusResponse
+import com.comfest.instructor.data.source.remote.response.DataSubmissionUserResponse
 import com.comfest.instructor.data.source.remote.response.DeleteResponse
 import com.comfest.instructor.data.source.remote.response.DetailCourseResponse
+import com.comfest.instructor.data.source.remote.response.DiscussionInstructorResponse
+import com.comfest.instructor.data.source.remote.response.InstructorResponse
 import com.comfest.instructor.data.source.remote.response.SyllabusMaterialResponse
 import com.comfest.instructor.data.source.remote.response.UpdateAssignmentResponse
 import com.comfest.instructor.data.source.remote.response.UploadImageResponse
+import com.comfest.instructor.domain.model.RequestAddGradeSubmission
+import com.comfest.instructor.domain.model.RequestAssignInstructor
 import com.comfest.instructor.domain.model.RequestCreateAssignment
 import com.comfest.instructor.domain.model.RequestCreateCourse
+import com.comfest.instructor.domain.model.RequestCreateDiscussion
 import com.comfest.instructor.domain.model.RequestCreateSyllabus
 import com.comfest.instructor.domain.model.RequestCreateSyllabusMaterial
 import com.comfest.instructor.domain.model.RequestUpdateSyllabus
 import com.comfest.instructor.domain.model.RequestUpdateSyllabusMaterial
 import okhttp3.MultipartBody
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -153,4 +162,48 @@ interface ApiServiceInstructor {
         @Path("id") syllabusMaterialId: Int,
         @Header("Authorization") token: String,
     ): Response<DeleteResponse>
+
+
+    @GET("api/instructors")
+    suspend fun getInstructor(): Response<InstructorResponse>
+
+    @POST("api/courses/{id}/instructors")
+    suspend fun addAssignInstructor(
+        @Path("id") courseId: Int,
+        @Header("Authorization") token: String,
+        @Body requestAssignInstructor: RequestAssignInstructor,
+    ): Response<ResponseBody>
+
+
+    //get submission user
+    @GET("api/assignments/{id}")
+    suspend fun getSubmissionUser(
+        @Path("id") syllabusId: Int,
+        @Header("Authorization") token: String,
+    ): Response<DataSubmissionUserResponse>
+
+
+    //get discussion
+    @GET("api/forum-post/{id}")
+    suspend fun getDiscussion(
+        @Path("id") courseId: Int,
+        @Header("Authorization") token: String,
+    ): Response<DiscussionInstructorResponse>
+
+
+    @POST("api/forum-post")
+    suspend fun addMessageDiscussion(
+        @Header("Authorization") token: String,
+        @Body requestCreateDiscussion: RequestCreateDiscussion,
+    ): Response<CreateDiscussionResponse>
+
+
+    // give a grade submission
+    @PUT("/api/submissions/{id}/grade")
+    suspend fun addGradeSubmission(
+        @Path("id") submissionId: Int,
+        @Header("Authorization") token: String,
+        @Body requestAddGradeSubmission: RequestAddGradeSubmission
+    ): Response<AddGradeSubmissionResponse>
+
 }
