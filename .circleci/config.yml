@@ -13,17 +13,18 @@ jobs:
       - restore_cache:
           key: android-orb-v1-
       - run:
-          name: Install gnupg and add Google Cloud public key
+          name: Install dependencies and Google Cloud public key
           command: |
             sudo apt-get update
             sudo apt-get install -y gnupg2 curl
             curl -sSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+            echo "deb http://packages.cloud.google.com/apt cloud-sdk-buster main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
             sudo apt-get update
       - run:
           name: Install JDK 17
           command: sudo apt-get install -y openjdk-17-jdk
       - run:
-          name: Set JDK 17 as default
+          name: Set Java 17 as default
           command: sudo update-alternatives --set java /usr/lib/jvm/java-17-openjdk-amd64/bin/java
       - run:
           name: Verify Java Version
