@@ -9,6 +9,12 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Add Google Cloud SDK Public Key
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y apt-transport-https ca-certificates gnupg
+            curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+      - run:
           name: Set up remote Docker and Install JDK 17
           command: |
             sudo apt-get update
